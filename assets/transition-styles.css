@@ -5,11 +5,13 @@
 
 /* Google Fonts loaded via wp_enqueue_style in d219-transition-page.php */
 
-/* Hide footer on transition page */
-body.d219-hide-footer > footer,
-body.d219-hide-footer > #footer,
-body.d219-hide-footer > .site-footer,
-body.d219-hide-footer #colophon {
+/* Hide site footer on transition/dlc pages */
+body.d219-hide-footer footer,
+body.d219-hide-footer #footer,
+body.d219-hide-footer .site-footer,
+body.d219-hide-footer #colophon,
+body.d219-hide-footer .footer-wrapper,
+body.d219-hide-footer .elementor-location-footer {
     display: none !important;
 }
 
