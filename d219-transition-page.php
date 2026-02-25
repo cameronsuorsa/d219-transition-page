@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.3.9
+ * Version: 1.4.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -25,7 +25,7 @@ define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.3.9');
+define('D219_TRANSITION_VERSION', '1.4.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -190,10 +190,14 @@ function d219_get_nomination_forms() {
 
 class D219_GitHub_Updater {
     private $slug, $plugin_data, $github_response;
+    private $rollback_was_active = false;
     public function __construct($f) {
         $this->slug = plugin_basename($f);
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_update'));
         add_filter('plugins_api', array($this, 'plugin_info'), 20, 3);
+        // Temporarily deactivate WP Rollback during our updates (it crashes without ZipArchive)
+        add_filter('upgrader_pre_install', array($this, 'pre_install_disable_rollback'), 10, 2);
+        add_filter('upgrader_post_install', array($this, 'post_install_enable_rollback'), 10, 3);
     }
     private function get_plugin_data() { if (empty($this->plugin_data)) $this->plugin_data = get_plugin_data(D219_TRANSITION_PLUGIN_FILE); return $this->plugin_data; }
     private function get_github_release() {
@@ -265,6 +269,27 @@ class D219_GitHub_Updater {
     public function after_update() {
         global $wpdb;
         $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like('d219_update_notified_') . '%'));
+    }
+    // Temporarily deactivate WP Rollback before our plugin update
+    public function pre_install_disable_rollback($response, $hook_extra) {
+        if (!isset($hook_extra['plugin']) || $hook_extra['plugin'] !== $this->slug) return $response;
+        if (!function_exists('is_plugin_active')) include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        $rollback_slug = 'wp-rollback/wp-rollback.php';
+        if (is_plugin_active($rollback_slug)) {
+            $this->rollback_was_active = true;
+            deactivate_plugins($rollback_slug, true); // silent deactivation
+        }
+        return $response;
+    }
+    // Reactivate WP Rollback after our plugin update completes
+    public function post_install_enable_rollback($response, $hook_extra, $result) {
+        if (!isset($hook_extra['plugin']) || $hook_extra['plugin'] !== $this->slug) return $response;
+        if ($this->rollback_was_active) {
+            $rollback_slug = 'wp-rollback/wp-rollback.php';
+            activate_plugin($rollback_slug);
+            $this->rollback_was_active = false;
+        }
+        return $response;
     }
 }
 if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
