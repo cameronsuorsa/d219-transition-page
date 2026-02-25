@@ -81,7 +81,7 @@ get_header();
                             <div class="d219-apply-step">
                                 <span class="d219-step-num">3</span>
                                 <div>
-                                    <strong>Submit:</strong> Email completed forms to <a href="mailto:district219dlc1@gmail.com">district219dlc1@gmail.com</a>
+                                    <strong>Submit:</strong> Email completed forms to <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>"><?php echo antispambot('district219dlc1@gmail.com'); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@ get_header();
                         <i class="fa-solid fa-paper-plane"></i> Quick Interest Form
                     </a>
                     
-                    <a href="mailto:district219dlc1@gmail.com" class="d219-btn d219-btn-contact">
+                    <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>" class="d219-btn d219-btn-contact">
                         <i class="fa-solid fa-envelope"></i> Questions? Contact Us
                     </a>
                 </div>
@@ -147,7 +147,7 @@ get_header();
                     <p class="d219-chair-name"><?php echo esc_html($dlc['name']); ?></p>
                     <p class="d219-chair-desc"><?php echo esc_html($dlc['desc_full']); ?></p>
                     <div class="d219-chair-links">
-                        <a href="mailto:<?php echo esc_attr($dlc['email']); ?>" class="d219-chair-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="mailto:<?php echo antispambot($dlc['email']); ?>" class="d219-chair-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
                         <a href="<?php echo esc_url($dlc['linkedin']); ?>" class="d219-chair-link" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </div>

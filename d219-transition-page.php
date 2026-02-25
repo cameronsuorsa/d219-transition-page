@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.3.8
+ * Version: 1.3.9
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -25,7 +25,7 @@ define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.3.8');
+define('D219_TRANSITION_VERSION', '1.3.9');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -225,9 +225,6 @@ class D219_GitHub_Updater {
         $site_url = home_url();
         $current_version = $this->get_plugin_data()['Version'];
 
-        // Build one-click update URL (requires admin login)
-        $update_url = admin_url('update.php?action=upgrade-plugin&plugin=' . urlencode($this->slug));
-
         // Parse changelog from release body
         $changelog = $rel->body;
         // Convert markdown bold **text** to plain text for email
@@ -247,12 +244,10 @@ class D219_GitHub_Updater {
         $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
         $message .= "HOW TO UPDATE\n";
         $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-        $message .= "Option 1 — One-click update (requires admin login):\n";
-        $message .= $update_url . "\n\n";
-        $message .= "Option 2 — WordPress Dashboard:\n";
+        $message .= "Update from your WordPress Dashboard:\n";
         $message .= admin_url('plugins.php') . "\n";
         $message .= "Look for the update notice under \"District 219 Transition Page\"\n\n";
-        $message .= "Option 3 — GitHub release page:\n";
+        $message .= "GitHub release page:\n";
         $message .= $rel->html_url . "\n\n";
         $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
         $message .= "This is an automated notification from the D219 Transition plugin on {$site_url}\n";
@@ -264,12 +259,12 @@ class D219_GitHub_Updater {
         if ($a !== 'plugin_information' || dirname($this->slug) !== $args->slug) return $r;
         $rel = $this->get_github_release(); if (!$rel) return $r;
         $pd = $this->get_plugin_data();
-        return (object) array('name' => $pd['Name'], 'slug' => dirname($this->slug), 'version' => ltrim($rel->tag_name, 'v'), 'author' => $pd['Author'], 'homepage' => $pd['PluginURI'], 'sections' => array('description' => $pd['Description'], 'changelog' => nl2br($rel->body)), 'download_link' => $rel->zipball_url);
+        return (object) array('name' => $pd['Name'], 'slug' => dirname($this->slug), 'version' => ltrim($rel->tag_name, 'v'), 'author' => $pd['Author'], 'homepage' => $pd['PluginURI'], 'sections' => array('description' => $pd['Description'], 'changelog' => wp_kses_post(nl2br(esc_html($rel->body)))), 'download_link' => $rel->zipball_url);
     }
     // Clean up notification flags when update completes
     public function after_update() {
         global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'd219_update_notified_%'");
+        $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like('d219_update_notified_') . '%'));
     }
 }
 if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
@@ -353,8 +348,10 @@ add_action('wp_head', function() {
         // Full CSS on /transition and /dlc pages
         $css_file = D219_ASSETS_DIR . 'transition-styles.css';
         if (file_exists($css_file)) {
+            $css = file_get_contents($css_file);
+            $css = str_replace('</style', '<\\/style', $css); // Prevent style tag breakout
             echo "\n<style id=\"d219-transition-styles\">\n";
-            readfile($css_file);
+            echo $css;
             echo "\n</style>\n";
         }
     } elseif (D219_SHOW_BANNER) {

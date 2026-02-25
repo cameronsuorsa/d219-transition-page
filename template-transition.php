@@ -254,7 +254,7 @@ get_header();
                     <span>March 12, 2026 &middot; 8:00 PM – 9:00 PM via Zoom</span>
                     <span class="d219-townhall-desc">Open Q&amp;A about divisions, areas, and club placement</span>
                 </div>
-                <a href="https://us02web.zoom.us/j/84094774161" class="d219-btn d219-btn-map" target="_blank" rel="noopener">
+                <a href="<?php echo esc_url($zoom_link); ?>" class="d219-btn d219-btn-map" target="_blank" rel="noopener">
                     <i class="fa-solid fa-video"></i> Join on Zoom
                 </a>
             </div>
@@ -373,7 +373,7 @@ get_header();
                     <p class="d219-date-time">8:00 PM – 9:00 PM via Zoom</p>
                     <p class="d219-date-desc">Open Q&amp;A about District 219 alignment — divisions, areas, and club placement</p>
                     <div class="d219-date-action">
-                        <a href="https://us02web.zoom.us/j/84094774161" class="d219-date-btn" target="_blank" rel="noopener">
+                        <a href="<?php echo esc_url($zoom_link); ?>" class="d219-date-btn" target="_blank" rel="noopener">
                             <i class="fa-solid fa-video"></i> Join on Zoom
                         </a>
                     </div>
@@ -437,7 +437,7 @@ get_header();
                     <h4><?php echo esc_html($c['title']); ?></h4>
                     <p class="d219-chair-name"><?php echo esc_html($c['name']); ?></p>
                     <div class="d219-chair-links">
-                        <a href="mailto:<?php echo esc_attr($c['email']); ?>" class="d219-chair-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="mailto:<?php echo antispambot($c['email']); ?>" class="d219-chair-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
                         <a href="<?php echo esc_url($c['linkedin']); ?>" class="d219-chair-link" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                     <p class="d219-chair-desc"><?php echo esc_html($c['desc_full']); ?></p>
@@ -456,7 +456,7 @@ get_header();
                 <a href="/dlc" class="d219-btn d219-btn-primary">
                     <i class="fa-solid fa-hand"></i> I Want to Help
                 </a>
-                <a href="mailto:district219dlc1@gmail.com" class="d219-btn d219-btn-secondary">
+                <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>" class="d219-btn d219-btn-secondary">
                     <i class="fa-solid fa-envelope"></i> Contact Us
                 </a>
             </div>
@@ -549,7 +549,11 @@ get_header();
 
 <script>
 (function() {
-    var clubs = <?php echo file_get_contents(D219_ASSETS_DIR . 'clubs.json'); ?>;
+    var clubs = <?php
+        $clubs_json = file_get_contents(D219_ASSETS_DIR . 'clubs.json');
+        $clubs_data = json_decode($clubs_json);
+        echo wp_json_encode($clubs_data);
+    ?>;
 
     var tbody = document.getElementById('d219-clubs-tbody');
     var searchInput = document.getElementById('d219-club-search');
@@ -590,10 +594,12 @@ get_header();
     });
 
 
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
     function formatBadge(fmt) {
         if (!fmt || fmt === 'NEW') return fmt === 'NEW' ? '<span class="d219-badge d219-badge-new">New</span>' : '—';
         var cls = fmt === 'Hybrid' ? 'hybrid' : (fmt === 'Online' ? 'online' : 'inperson');
-        return '<span class="d219-badge d219-badge-' + cls + '">' + fmt + '</span>';
+        return '<span class="d219-badge d219-badge-' + cls + '">' + esc(fmt) + '</span>';
     }
 
     function renderTable() {
@@ -626,12 +632,12 @@ get_header();
             var c = filtered[i];
             var rowClass = c['new'] ? ' class="d219-new-club"' : '';
             html += '<tr' + rowClass + '>';
-            html += '<td>' + c.div + '</td>';
-            html += '<td>' + c.area + '</td>';
-            html += '<td>' + (c.num || '—') + '</td>';
-            html += '<td>' + c.name + (c['new'] ? ' <span class="d219-badge d219-badge-new">New</span>' : '') + '</td>';
-            html += '<td>' + (c.city || '—') + '</td>';
-            html += '<td>' + (c.state || '—') + '</td>';
+            html += '<td>' + esc(c.div) + '</td>';
+            html += '<td>' + esc(c.area) + '</td>';
+            html += '<td>' + esc(c.num || '—') + '</td>';
+            html += '<td>' + esc(c.name) + (c['new'] ? ' <span class="d219-badge d219-badge-new">New</span>' : '') + '</td>';
+            html += '<td>' + esc(c.city || '—') + '</td>';
+            html += '<td>' + esc(c.state || '—') + '</td>';
             html += '<td>' + formatBadge(c.format) + '</td>';
             html += '</tr>';
         }
