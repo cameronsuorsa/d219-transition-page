@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -25,7 +25,7 @@ define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.3.1');
+define('D219_TRANSITION_VERSION', '1.3.2');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -212,8 +212,54 @@ class D219_GitHub_Updater {
             $dl = $rel->zipball_url;
             if (!empty($rel->assets)) { foreach ($rel->assets as $a) { if (strpos($a->name, '.zip') !== false) { $dl = $a->browser_download_url; break; } } }
             $t->response[$this->slug] = (object) array('slug' => dirname($this->slug), 'new_version' => $gv, 'url' => $rel->html_url, 'package' => $dl);
+            // Send email notification once per version
+            $this->maybe_send_update_email($gv, $rel);
         }
         return $t;
+    }
+    private function maybe_send_update_email($new_version, $rel) {
+        $notified_key = 'd219_update_notified_' . $new_version;
+        if (get_option($notified_key)) return; // Already notified for this version
+
+        $admin_email = get_option('admin_email');
+        $site_name = get_bloginfo('name');
+        $site_url = home_url();
+        $current_version = $this->get_plugin_data()['Version'];
+
+        // Build one-click update URL (requires admin login)
+        $update_url = admin_url('update.php?action=upgrade-plugin&plugin=' . urlencode($this->slug));
+
+        // Parse changelog from release body
+        $changelog = $rel->body;
+        // Convert markdown bold **text** to plain text for email
+        $changelog_plain = preg_replace('/\*\*([^*]+)\*\*/', '$1', $changelog);
+        // Convert markdown links [text](url) to text (url)
+        $changelog_plain = preg_replace('/\[([^\]]+)\]\(([^)]+)\)/', '$1 ($2)', $changelog_plain);
+
+        $subject = "[{$site_name}] District 219 Transition Plugin Update Available: v{$new_version}";
+
+        $message = "A new version of the District 219 Transition Page plugin is available for {$site_name}.\n\n";
+        $message .= "Current version: {$current_version}\n";
+        $message .= "New version: {$new_version}\n\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+        $message .= "WHAT'S NEW\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+        $message .= $changelog_plain . "\n\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+        $message .= "HOW TO UPDATE\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+        $message .= "Option 1 — One-click update (requires admin login):\n";
+        $message .= $update_url . "\n\n";
+        $message .= "Option 2 — WordPress Dashboard:\n";
+        $message .= admin_url('plugins.php') . "\n";
+        $message .= "Look for the update notice under \"District 219 Transition Page\"\n\n";
+        $message .= "Option 3 — GitHub release page:\n";
+        $message .= $rel->html_url . "\n\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+        $message .= "This is an automated notification from the D219 Transition plugin on {$site_url}\n";
+
+        wp_mail($admin_email, $subject, $message);
+        update_option($notified_key, true);
     }
     public function plugin_info($r, $a, $args) {
         if ($a !== 'plugin_information' || dirname($this->slug) !== $args->slug) return $r;
@@ -221,7 +267,17 @@ class D219_GitHub_Updater {
         $pd = $this->get_plugin_data();
         return (object) array('name' => $pd['Name'], 'slug' => dirname($this->slug), 'version' => ltrim($rel->tag_name, 'v'), 'author' => $pd['Author'], 'homepage' => $pd['PluginURI'], 'sections' => array('description' => $pd['Description'], 'changelog' => nl2br($rel->body)), 'download_link' => $rel->zipball_url);
     }
-    public function after_install($r, $h, $res) { global $wp_filesystem; $pf = WP_PLUGIN_DIR . '/' . dirname($this->slug); $wp_filesystem->move($res['destination'], $pf); $res['destination'] = $pf; activate_plugin($this->slug); return $res; }
+    public function after_install($r, $h, $res) {
+        global $wp_filesystem;
+        $pf = WP_PLUGIN_DIR . '/' . dirname($this->slug);
+        $wp_filesystem->move($res['destination'], $pf);
+        $res['destination'] = $pf;
+        activate_plugin($this->slug);
+        // Clean up old notification flags
+        global $wpdb;
+        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'd219_update_notified_%'");
+        return $res;
+    }
 }
 if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
 
