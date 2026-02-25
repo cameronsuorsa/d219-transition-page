@@ -1,0 +1,24 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create plugin ZIP
+        run: |
+          cd ..
+          zip -r d219-transition-page.zip d219-transition-page -x "*.git*"
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ../d219-transition-page.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

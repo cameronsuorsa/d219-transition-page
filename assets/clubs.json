@@ -1,0 +1,1332 @@
+[
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "3154914",
+    "name": "Ariel Toastmasters 1",
+    "city": "Mount Vernon",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "3154949",
+    "name": "Ariel Toastmasters 2",
+    "city": "Mount Vernon",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "2020",
+    "name": "Marion Toastmasters",
+    "city": "Marion",
+    "state": "Ohio",
+    "format": "",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "1259",
+    "name": "Mount Vernon Club",
+    "city": "Mount Vernon",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "7942876",
+    "name": "WRG Insurance Toastmasters",
+    "city": "Wooster",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A10",
+    "num": "28678269",
+    "name": "Millersburg OH Pros Club",
+    "city": "Millersburg",
+    "state": "Ohio",
+    "format": "",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A11",
+    "num": "871427",
+    "name": "Colorful Communicators Club",
+    "city": "Strongsville",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A11",
+    "num": "5759",
+    "name": "Crossroads Club",
+    "city": "Brunswick",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A11",
+    "num": "941",
+    "name": "Medina Toastmasters Club",
+    "city": "Medina",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A11",
+    "num": "7902363",
+    "name": "The Toastmasters Comedy Club",
+    "city": "Brunswick",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A11",
+    "num": "822493",
+    "name": "Wadsworth Area Club",
+    "city": "Wadsworth",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A12",
+    "num": "4198747",
+    "name": "Brakethrough Speakers",
+    "city": "Avon",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A12",
+    "num": "7836856",
+    "name": "Diversity 4 Success Toastmasters",
+    "city": "Aurora",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A12",
+    "num": "497",
+    "name": "Westlake Toastmasters #497",
+    "city": "Westlake",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A12",
+    "num": "7262",
+    "name": "Westside Advanced Club",
+    "city": "Westlake",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A12",
+    "num": "3578",
+    "name": "Word Warriors",
+    "city": "Westlake",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "3526",
+    "name": "Aerospace Toastmasters Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "2606",
+    "name": "Rocky River Toastmasters",
+    "city": "Rocky River",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "???",
+    "name": "Speaking Healthy Metro Health",
+    "city": "",
+    "state": "Ohio",
+    "format": "",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "2917",
+    "name": "Talk of the Town Club",
+    "city": "Parma",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "5616126",
+    "name": "Westlake Unity Toastmasters",
+    "city": "Westlake",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A13",
+    "num": "28679726",
+    "name": "Cleveland OH Pros Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "",
+    "new": true
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "28678646",
+    "name": "Authentic Voices",
+    "city": "New Philadelphia",
+    "state": "Ohio",
+    "format": "NEW",
+    "new": true
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "351",
+    "name": "Cleveland Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "6779965",
+    "name": "FedOrators",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "9484",
+    "name": "Keymunicators Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "1404585",
+    "name": "Let It Flow",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "A",
+    "area": "A14",
+    "num": "1179881",
+    "name": "Playhouse Square Toastmasters",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B20",
+    "num": "3628",
+    "name": "Bailey Toastmasters Club",
+    "city": "Willowick",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B20",
+    "num": "5923",
+    "name": "Citadel of Hope Toastmasters",
+    "city": "Albany",
+    "state": "Georgia",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B20",
+    "num": "3968072",
+    "name": "CWRU Spartans Toastmasters Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B20",
+    "num": "3055923",
+    "name": "CWRU Toastmasters Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B20",
+    "num": "1024709",
+    "name": "East Cleveland Toastmasters",
+    "city": "East Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B21",
+    "num": "7039",
+    "name": "Chardon Toastmasters",
+    "city": "Chardon",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B21",
+    "num": "2502",
+    "name": "Western Reserve Club",
+    "city": "Painesville",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B21",
+    "num": "8197",
+    "name": "Bayview Club",
+    "city": "Erie",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B21",
+    "num": "7231692",
+    "name": "Erie Insurance Toastmasters",
+    "city": "Erie",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B21",
+    "num": "2705",
+    "name": "Eriez Club",
+    "city": "Erie",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B22",
+    "num": "7045",
+    "name": "GOOD MORNING! Toastmasters Club",
+    "city": "Mayfield Heights",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B22",
+    "num": "415",
+    "name": "Lubrizol Toastmasters Club",
+    "city": "Wickliffe",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B22",
+    "num": "533",
+    "name": "Parker SpeakEasies Club",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B22",
+    "num": "1073866",
+    "name": "STERIS Toastmasters Club",
+    "city": "Mentor",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B23",
+    "num": "934375",
+    "name": "Eastside Advanced Toastmasters Club",
+    "city": "Richmond Heights",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B23",
+    "num": "4667023",
+    "name": "Progressive Insurance Advanced Toastmasters Club",
+    "city": "Mayfield Village",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B23",
+    "num": "1171244",
+    "name": "Progressive Messengers",
+    "city": "Mayfield Village",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B23",
+    "num": "1203767",
+    "name": "Progressively Speaking",
+    "city": "Mayfield",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B24",
+    "num": "6813415",
+    "name": "CCAC Toastmasters",
+    "city": "Beachwood",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B24",
+    "num": "2771855",
+    "name": "Colorful Language",
+    "city": "Warrensville Heights",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B24",
+    "num": "6500",
+    "name": "Eastside Toastmasters Club 6500",
+    "city": "Shaker Heights",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B24",
+    "num": "2550",
+    "name": "Eaton Speech Society",
+    "city": "Beachwood",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "B",
+    "area": "B24",
+    "num": "5426",
+    "name": "Positively Speaking Club",
+    "city": "Beachwood",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C30",
+    "num": "3613",
+    "name": "Chagrin Valley Toastmasters",
+    "city": "Chagrin Falls",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C30",
+    "num": "408",
+    "name": "Executive Club",
+    "city": "Boardman",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C30",
+    "num": "9124",
+    "name": "Impact Toastmasters Club 9124",
+    "city": "Solon",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C30",
+    "num": "1383972",
+    "name": "Top of the Town Advanced Club",
+    "city": "Warrensville Heights",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C30",
+    "num": "3577689",
+    "name": "Warren Toastmasters",
+    "city": "Warren",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C31",
+    "num": "912",
+    "name": "Brecksville - Nordonia Hills Gaveliers",
+    "city": "Brecksville",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C31",
+    "num": "2136004",
+    "name": "Cleveland Clinic Finance Division",
+    "city": "Independence",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C31",
+    "num": "28678348",
+    "name": "GCRTA - Power & Way Toastmasters Club",
+    "city": "",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C31",
+    "num": "935345",
+    "name": "Independence Club",
+    "city": "Independence",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C31",
+    "num": "1424",
+    "name": "Independently Speaking Club",
+    "city": "Independence",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "2878837",
+    "name": "Cuyahoga Falls Toastmasters",
+    "city": "Cuyahoga Falls",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "7908934",
+    "name": "Maverick Advanced Toastmasters Online",
+    "city": "South Euclid",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "7687237",
+    "name": "Speak To Lead Toastmasters",
+    "city": "Twinsburg",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "2036799",
+    "name": "Stow-Kent Toastmasters",
+    "city": "Kent",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "2291177",
+    "name": "Twinspirations Toastmasters Club",
+    "city": "Twinsburg",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C32",
+    "num": "28679684",
+    "name": "Hiram, OH Prospective Club",
+    "city": "Hiram",
+    "state": "Ohio",
+    "format": "NEW",
+    "new": true
+  },
+  {
+    "div": "C",
+    "area": "C33",
+    "num": "8480",
+    "name": "A.M. Akron Toastmasters",
+    "city": "Fairlawn",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C33",
+    "num": "151",
+    "name": "Akron Toastmasters",
+    "city": "Akron",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C33",
+    "num": "1894",
+    "name": "Downtown Toastmasters Club",
+    "city": "Akron",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C33",
+    "num": "6512141",
+    "name": "The Toastmasters of National Interstate",
+    "city": "Richfield",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C33",
+    "num": "7479",
+    "name": "White Pond Toastmasters",
+    "city": "Akron",
+    "state": "Ohio",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C34",
+    "num": "9347",
+    "name": "Boldmasters Toastmasters Club",
+    "city": "North Canton",
+    "state": "Ohio",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C34",
+    "num": "3342",
+    "name": "Stark Community Toastmasters",
+    "city": "Canton",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C34",
+    "num": "1690",
+    "name": "Timken Company Toastmasters Club",
+    "city": "North Canton",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C34",
+    "num": "637",
+    "name": "Toastmasters' Canton Public Speaking Club #637",
+    "city": "Canton",
+    "state": "Ohio",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "C",
+    "area": "C34",
+    "num": "28678451",
+    "name": "Mount Union Toastmasters Club",
+    "city": "Aliance",
+    "state": "Ohio",
+    "format": "",
+    "new": true
+  },
+  {
+    "div": "D",
+    "area": "D40",
+    "num": "672",
+    "name": "Beacon Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D40",
+    "num": "2472",
+    "name": "North Hills Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D40",
+    "num": "5934795",
+    "name": "PPG CIC Toastmasters",
+    "city": "Allison Park",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D40",
+    "num": "2723",
+    "name": "VA Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D41",
+    "num": "9843",
+    "name": "Cranberry Area Toastmasters Club",
+    "city": "Cranberry TWP",
+    "state": "Pennsylvania",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D41",
+    "num": "3331281",
+    "name": "Cranberry High Noon Toastmasters Club",
+    "city": "Cranberry Twp",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D41",
+    "num": "28677671",
+    "name": "Giant Eagle Toastmasters",
+    "city": "Cranberry Township",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D41",
+    "num": "3600773",
+    "name": "ProMasters",
+    "city": "Online",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D41",
+    "num": "1276571",
+    "name": "Westinghouse Toastmasters Club",
+    "city": "Cranberry Township",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D42",
+    "num": "7032806",
+    "name": "Allegheny County Airport Authority",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D42",
+    "num": "85",
+    "name": "Beaver Club",
+    "city": "Beaver",
+    "state": "Pennsylvania",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D42",
+    "num": "2255",
+    "name": "Earlybirds Club",
+    "city": "Butler",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D42",
+    "num": "9057",
+    "name": "Mercer County Toastmasters Club",
+    "city": "Sharon",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D42",
+    "num": "5257237",
+    "name": "Priority Speakers Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D43",
+    "num": "3408",
+    "name": "Bettis Club",
+    "city": "West Mifflin",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D43",
+    "num": "5420200",
+    "name": "Covestro Toastmasters",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D43",
+    "num": "28677855",
+    "name": "Gwen's Girls Toastmaster Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D43",
+    "num": "28677340",
+    "name": "HOLA Toastmasters Club",
+    "city": "Redmond",
+    "state": "Washington",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "D",
+    "area": "D43",
+    "num": "1357973",
+    "name": "PB&J Pittsburgh",
+    "city": "Pleasant Hills",
+    "state": "Pennsylvania",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E50",
+    "num": "5592",
+    "name": "BNY Pittsburgh Toastmasters Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E50",
+    "num": "28677217",
+    "name": "CGI Voices",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E50",
+    "num": "3124764",
+    "name": "Culturally Speaking",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E50",
+    "num": "3883874",
+    "name": "Highmark Toastmasters",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E50",
+    "num": "4724971",
+    "name": "PREP Speaks",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E51",
+    "num": "1646",
+    "name": "Dawn Patrol Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E51",
+    "num": "28675762",
+    "name": "Duquesne Light",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E51",
+    "num": "1306484",
+    "name": "HELPS on Smithfield",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E51",
+    "num": "3080117",
+    "name": "Ingenuity Speaks",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E52",
+    "num": "7625868",
+    "name": "Bakery Square Toastmasters",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E52",
+    "num": "7164550",
+    "name": "Lift Every Voice",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E52",
+    "num": "5211",
+    "name": "Midday Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E52",
+    "num": "4813611",
+    "name": "Woman 2 Woman",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "28678797",
+    "name": "Calgon Carbon Toastmasters",
+    "city": "Moon Township",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "28679167",
+    "name": "EQT Toastmasters- Mic Drop Qrew",
+    "city": "Cannonsbury",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "28677960",
+    "name": "NED APA Allstars",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "144",
+    "name": "Pittsburgh Club",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "847",
+    "name": "South Hills Toastmasters Club",
+    "city": "Canonsburg",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "E",
+    "area": "E53",
+    "num": "28678169",
+    "name": "Thermo Fisher Toastmasters",
+    "city": "Pittsburgh",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F60",
+    "num": "1107196",
+    "name": "Allegheny Mountains Toastmasters Club",
+    "city": "Hollidaysburg",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F60",
+    "num": "28677221",
+    "name": "DuBois Toastmasters Club",
+    "city": "DuBois",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F60",
+    "num": "1082238",
+    "name": "Indiana Toastmasters",
+    "city": "INDIANA",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F60",
+    "num": "1231",
+    "name": "Johnstown Toastmasters Club",
+    "city": "Johnstown",
+    "state": "Pennsylvania",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F61",
+    "num": "902",
+    "name": "Achievers - Jest Speaking Club",
+    "city": "Blairsville",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F61",
+    "num": "2960",
+    "name": "Greater Williamsport Club",
+    "city": "Williamsport",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F61",
+    "num": "1299",
+    "name": "Nittany Club",
+    "city": "STATE COLLEGE",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F61",
+    "num": "7132",
+    "name": "Penn State Pingers Club",
+    "city": "State College",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F61",
+    "num": "1219",
+    "name": "State College Club",
+    "city": "State College",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F62",
+    "num": "28678972",
+    "name": "COUNTRY ROADS TOASTMASTERS CLUB",
+    "city": "Morgantown",
+    "state": "West Virginia",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F62",
+    "num": "1104",
+    "name": "Elegant Speakers & Listeners (ESL) Toastmasters Club",
+    "city": "Zoom",
+    "state": "Pennsylvania",
+    "format": "Online",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F62",
+    "num": "7907530",
+    "name": "Laurel Highlands Toastmasters Club",
+    "city": "Connellsville",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F62",
+    "num": "28677657",
+    "name": "Western Maryland",
+    "city": "LaVale",
+    "state": "Maryland",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F63",
+    "num": "6308",
+    "name": "Ambassadors Toastmasters Club",
+    "city": "Homestead",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F63",
+    "num": "1729",
+    "name": "Arconic Technology Center Club",
+    "city": "Export",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F63",
+    "num": "5282",
+    "name": "BPMI Toastmasters Club",
+    "city": "Monroeville",
+    "state": "Pennsylvania",
+    "format": "In Person",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F63",
+    "num": "4021",
+    "name": "Greensburg Club",
+    "city": "Greensburg",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  },
+  {
+    "div": "F",
+    "area": "F63",
+    "num": "2954",
+    "name": "Monroeville Toastmasters Club",
+    "city": "Monroeville",
+    "state": "Pennsylvania",
+    "format": "Hybrid",
+    "new": false
+  }
+]
