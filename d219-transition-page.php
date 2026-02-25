@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.3.4
+ * Version: 1.3.5
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -25,7 +25,7 @@ define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.3.4');
+define('D219_TRANSITION_VERSION', '1.3.5');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -194,7 +194,6 @@ class D219_GitHub_Updater {
         $this->slug = plugin_basename($f);
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_update'));
         add_filter('plugins_api', array($this, 'plugin_info'), 20, 3);
-        add_filter('upgrader_post_install', array($this, 'after_install'), 10, 3);
     }
     private function get_plugin_data() { if (empty($this->plugin_data)) $this->plugin_data = get_plugin_data(D219_TRANSITION_PLUGIN_FILE); return $this->plugin_data; }
     private function get_github_release() {
@@ -267,20 +266,10 @@ class D219_GitHub_Updater {
         $pd = $this->get_plugin_data();
         return (object) array('name' => $pd['Name'], 'slug' => dirname($this->slug), 'version' => ltrim($rel->tag_name, 'v'), 'author' => $pd['Author'], 'homepage' => $pd['PluginURI'], 'sections' => array('description' => $pd['Description'], 'changelog' => nl2br($rel->body)), 'download_link' => $rel->zipball_url);
     }
-    public function after_install($r, $h, $res) {
-        global $wp_filesystem;
-        $pf = WP_PLUGIN_DIR . '/' . dirname($this->slug);
-        // Remove old plugin folder before moving new one in
-        if ($wp_filesystem->is_dir($pf)) {
-            $wp_filesystem->delete($pf, true);
-        }
-        $wp_filesystem->move($res['destination'], $pf);
-        $res['destination'] = $pf;
-        activate_plugin($this->slug);
-        // Clean up old notification flags
+    // Clean up notification flags when update completes
+    public function after_update() {
         global $wpdb;
         $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'd219_update_notified_%'");
-        return $res;
     }
 }
 if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
