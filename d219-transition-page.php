@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -26,7 +26,7 @@ define('D219_DLC_MODE', 'candidates'); // 'candidates' = show nominated slate, '
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.5.0');
+define('D219_TRANSITION_VERSION', '1.6.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -183,6 +183,20 @@ function d219_get_nomination_forms() {
     }
     
     return $forms;
+}
+
+// =============================================================================
+// DATE STATUS HELPER
+// =============================================================================
+
+/**
+ * Returns 'past', 'current', or 'future' for a given date string.
+ * 'current' = the next upcoming event (first future date found).
+ */
+function d219_date_status($date_str) {
+    $event_date = strtotime($date_str);
+    $today = strtotime('today');
+    return ($event_date < $today) ? 'past' : 'future';
 }
 
 // =============================================================================
@@ -386,8 +400,11 @@ if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
 add_action('init', function() {
     add_rewrite_rule('^transition/?$', 'index.php?d219_transition=1', 'top');
     add_rewrite_rule('^dlc/?$', 'index.php?d219_dlc=1', 'top');
+    add_rewrite_rule('^staging/transition/?$', 'index.php?d219_transition=1&d219_staging=1', 'top');
+    add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
+    add_rewrite_tag('%d219_staging%', '([^&]+)');
     
     // Auto-flush rewrite rules when plugin version changes (handles updates)
     $stored_version = get_option('d219_transition_version');
@@ -399,8 +416,11 @@ add_action('init', function() {
 register_activation_hook(__FILE__, function() {
     add_rewrite_rule('^transition/?$', 'index.php?d219_transition=1', 'top');
     add_rewrite_rule('^dlc/?$', 'index.php?d219_dlc=1', 'top');
+    add_rewrite_rule('^staging/transition/?$', 'index.php?d219_transition=1&d219_staging=1', 'top');
+    add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
+    add_rewrite_tag('%d219_staging%', '([^&]+)');
     flush_rewrite_rules();
     update_option('d219_transition_version', D219_TRANSITION_VERSION);
 });
@@ -419,7 +439,9 @@ add_filter('template_include', function($template) {
     }
     
     if (get_query_var('d219_dlc')) {
-        $dlc_file = (D219_DLC_MODE === 'candidates') ? 'template-dlc-candidates.php' : 'template-dlc-nominations.php';
+        $is_staging = get_query_var('d219_staging');
+        $mode = $is_staging ? 'candidates' : D219_DLC_MODE;
+        $dlc_file = ($mode === 'candidates') ? 'template-dlc-candidates.php' : 'template-dlc-nominations.php';
         $custom_template = D219_TRANSITION_PLUGIN_DIR . $dlc_file;
         if (file_exists($custom_template)) {
             return $custom_template;
@@ -435,7 +457,8 @@ add_filter('template_include', function($template) {
 
 // Enqueue external styles (Google Fonts, Font Awesome) — only on plugin pages
 add_action('wp_enqueue_scripts', function() {
-    if (get_query_var('d219_transition') || get_query_var('d219_dlc')) {
+    $is_plugin_page = get_query_var('d219_transition') || get_query_var('d219_dlc');
+    if ($is_plugin_page) {
         // Google Fonts
         wp_enqueue_style('d219-google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap', array(), null);
 
@@ -494,7 +517,7 @@ add_action('wp_body_open', function() {
     if (D219_SHOW_BANNER) {
         ?>
         <div class="d219-transition-banner">
-            <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">DLC Nominations</a> close Feb 25th.
+            <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">Meet the Candidates</a> — Election April 27th.
         </div>
         <?php
     }

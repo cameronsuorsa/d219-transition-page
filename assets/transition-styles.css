@@ -2174,16 +2174,8 @@ body .d219-nominations-section,
     margin: 0 auto !important;
 }
 
-.d219-candidates-1 {
-    grid-template-columns: 1fr !important;
-    max-width: 360px !important;
-}
-
-.d219-candidates-2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    max-width: 680px !important;
-}
-
+.d219-candidates-1,
+.d219-candidates-2,
 .d219-candidates-3 {
     grid-template-columns: repeat(3, 1fr) !important;
 }
@@ -2309,7 +2301,31 @@ body .d219-nominations-section,
 }
 
 /* Responsive candidates */
+/* Past date cards (auto-detected) */
+.d219-date-card.d219-date-past {
+    opacity: 0.55 !important;
+    position: relative !important;
+}
+
+.d219-date-badge-past {
+    display: inline-block !important;
+    background: #28a745 !important;
+    color: #fff !important;
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    padding: 3px 10px !important;
+    border-radius: 12px !important;
+    margin-bottom: 8px !important;
+}
+
+/* Past timeline items */
+.d219-timeline-item.d219-timeline-past {
+    opacity: 0.55 !important;
+}
+
 @media (max-width: 768px) {
+    .d219-candidates-1,
     .d219-candidates-2,
     .d219-candidates-3 {
         grid-template-columns: repeat(2, 1fr) !important;
@@ -2327,13 +2343,10 @@ body .d219-nominations-section,
 }
 
 @media (max-width: 480px) {
+    .d219-candidates-1,
     .d219-candidates-2,
     .d219-candidates-3 {
         grid-template-columns: 1fr !important;
-        max-width: 300px !important;
-    }
-
-    .d219-candidates-1 {
         max-width: 300px !important;
     }
 }

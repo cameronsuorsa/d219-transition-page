@@ -13,6 +13,29 @@ $slides = d219_get_slides();
 $has_slides = !empty($slides);
 $slides_pdf = d219_get_slides_pdf();
 $committees = d219_get_committees();
+$is_staging = get_query_var('d219_staging');
+$dlc_mode = $is_staging ? 'candidates' : D219_DLC_MODE;
+
+// Timeline events with dates for auto-detection
+$timeline_events = array(
+    array('date' => '2024-07-01', 'label' => '2024', 'desc' => 'TI Board announces district realignment', 'icon' => 'check'),
+    array('date' => '2026-01-15', 'label' => 'January 2026', 'desc' => 'Transition committees begin work', 'icon' => 'check'),
+    array('date' => '2026-02-25', 'label' => 'February 25, 2026', 'desc' => 'Leadership nominations due', 'icon' => 'dot'),
+    array('date' => '2026-03-12', 'label' => 'March 12, 2026', 'desc' => 'Alignment Town Hall Q&A', 'icon' => 'dot'),
+    array('date' => '2026-04-22', 'label' => 'April 22, 2026', 'desc' => 'Candidate Showcase recordings', 'icon' => 'dot'),
+    array('date' => '2026-04-27', 'label' => 'April 27, 2026', 'desc' => 'District 219 election meeting', 'icon' => 'num', 'num' => '3'),
+    array('date' => '2026-07-01', 'label' => 'July 1, 2026', 'desc' => 'District 219 officially begins!', 'icon' => 'flag'),
+);
+// Find first future event to mark as "current"
+$current_found = false;
+foreach ($timeline_events as &$evt) {
+    $evt['status'] = d219_date_status($evt['date']);
+    if (!$current_found && $evt['status'] === 'future') {
+        $evt['status'] = 'current';
+        $current_found = true;
+    }
+}
+unset($evt);
 
 get_header();
 ?>
@@ -24,8 +47,13 @@ get_header();
             <h1 class="d219-title">District 219 Transition</h1>
             <p class="d219-subtitle">Toastmasters <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> &amp; <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a> are joining together to form District 219</p>
             <div class="d219-hero-nominations">
+                <?php if ($dlc_mode === 'candidates') : ?>
+                <p><i class="fa-solid fa-check-to-slot"></i> <strong>Candidate Slate Announced</strong> — Election: April 27, 2026</p>
+                <a href="/dlc" class="d219-btn d219-btn-hero"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                <?php else : ?>
                 <p><i class="fa-solid fa-bullhorn"></i> <strong>Now Accepting Leadership Nominations</strong> — Deadline: February 25, 2026</p>
                 <a href="/dlc" class="d219-btn d219-btn-hero"><i class="fa-solid fa-hand"></i> I Want to Help</a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -38,58 +66,52 @@ get_header();
                 <p>As part of Toastmasters International's worldwide district realignment, <strong><a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a> will merge to form the new District 219</strong> beginning July 1, 2026. This change is part of a larger restructuring effort to better serve members and strengthen clubs across the organization.</p>
                 
                 <div class="d219-timeline">
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker d219-complete"><i class="fa-solid fa-check"></i></div>
+                    <?php foreach ($timeline_events as $evt) :
+                        $status = $evt['status'];
+                        $marker_class = '';
+                        $marker_content = '';
+                        if ($status === 'past') {
+                            $marker_class = 'd219-complete';
+                            $marker_content = '<i class="fa-solid fa-check"></i>';
+                        } elseif ($status === 'current') {
+                            $marker_class = 'd219-current';
+                            $marker_content = '<span>&#9679;</span>';
+                        } elseif ($evt['icon'] === 'flag') {
+                            $marker_class = 'd219-final';
+                            $marker_content = '<i class="fa-solid fa-flag-checkered"></i>';
+                        } elseif ($evt['icon'] === 'num') {
+                            $marker_content = '<span>' . esc_html($evt['num']) . '</span>';
+                        } else {
+                            $marker_content = '<span>&#9679;</span>';
+                        }
+                    ?>
+                    <div class="d219-timeline-item<?php echo $status === 'past' ? ' d219-timeline-past' : ''; ?>">
+                        <div class="d219-timeline-marker <?php echo esc_attr($marker_class); ?>"><?php echo $marker_content; ?></div>
                         <div class="d219-timeline-content">
-                            <strong>2024</strong>
-                            <span>TI Board announces district realignment</span>
+                            <strong><?php echo esc_html($evt['label']); ?></strong>
+                            <span><?php echo esc_html($evt['desc']); ?></span>
                         </div>
                     </div>
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker d219-complete"><i class="fa-solid fa-check"></i></div>
-                        <div class="d219-timeline-content">
-                            <strong>January 2026</strong>
-                            <span>Transition committees begin work</span>
-                        </div>
-                    </div>
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker d219-current"><span>●</span></div>
-                        <div class="d219-timeline-content">
-                            <strong>February 25, 2026</strong>
-                            <span>Leadership nominations due</span>
-                        </div>
-                    </div>
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker"><span>●</span></div>
-                        <div class="d219-timeline-content">
-                            <strong>March 12, 2026</strong>
-                            <span>Alignment Town Hall Q&amp;A</span>
-                        </div>
-                    </div>
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker"><span>3</span></div>
-                        <div class="d219-timeline-content">
-                            <strong>April 27, 2026</strong>
-                            <span>District 219 election meeting</span>
-                        </div>
-                    </div>
-                    <div class="d219-timeline-item">
-                        <div class="d219-timeline-marker d219-final"><i class="fa-solid fa-flag-checkered"></i></div>
-                        <div class="d219-timeline-content">
-                            <strong>July 1, 2026</strong>
-                            <span>District 219 officially begins!</span>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 
-                <!-- Nomination CTA -->
+                <!-- DLC CTA -->
                 <div class="d219-nomination-cta">
                     <div class="d219-nomination-cta-content">
+                        <?php if ($dlc_mode === 'candidates') : ?>
+                        <h3><i class="fa-solid fa-check-to-slot"></i> Meet the Candidates</h3>
+                        <p>The nominated slate for District 219 leadership has been announced. See who's running and learn about each candidate before the April 27th election.</p>
+                        <?php else : ?>
                         <h3><i class="fa-solid fa-bullhorn"></i> Interested in Leadership?</h3>
                         <p>To learn more about District 219 leadership positions or to nominate yourself or someone else, visit the District Leadership Committee page.</p>
+                        <?php endif; ?>
                     </div>
                     <a href="/dlc" class="d219-btn d219-btn-cta">
+                        <?php if ($dlc_mode === 'candidates') : ?>
+                        <i class="fa-solid fa-users"></i> View Candidates
+                        <?php else : ?>
                         <i class="fa-solid fa-hand"></i> I Want to Help
+                        <?php endif; ?>
                     </a>
                 </div>
             </div>
@@ -355,55 +377,70 @@ get_header();
         <div class="d219-container">
             <h2>Important Dates</h2>
             <div class="d219-dates-grid">
-                <div class="d219-date-card">
+                <div class="d219-date-card<?php echo d219_date_status('2026-02-25') === 'past' ? ' d219-date-past' : ''; ?>">
                     <div class="d219-date-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <?php if (d219_date_status('2026-02-25') === 'past') : ?><span class="d219-date-badge-past"><i class="fa-solid fa-check"></i> Complete</span><?php endif; ?>
                     <h3>Nomination Deadline</h3>
                     <p class="d219-date-value">February 25, 2026</p>
                     <p class="d219-date-desc">Submit nominations for District 219 leadership positions</p>
                     <div class="d219-date-action">
-                        <a href="/dlc" class="d219-date-btn">
-                            <i class="fa-solid fa-hand"></i> I Want to Help
-                        </a>
+                        <?php if ($dlc_mode === 'candidates') : ?>
+                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                        <?php else : ?>
+                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-hand"></i> I Want to Help</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="d219-date-card">
+                <div class="d219-date-card<?php echo d219_date_status('2026-03-12') === 'past' ? ' d219-date-past' : ''; ?>">
                     <div class="d219-date-icon"><i class="fa-solid fa-comments"></i></div>
+                    <?php if (d219_date_status('2026-03-12') === 'past') : ?><span class="d219-date-badge-past"><i class="fa-solid fa-check"></i> Complete</span><?php endif; ?>
                     <h3>Alignment Town Hall Q&amp;A</h3>
                     <p class="d219-date-value">March 12, 2026</p>
                     <p class="d219-date-time">8:00 PM – 9:00 PM via Zoom</p>
                     <p class="d219-date-desc">Open Q&amp;A about District 219 alignment — divisions, areas, and club placement</p>
                     <div class="d219-date-action">
-                        <a href="<?php echo esc_url($zoom_link); ?>" class="d219-date-btn" target="_blank" rel="noopener">
-                            <i class="fa-solid fa-video"></i> Join on Zoom
-                        </a>
+                        <?php if (d219_date_status('2026-03-12') === 'past') : ?>
+                        <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-check"></i> Event Held</span>
+                        <?php else : ?>
+                        <a href="<?php echo esc_url($zoom_link); ?>" class="d219-date-btn" target="_blank" rel="noopener"><i class="fa-solid fa-video"></i> Join on Zoom</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="d219-date-card">
-                    <div class="d219-date-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                    <h3>Business Meeting</h3>
+                <div class="d219-date-card<?php echo d219_date_status('2026-04-22') === 'past' ? ' d219-date-past' : ''; ?>">
+                    <div class="d219-date-icon"><i class="fa-solid fa-video"></i></div>
+                    <?php if (d219_date_status('2026-04-22') === 'past') : ?><span class="d219-date-badge-past"><i class="fa-solid fa-check"></i> Complete</span><?php endif; ?>
+                    <h3>Candidate Showcase</h3>
+                    <p class="d219-date-value">April 22, 2026</p>
+                    <p class="d219-date-desc">Candidate Showcase recordings — videos available after this date</p>
+                    <div class="d219-date-action">
+                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-users"></i> View Candidates</a>
+                    </div>
+                </div>
+                <div class="d219-date-card<?php echo d219_date_status('2026-04-27') === 'past' ? ' d219-date-past' : ''; ?>">
+                    <div class="d219-date-icon"><i class="fa-solid fa-check-to-slot"></i></div>
+                    <?php if (d219_date_status('2026-04-27') === 'past') : ?><span class="d219-date-badge-past"><i class="fa-solid fa-check"></i> Complete</span><?php endif; ?>
+                    <h3>Election Meeting</h3>
                     <p class="d219-date-value">April 27, 2026</p>
                     <p class="d219-date-time">7:00 PM via Zoom</p>
                     <p class="d219-date-desc">District 219 Election Meeting &amp; Alignment Vote</p>
                     <div class="d219-date-action">
-                        <?php if (!empty($zoom_link)) : ?>
-                            <a href="<?php echo esc_url($zoom_link); ?>" class="d219-date-btn" target="_blank" rel="noopener">
-                                <i class="fa-solid fa-video"></i> Register Now
-                            </a>
+                        <?php if (d219_date_status('2026-04-27') === 'past') : ?>
+                        <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-check"></i> Election Held</span>
+                        <?php elseif (!empty($zoom_link)) : ?>
+                        <a href="<?php echo esc_url($zoom_link); ?>" class="d219-date-btn" target="_blank" rel="noopener"><i class="fa-solid fa-video"></i> Register Now</a>
                         <?php else : ?>
-                            <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-clock"></i> Registration Coming Soon</span>
+                        <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-clock"></i> Registration Coming Soon</span>
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="d219-date-card">
+                <div class="d219-date-card<?php echo d219_date_status('2026-07-01') === 'past' ? ' d219-date-past' : ''; ?>">
                     <div class="d219-date-icon"><i class="fa-solid fa-flag-checkered"></i></div>
                     <h3>District 219 Begins</h3>
                     <p class="d219-date-value">July 1, 2026</p>
                     <p class="d219-date-time">2:00 AM Eastern</p>
                     <p class="d219-date-desc">First day of the new Toastmasters year for District 219</p>
                     <div class="d219-date-action">
-                        <a href="#clubs" class="d219-date-btn">
-                            <i class="fa-solid fa-address-book"></i> View Clubs
-                        </a>
+                        <a href="#clubs" class="d219-date-btn"><i class="fa-solid fa-address-book"></i> View Clubs</a>
                     </div>
                 </div>
             </div>
@@ -450,6 +487,18 @@ get_header();
     <!-- Get Involved CTA -->
     <section class="d219-cta-section" id="get-involved">
         <div class="d219-container">
+            <?php if ($dlc_mode === 'candidates') : ?>
+            <h2>Meet the Candidates</h2>
+            <p>The nominated slate for District 219 leadership has been announced. See who's running for each position before the April 27th election.</p>
+            <div class="d219-cta-buttons">
+                <a href="/dlc" class="d219-btn d219-btn-primary">
+                    <i class="fa-solid fa-users"></i> View Candidates
+                </a>
+                <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>" class="d219-btn d219-btn-secondary">
+                    <i class="fa-solid fa-envelope"></i> Contact Us
+                </a>
+            </div>
+            <?php else : ?>
             <h2>Get Involved</h2>
             <p>To learn more about District 219 leadership positions or to nominate yourself or someone else, visit the District Leadership Committee page.</p>
             <div class="d219-cta-buttons">
@@ -460,6 +509,7 @@ get_header();
                     <i class="fa-solid fa-envelope"></i> Contact Us
                 </a>
             </div>
+            <?php endif; ?>
         </div>
     </section>
     
