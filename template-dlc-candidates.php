@@ -195,7 +195,7 @@ get_header();
     <!-- ============ COMPARE VIEW ============ -->
     <section class="d219-view d219-view-compare" id="view-compare">
         <div class="d219-container">
-            <p class="d219-compare-hint">Select candidates to view or compare their responses side by side.</p>
+            <p class="d219-compare-hint">Select up to 3 candidates to view or compare their responses side by side.</p>
             <div class="d219-compare-picker" id="compare-picker">
                 <?php foreach ($bios as $slug => $bio) : ?>
                 <label class="d219-compare-chip" data-type="<?php echo esc_attr($bio['type']); ?>" data-role-slugs="<?php echo esc_attr(implode(' ', array_map('sanitize_title', array_map('trim', explode('&', $bio['role']))))); ?>">
