@@ -34,6 +34,9 @@ get_header();
                 <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026–2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
                 <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>. Candidate Showcase videos will be available after April 22nd.</p>
                 <p><em>Candidates are listed in alphabetical order by last name.</em></p>
+                <div style="margin-top: 16px;">
+                    <a href="/candidates" class="d219-btn d219-btn-primary"><i class="fa-solid fa-table-columns"></i> Compare Candidates &amp; View Full Responses</a>
+                </div>
             </div>
         </div>
     </section>

@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.6.2
+ * Version: 1.7.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -26,7 +26,7 @@ define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.6.2');
+define('D219_TRANSITION_VERSION', '1.7.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -284,6 +284,230 @@ function d219_get_candidates() {
 }
 
 // =============================================================================
+// CANDIDATE BIO DATA (extracted from 450H PDF forms)
+// =============================================================================
+
+function d219_get_candidate_bios() {
+    $candidates = d219_get_candidates();
+    $flat = array();
+    foreach ($candidates as $role) {
+        foreach ($role['candidates'] as $c) {
+            $slug = sanitize_title(explode(',', $c['name'])[0]);
+            if (isset($flat[$slug])) continue; // Autumn Jose appears twice
+            $flat[$slug] = array(
+                'slug' => $slug,
+                'name' => explode(',', $c['name'])[0],
+                'credentials' => trim(substr($c['name'], strpos($c['name'], ',') + 1)),
+                'role' => $role['role'],
+                'type' => $role['type'],
+                'region' => isset($role['region']) ? $role['region'] : '',
+                'photo' => $c['photo'],
+                'bio_pdf' => $c['bio'],
+                'video' => null,
+                'answers' => array(),
+            );
+        }
+    }
+
+    // Sharon Imes — District Director
+    $flat['sharon-imes']['answers'] = array(
+        'member_since' => '1993',
+        'education' => 'Harvard Business School: Leading Change and Organizational Renewal - Current. NYU: AA: Business Administration, BA Management & Leadership. Dale Carnegie: Human Relations and Effective Speaking Certificate. Train the Trainer: Certificate. AMTC: Acting Modeling: Certificate. VOP, NY Radio: Broadcaster.',
+        'offices' => 'Program Quality Director: 2025-2026. Club Sponsor and President: Western Maryland 2024-2025. President: Laurel Highlands: 2024-2025. VP-PR: Laurel Highlands: 2023-2024. Club Sponsor and President Laurel Highlands 2021-2022. Area Governor and Division Governor - District 46-1996-1998.',
+        'honors' => '2 Congratulatory Letters from TI for leading two clubs to President\'s Distinguished 2025. Appreciation Plaque from District Director, Jing Humphreys, DTM for helping District 13 become a Smedley Distinguished District in 2024 by starting a new club in Western Maryland. Started two community clubs and had the Charter/Induction Ceremony as two Red Carpet events. Won District 13 International Speech Contest 2022. Negotiated a $10K sponsorship for District 46 TM Conference in NY I Chaired. Distinguished Toastmaster Award. Distinguished Division.',
+        'work_experience' => 'Business Consultant and CEO, Breakthrough Leadership Institute International (BLII) - Training, development and business consulting. Business Growth Consultant for over 260 businesses in Connellsville, PA. Sat on the Downtown Connellsville Council with the state Senator and other business leaders to ignite business growth. Consulted with international companies on business development and marketing including an $11 billion Merger and Acquisition finalized in Canada. Managed the Operations of Standard and Poor\'s Structured Finance Department (the S&P 500), including over 500 employees, with 55 direct reports.',
+        'strategic_planning' => 'As a member of the Board of Directors of the Allegany Chamber of Commerce, we\'re currently in the process of creating a strategic plan for the Chamber\'s future. As a Business Consultant, I help many businesses develop a strategic plan for the future of the business, and for marketing growth and success. As President of two TM clubs in two states, I created a strategic plan for growth and educational achievements with the support of Officers that allowed both Clubs to become President\'s Distinguished. Western Maryland TM Club was a newly Chartered club with only 3 previous Toastmaster members, and my strategic plan allowed that club to become President\'s Distinguished in the first year.',
+        'finance' => 'Currently manage the budget for administration and staff for our construction company, and for my consulting business and the budgets of three different households including 2 that requires medical equipment, and staffing. At S&P I managed the Structured Finances budget with a team.',
+        'procedures' => 'I create procedures on how our current staff operate, and sometimes tenants in special situations. As a Member of the Board of Directors of the Chamber, we develop procedures for the effective running of the Chamber. At Standard & Poor\'s, I created policies and procedures for my Direct Reports and for the Structures Finance group in collaboration with other department leaders.',
+        'leadership_lessons' => 'The importance of Integrity, Trust and Respect for all team members. The amazing value of team collaboration and the art of positioning team members with purpose to successful accomplish tasks and objectives. How to deal with executives and people who work in the mailroom. The value of communicating and listen to ideas and insights from others to understand their needs and what\'s important to them, and how to break down big goals into simple steps to achieve a greater outcome.',
+        'why_serve' => 'I believe that my national and international leadership, training and development skills and my ability to collaborate and reach a consensus with diverse groups of people from different cultures, will allow me to effectively integrate our people and clubs into a unified District. I want to help our new District achieve their Educational and Club growth goals. Toastmasters have been my secret weapon throughout my career as a leader on Wall Street, as a Business Consultant to hundreds of businesses in different states and countries, and in my current positions as the Marketing Director for our Construction company and CEO of BLII. I want to share the secret of my success in leading clubs and members to success and how I overcame challenges personally and professionally using Toastmasters, with District 219.',
+        'district_objectives' => 'The District mission\'s major objectives are to support all clubs to help members build communication and leadership skills. Skills that should impact their personal and professional lives in a way that supports the club\'s mission and exemplifies or fulfills International\'s tagline of: \'Toastmasters: where leaders are made\'. The District also assist in building new clubs within our boundary. To achieve this, I would develop more creative ways of supporting clubs, such District Led \'Lunch and Learns\' on different topics that supports TI mission and impact members personally and professionally.',
+        'additional_info' => 'I love life and I love people - they are our greatest asset. I believe that leadership is about influencing people to accomplish a purpose. It\'s about turning followers into leaders and preparing and allowing those leaders to accomplish established goals, while using their gifts and abilities to accomplish their life\'s purpose and impact their communities.',
+    );
+
+    // Lori Davis — Program Quality Director
+    $flat['lori-davis']['answers'] = array(
+        'member_since' => '2021',
+        'education' => 'BA Slippery Rock University (French, Education, Spanish). Certified in HealthCare Compliance (CHC). Six Sigma Belts (White, Yellow, Green).',
+        'offices' => 'Secretary - Treasurer - 2021-2022. VP Membership - 2022-2023. President / VP Education - 2023-2024. Vice-President Education 2025-2026.',
+        'honors' => 'PM 5, EC5, DTM pending. Area 34 Director. Division D Director.',
+        'work_experience' => 'I work in Healthcare Compliance and am used to working across the organization with folks for External Audit, Vendor Oversight, Risk Management, and Policy Book coordination.',
+        'strategic_planning' => 'As part of Compliance, we are required to create a strategic Compliance, Audit, and Board plan annually and review progress. In addition, I manage a policy book and am in charge of coordinating across the organization the review, update, and approval of the associated Policies and Procedures.',
+        'finance' => 'I have not worked directly in Finance; however, I have supported Finance for External Audits and other related fiduciary responsibilities.',
+        'procedures' => 'I have managed several policy books and current have a repository of over 360 policies. As I work in Compliance, writing policies is a major focus of what I do. I have written numerous policies and been responsible for the review, update, and maintenance of policies.',
+        'leadership_lessons' => 'Leadership is best when you collaborate and key the lines of communication open. It\'s essential to have recurring, consistent channels of communication. Toxicity can and will run down fellow leaders and it\'s essential to address it straight away. Staying focused on your mission and involving the rest of the DEC is a huge path to success.',
+        'why_serve' => 'I\'d like to serve as a District Leader to continue to give back to the organization and the many folks who have supported me over the years. I also want to be part of the merged District as a way to celebrate the best of what Toastmasters is and can be.',
+        'district_objectives' => 'As we\'re a newly merged District, stability and reassuring the membership that it\'s business as usual is an essential element of the role as a Trio member. In my role as Program Quality Director, I\'d work with the District Executive Committee across the District to ensure that we keep things as "Business as Usual" whilst infusing the best parts of both Districts into our 2026-2027 mission.',
+        'additional_info' => 'I am grateful for the opportunity to apply for this role and be in the position to serve the District.',
+    );
+
+    // Javier Diaz — Program Quality Director
+    $flat['javier-diaz']['answers'] = array(
+        'member_since' => '2020',
+        'education' => 'Attended University of Puerto Rico, Risk Management, BA. 1996. Scrum Master Certified, Scrum Master Product Owner Certified, PMI Member.',
+        'offices' => 'Club Growth Director 2025-2026; Eastern Division Director 2024-2025; Area Director Area 10 and 21, 2023-2024; President of Diversity for Success Club 2023-2024. VP of Education Progressive Messengers 2023-2024; VP of Public Relations, Progressive Messengers 2022-2023; Sergeant at Arms, Progressive Messengers 2021-2022.',
+        'honors' => 'Speech Contest First Place, Progressive Messengers December of 2022. Triple Crown and LD4. Area 21 Select Distinguished, 2023-2024, Division Director of the Year 2024-2025.',
+        'work_experience' => 'Over 20 years of experience working with Fortune 500 and 100 companies in the area of Information Technology quality assurance and analysis in leading roles which includes Insurance, Banking, and Healthcare. I have spent around 12 years at Progressive supporting and leading the quality assurance of major projects that span multiple organizations and emerging technologies. Most recently, innovating with AI, ML, and Natural Language Telecommunications.',
+        'strategic_planning' => 'Most recently, as a CGD for District 10 I have developed a multiyear plan to penetrate the local market while leveraging latest technology and footprint changes. Part of my day job duties include the strategic analysis, planning, testing and quality assurance activities for major projects that require rigorous test strategies and approaches to secure the highest level of quality for critical projects that involve artificial intelligence, customer experience, innovative technologies.',
+        'finance' => 'As a current CGD, I have been directly involved in budgeting and planning for district expenditures. In my early years, I managed accounts payables and accounts receivables, including balance sheets and statements for a family insurance agency and other early career experiences. Also, while working as a quality assurance consultant at National City and PNC, I managed the testing and quality of Finance systems that decisioned major loans for multi-million dollars corporations across United States.',
+        'procedures' => 'I have developed quality assurance, quality control, and automation procedures in various companies I have worked as a consultant. I have also worked in designing training, designing events, and management of multiple projects as a Board Member of the Latino Employee Resource Group, PLANETA in which I have served as a Board Member for almost 5 years. As CGD, I have created a corporate and community strategy and procedure to study, reach out, communicate, and tailor our message from lead to market to charter approach.',
+        'leadership_lessons' => 'Clear communication, empathy and proactive planning are key to establish and maintain successful working relationships. Active listening and situational leadership along with teamwork are essential in the success recipe. Highly engaged individuals are discovered when given the platforms and tools to excel at what they love to do. I have also learned that Toastmasters members and leaders are willing to join your missions and projects. They are willing to answer the call whenever you ask for help. Extend the table and they will join you.',
+        'why_serve' => 'I am a quality over quantity advocate. I believe in first impressions. As an advocate for young Latino leaders, young professionals, and legacy knowledge bridging, my focus is on encouraging education, creating and serving Toastmasters clubs in underrepresented communities. My desire is to revamp the Toastmasters experience with pristine quality where learning is a sought after activity rather than a checkbox. My goal is to rekindle the desire of service, teaching, and advocacy for Toastmasters community that would revive Dr. Smedley\'s dream.',
+        'district_objectives' => 'As a new district, the mission is to safeguard the realignment, secure ROI, revive a new spirit of unity and work harmoniously while adhering to our global mission of building new clubs and supporting all clubs achieve excellence. Promote Toastmasters, create new clubs, increase retention, and help clubs thrive. We need to nurture our members with regular cadence of training, prepare them for future opportunities and attract local employers and schools to invest in Toastmasters. Collaborate with local corporations in Open Houses to raise awareness and attract leaders to mentor new members.',
+        'additional_info' => 'Received Division Director of the Year Award, 2024-2025. Received Progressive FLOIE award in two consecutive years for the most collaborative in 2022 and the most creative in 2023. I am a Quality Assurance Leader leading major projects in Telecommunications, Artificial Intelligence and multilingual efforts. I also speak fluent Spanish and serve as a mentor and counselor in youth communities. Also, compose songs and play piano.',
+    );
+
+    // Stephanie Hill — Program Quality Director
+    $flat['stephanie-hill']['answers'] = array(
+        'member_since' => '2019',
+        'education' => 'Master of Labor Relations and Human Resources, Cleveland State University 2008-2011. Bachelor of Business Administration concentration in Information Systems, Cleveland State University 2005-2008. Associated Degree Liberal Arts, 2002-2005.',
+        'offices' => 'President for both Progressive Messengers (2022-2023) and Progressive Advanced Club (2023-2024), Vice President of Education Progressive Messengers (2021-2022) and Diversity 4 Success (2024-2026), VP of Membership Diversity 4 Success (2024-2025). Treasurer Progressive Messengers (2020-2022) and Progressive Advanced Club (2023-2024), Central Area Director 2023-2024, Central Division Director (2024-2025 and Eastern Division Director (2025-2026), Administrative Manager (2025-2026).',
+        'honors' => 'Active Toastmasters member with sustained leadership service. Selected for District-level leadership roles. Recognized for mentoring members and supporting officer training initiatives.',
+        'work_experience' => 'I bring over 20 years of professional experience in information technology, systems administration, project management, healthcare operations, people leadership, and business ownership. Throughout my career, I have led cross-functional teams, supported enterprise systems, developed training programs, mentored employees, and partnered with stakeholders to achieve organizational goals. This experience directly supports my work as a District leader by enabling me to manage complex initiatives, communicate effectively with diverse audiences, mentor club and district leaders, and implement sustainable processes that strengthen clubs and member engagement.',
+        'strategic_planning' => 'I have extensive experience in strategic planning through leading technical projects, managing large-scale system initiatives, coordinating cross-functional teams, and aligning operational goals with organizational objectives. As a Toastmasters leader, I apply strategic planning to club support, officer development, training initiatives, and long-term district success by setting clear priorities, measuring progress, and adjusting plans as needed.',
+        'finance' => 'My experience includes budget and timeline management, vendor coordination, contract oversight, and financial decision-making in both corporate and entrepreneurial environments. As a business owner, I manage budgets, negotiate contracts, and oversee financial accountability. As a Toastmasters leader and former club Treasurer, I apply fiscal responsibility, transparency, and planning to ensure financial health and sustainability.',
+        'procedures' => 'I have significant experience developing procedures through process improvement initiatives, system documentation, training program creation, and standard operating procedures in corporate, healthcare, and small-business environments. In Toastmasters, I help establish clear processes for officer transitions, training delivery, meeting operations, and district initiatives to promote consistency, clarity, and success.',
+        'leadership_lessons' => 'I have learned that effective leadership requires clear communication, active listening, adaptability, and empowering others. Strong leaders meet people where they are, provide guidance and support, and create an environment where individuals feel valued and confident to grow. I also learned that sustainable success comes from collaboration, accountability, and leading by example.',
+        'why_serve' => 'I am passionate about helping others find their voice, develop confidence, and grow as leaders. Serving as a District leader allows me to combine my professional expertise with my love for Toastmasters by mentoring leaders, strengthening clubs, supporting member success, and contributing to the long-term health and growth of the District.',
+        'district_objectives' => 'The District mission\'s major objectives are to support clubs in achieving excellence, develop effective leaders, and provide a positive member experience. I would work to achieve these objectives by strengthening officer training, fostering collaboration across clubs, encouraging mentorship, promoting clear communication, and supporting strategic initiatives that enhance member engagement, retention, and growth.',
+        'additional_info' => 'In addition to my professional and Toastmasters leadership experience, I am a business owner and mentor who values continuous learning, inclusivity, and service. I am a graduate of the Multicultural Leadership Development Program (MLDP) and am committed to building strong relationships across diverse backgrounds while inspiring others to lead with confidence and purpose.',
+    );
+
+    // Ed Haller — Club Growth Director
+    $flat['ed-haller']['answers'] = array(
+        'member_since' => '2013',
+        'education' => 'B.S. Chemical Engineering (University of Akron). MBA (University of Phoenix) 4.0 GPA.',
+        'offices' => 'D10 Club Extension Chair \'17-\'18 & \'25-\'26; D10 Area Director \'16-\'17 & \'25-\'26. Club President \'17-\'18; \'19-\'20; \'25-\'26; Vice President Education \'15-\'16; \'18-\'19. Vice President Membership \'14-\'15; Club Secretary \'20-\'21.',
+        'honors' => '2015 District 10 Humorous Speech Contest Winner: Falling Bridges. 2014 District 10 Humorous Speech Contest Winner: Short Stories.',
+        'work_experience' => 'Director of Water Pollution Control, City of Warren, Ohio 12/14 through 3/24. Department Head, 44 Employees; Leader directly responsible for all aspects of my department. Wastewater Superintendent, City of North Royalton, Ohio 4/24 to present. Department Head, 31 Employees; Leader directly responsible for all aspects of my department.',
+        'strategic_planning' => 'District 10 Strategic Planning Committee Co-Chair \'25-\'26. Director of Water Pollution Control, City of Warren, Ohio 12/14 through 3/24; Strategic Plan (\'15-\'16) resulting in a Capital Improvement Plan of $120M; Stormwater Master Plan (\'23-\'24). Wastewater Superintendent, City of North Royalton, Ohio 4/24 to present; Strategic Planning in Progress (\'25-\'26).',
+        'finance' => 'Director of Water Pollution Control, City of Warren, Ohio 12/14 through 3/24; $13M Annual Operating Budget. Completed a Sewer Rate Study and gained City Council approval for increased sewer rates 42% over 6 years; Oversaw multiple construction projects: Plant Renovations $28M, Sewer Pump Station Renovations $19M. Wastewater Superintendent, City of North Royalton, Ohio 4/24 to present; $13M Annual Operating Budget.',
+        'procedures' => 'Developed plant equipment operating procedures, Lab Analysis procedures, EPA Reporting procedures, Safety procedures including Lock-Out-Tag-Out & Evacuation. Developed a 17-week Course on Wastewater Theory & Math Calculations: Taught it 15 times. 12 of my employees earned 25 EPA licenses in 9 years at Warren. Authored both Simplified Wastewater Treatment Plant Operations (Wastewater Math & Theory) Text & Workbook (Routledge).',
+        'leadership_lessons' => 'We are a volunteer organization and must earn respect through giving respect. Leadership is always, and especially in a volunteer organization, Influence, not authority. Everybody is busy, so schedules need to be especially respected. Everyone is in Toastmasters for a reason, many to improve professional skills. If we can align our requests for assistance with augmentation of those member skills, everyone wins. We benefit by looking at our challenges from a fresh perspective to find better solutions.',
+        'why_serve' => 'My planning and organizational skills previously placed me in leadership positions. However, I was afraid of public speaking, especially impromptu. Through Toastmasters Educational Programs and especially the Speech Contests, I significantly improved my public speaking skills. I want to offer my developed leadership and public speaking skills to give back to the District and ensure that others have the same professional development opportunities that tremendously benefitted me in my wastewater career.',
+        'district_objectives' => 'We are supposed to build new clubs and support all clubs in achieving excellence. However, over many years we have consistently lost more members and clubs than we have added. I have a plan to start with fortifying our struggling clubs. I then intend to drive an effective District marketing plan to attract new members to all District clubs. Finally, I hope to inspire every District Area and Division to be involved with me and my team in starting a group of new community and corporate clubs.',
+        'additional_info' => 'This is a transitional year as we merge D10 and D13 into D219. I love working with most people. As a veteran of D10, I intentionally spent time, attending many events in person and online with D13 this past year and really enjoyed getting to know many new friends from the other side of our expanded District family. Over my years in wastewater leadership, I have developed and used effective Planning and Change Management skills. The D219 Leadership will need to be sensitive to the concerns of merging the cultures of two Districts. I offer my skills to smooth out those transitions.',
+    );
+
+    // Tamika Leslie — Club Growth Director
+    $flat['tamika-leslie']['answers'] = array(
+        'member_since' => 'October 1, 2022',
+        'education' => 'Graduated from Glendale High School, Glendale, CA, Class of 2000.',
+        'offices' => 'Beaver Club President- 2023-2024. Beaver VPE & VPM- 2024-2025. Beaver VPPR & Secretary- 2025-2026. Area Director 2024-2025. Division B Director 2025-2026.',
+        'honors' => 'Triple Crown 2022-2023, 2024-2025.',
+        'work_experience' => 'I have managed teams of up to 20 individuals in my retail management career & I have managed hundreds of members as Division B Director.',
+        'strategic_planning' => 'Working with my fellow Division Directors & District trio, I have learned how to collaborate and strategically plan how to execute strategies to gain new members at different clubs within my Division.',
+        'finance' => 'The experience I have would be best implemented in collaboration with the District finance manager & other trio members to effectively manage the District budget. I believe that a collaborative effort is needed to have harmony & provide input with fellow Toastmasters leadership.',
+        'procedures' => 'Developing systems and procedures is my strength. I enjoy discussing the importance of having systems in place to manage current procedures & best practices. This will be an excellent opportunity to use these skills in the merger of District 10 & District 13, to create the newly aligned District 219.',
+        'leadership_lessons' => 'The most important and HIGHLY useful lesson I\'ve learned has been how to motivate VOLUNTEERS.',
+        'why_serve' => 'It has been my goal since I joined Toastmasters in 2022 to work my way up to District Director. I am following the step-by-step path that I have laid out for myself.',
+        'district_objectives' => 'First, to gain more members and to build new clubs in the district. Second, to support the members within each club in the district.',
+        'additional_info' => 'I am bilingual in German & English. I am on my way to achieving my Distinguished Toastmaster designation, the only requirement remaining is that I successfully coach Mercer County Toastmasters Club to achieve Distinguished club status. We will achieve this status well before the June 30th, 2026 deadline!',
+    );
+
+    // Adam Brown — Division B Director
+    $flat['adam-brown']['answers'] = array(
+        'member_since' => '2017',
+        'education' => 'PI Level 5.',
+        'offices' => 'Area Director 2019/2020. President Independently Speaking 2019/2020, President Westlake Toastmasters 2020/2021. VP of Public Relations Independently Speaking 2018/2019, 2024/2025. VP of Membership Independently Speaking 2025/2026. VP of Education Westlake Toastmasters 2019/2020.',
+        'honors' => 'Persuasive Influence Pathway Completion. Past Area Director. Recognition Awards: Area Online Ovation Bronze Award Jun. 30, 2020. Recognition Awards: Visiting Victor Award Jun. 30, 2020.',
+        'work_experience' => 'Personal Training Business Owner. Business ownership is leadership! Owning a business is much like being a Division Director in that I have led other people to be successful not just in various fitness routines but also in building public relations, growing membership and leading independent contractors to be successful with many tasks of running the business.',
+        'strategic_planning' => 'I have completed Quarterly Macro Marketing Plans, Yearly Business Plans, and 90 Day Project Plans.',
+        'finance' => 'Running my own business. I have experience with calculating budgets, revenue, profits and expenses.',
+        'procedures' => 'I have developed Standard Operating Procedures for my business.',
+        'leadership_lessons' => 'I have learned multiple lessons. I have learned that leading by example is one of the most important qualities as people will do what they see the leader doing. Also, Leadership at all levels of Toastmasters starts with the success of each and every Toastmaster.',
+        'why_serve' => 'It is an opportunity to serve the Toastmasters community and pay it forward to others. Toastmasters has help me in many more ways than just learning leadership and public speaking and I enjoy helping others in much the same way.',
+        'district_objectives' => 'If the District\'s mission is to build new clubs and help them achieve excellence, then the major objectives should be to first focus on having each member succeed. If we accomplish that, then the second focus should be on having healthy membership numbers with our current clubs. Healthy membership numbers happens with a great membership experience combined with a strong public relations effort. I would work to achieve all of this by first encouraging and teaching clubs on how to onboard new members properly and provide all members with a positive experience.',
+        'additional_info' => 'I love the outdoors, working out, and spending time with family. I also worked as a Strength and Conditioning Coach in Professional Baseball for 4 years (5 years if you include my internship with the Cleveland Guardians in 2012) from 2013-2016.',
+    );
+
+    // Autumn Jose — Division A & F Director
+    $flat['autumn-jose']['answers'] = array(
+        'member_since' => '2024',
+        'education' => 'Masters Degree - Business Administration/Marketing Concentration, American Intercontinental University.',
+        'offices' => 'VPPR - 2024-2025 Western Maryland Toastmasters. President - 2025-2026 Western Maryland Toastmasters. Area 23 Director - 2025-2026.',
+        'honors' => 'Western Maryland Toastmasters Toastmaster of the Year - 2024-2025. Triple Crown. Theory of 1 Star. Pathways: PM5; DL4.',
+        'work_experience' => 'I have nearly 20 years of marketing and public relations experience in the banking industry, currently serving as AVP, Brand Marketing Specialist at Civista Bank. My role includes brand strategy, internal and external communications, ambassador program, and community engagement. This experience directly supports Toastmasters through strategic messaging, member engagement, storytelling, and increasing visibility for clubs in the district.',
+        'strategic_planning' => 'I regularly develop and execute multi-year strategic plans aligned with organizational goals, including brand growth, digital transformation, and engagement initiatives. Within Toastmasters, I have applied this experience through club, area and district planning, focusing on clear goals, measurable outcomes, and sustainable growth.',
+        'finance' => 'In my professional role, I manage budgets for brand awareness advertisements and promotional items, I evaluate ROI and make cost-conscious decisions aligned with our strategic plan. In Toastmasters, I work closely with leadership teams to ensure responsible use of resources, transparency, and alignment with district goals.',
+        'procedures' => 'I have extensive experience creating processes, procedures, and communication guidelines to ensure consistency and efficiency. This includes developing my ambassador program frameworks, internal communication workflows, repeatable marketing procedures that can be scaled and sustained.',
+        'leadership_lessons' => 'I have learned that strong communication, trust and servant leadership are essential. I strive for excellence in all I do, and I believe that starts with listening, empowering others, and leading with clarity and consistency to create engaged teams and overall better outcomes. I also value flexibility, adaptability and continuous learning. Mentorship is essential - even reverse mentorship. No matter your age or skill level, we can all learn from one another.',
+        'why_serve' => 'I want to serve as a district leader to help strengthen and elevate our district through clear, consistent, and engaging communication. I am passionate about using my marketing and PR skills to help the district stand out - especially as we merge into a new district - communication will be essential for success. I also want to help support club success and increase member engagement. I have a unique position - I was born and raised in the D13 area, lived in D10 for 21 years and know a LOT of people, and the areas in Ohio, connected with a lot of key stakeholders in organizations, and am now back in D13 where I reside.',
+        'district_objectives' => 'The district\'s major objectives include member growth, club quality, leadership development, and strong communication across all levels. I would support these by strengthening public relation efforts, amplifying success stories, supporting consistent messaging, and collaborating closely with district leaders to ensure alignment and engagement.',
+        'additional_info' => 'I am a relationship-driven, servant leader who values collaboration, inclusion, and intentional growth. I bring energy, creativity, and strong work ethic to every role, and I am committed to helping our district thrive. I also have extensive experience in Canva, Adobe Suite, Managing Websites, Developing newsletters including using Flipping Book, creating ads and so much more.',
+    );
+
+    // Jolyn Redic — Division A Director (no bio PDF)
+    // No answers available
+
+    // Megan Rossetti — Division C Director
+    $flat['megan-rossetti']['answers'] = array(
+        'member_since' => '2024',
+        'education' => 'AA from Kent State University.',
+        'offices' => '2024/2025 - Club Treasurer 2025/2026 - Club President and Area Director (32).',
+        'honors' => '2024/2025 District 10 Above and Beyond award.',
+        'work_experience' => 'My background in retail/community banking has prepared me for this position. The requirement to think strategically, to have vision that can be executed upon by leaning into the strengths of the brand, and managing diverse groups of people both locally and remotely are all experiences I will bring in because of having worked at banks.',
+        'strategic_planning' => 'My last role at the bank was heavily engrossed in long term strategic planning tied directly to the success of the deposit, investment, and private banking divisions. During this time I also became a Prosci Certified Change Practitioner. I personally love change. It is always happening. Change requires a strong understanding of where we have come from, how we got to our current point, as well as, the why and how of where we are headed.',
+        'finance' => 'I have managed retail bank branches through a bank specific profit and loss structure. I feel great about balancing a checkbook and recommending the appropriate product to meet the needs of a client. I am not an expert in accounting or business finance.',
+        'procedures' => 'In addition to my strategic role, I worked closely with the product development, compliance, and technical departments at the bank to bring new products to market. During this process developing process and procedures that aligned to the needs of multiple departments and met all legal standards was visited and revisited to ensure it was done correctly.',
+        'leadership_lessons' => 'Preparation is the key to success! People perform better when expectations are explicit. Don\'t be afraid to ask more than once and in many different ways.',
+        'why_serve' => 'It would be an honor to serve as a leader during the formation of D219. I believe in the legacy and brand of Toastmasters, but I understand that what got us to this place 100 years in will not sustain us for the next 100 years. We need to be agile. We must meet members and our communities as they grow and change. I want to be a part of that. I want to help build the next 100 years of legacy for our members. And that starts in my club, in my division, and in D219.',
+        'district_objectives' => '"We build new clubs and support all clubs in achieving excellence." New Clubs - Banking often requires managers to go into the community and cold call on small businesses. The strategies are very transferrable to growing clubs. Clubs achieving excellence - I know and understand that every club has its own culture, but I also am a believer in adhering to brand standards. I think as we continue educate and align clubs to truly embody the brand, all success metrics will rise in kind.',
+        'additional_info' => '',
+    );
+
+    // James Leslie — Division D Director
+    $flat['james-leslie']['answers'] = array(
+        'member_since' => '08/2024',
+        'education' => 'Hazardous Waste Operations and Emergency Response - Slippery Rock - 2002.',
+        'offices' => 'Club Secretary 24/25. Club President 25/26.',
+        'honors' => 'Persuasive Influence pathway complete. Triple play recognition. Facilitated a speech craft.',
+        'work_experience' => 'In my experience the following titles that would be applicable to this position: Project Manager, Project Lead, Operations Manager, Sales/Operations Manager. I have overseen projects consisting of multiple teams and multiple subcontractors while reporting directly to the project superintendent and stakeholders. I have lengthy experience of systems, tools and strategic planning from concept to implementation, through long term usage.',
+        'strategic_planning' => 'I have been involved in - project planning for construction projects up into years long projects - strategic planning for company growth and expansion - creation of programs for safety, sales, sales training, internal talent development, marketing, advertising.',
+        'finance' => 'The above experience in construction management also required the aspects of finance contained within.',
+        'procedures' => 'My creation of safety programs and sales training would be the most procedural things that I have developed.',
+        'leadership_lessons' => 'Leadership is a selfless endeavor. Your goals are always most easily achieved by helping those around you to lift themselves to their highest potential. This must be guided by the proper systems and tools.',
+        'why_serve' => 'I feel as though I have something valuable to contribute to toastmasters.',
+        'district_objectives' => 'Objective 1: Growth and recruitment. This always needs to be top of mind. We need to drive this through consistent messaging and directives. 2: Navigation of the realignment. This is going to have to be achieved in real time with proper planning and execution of the challenges that we see coming as well as the challenges that will present themselves in this endeavor that will inevitably crop up unexpectedly.',
+        'additional_info' => 'I can be contacted at any time with further questions.',
+    );
+
+    // Stuart Strickland — Division E Director
+    $flat['stuart-strickland']['answers'] = array(
+        'member_since' => 'April 2008',
+        'education' => 'B.A., SUNY Geneseo, 1981. M.S. Information Science, University of Pittsburgh, 2001.',
+        'offices' => 'Area 31 Director, FY15 (+- a year). Area 32 Director, FY26. VP Education, Beacon club #672 (current).',
+        'honors' => 'DTM, 2019.',
+        'work_experience' => 'PNC Bank, run-the-bank team, senior software engineer. Much of my work was to coach and mentor junior and new-to-team engineers on how the larger software process worked and how their work contributed to keeping everything working smoothly.',
+        'strategic_planning' => 'Two specific tasks: One, semi-annual fail-over planning. This involved working with teams of people in my own and several related departments, to ensure that computer processes were transferred to a parallel data center without error or delay. These regularly required 30 to 40 steps and coordination among 15 people, and had to be completed in only a couple of hours without significant error. Two, renewal of SSL security certificates for websites. My job was to convey to a team of 25 to 30 software engineers how to renew, install and test these certificates so that websites and programs would continue to operate.',
+        'finance' => 'To be honest, not much beyond my own personal accounts. I\'ve never bounced a check, though, and have a FICO score above 800.',
+        'procedures' => 'At the bank, I was responsible for determining cause-of-the-cause problem investigation and recommending (and often implementing) solutions to ensure the issues would not arise again.',
+        'leadership_lessons' => 'Being Area Director the second time around was easier than the first. Being VPE the second time around was easier than the first. The Beacon club is large, over 20 members, with a good shot at hitting Smedley Distinguished by June 30 2026. Much of this success is due to being able to compare efforts in previous clubs in which I was a member as well as those I currently manage as Area 32 Director.',
+        'why_serve' => 'Moving up to Division Director seemed a natural step after being Area Director this past year.',
+        'district_objectives' => 'I see a District\'s objectives as ensuring that the clubs within its purview all succeed, said success being a measure of how well each one\'s members are succeeding at what they joined to achieve. If a club is hitting Distinguished, then it is serving its members well. If a significant number of a Division or District\'s clubs are achieving Distinguished, then the District is doing its job well, and if they are not, it\'s the District\'s responsibility to provide the resources to help them get there.',
+        'additional_info' => 'I recently retired so now have more bandwidth to handle Toastmasters responsibilities. My main personal goal within Toastmasters is to achieve my second DTM, exclusively within the Pathways program, by June 30 2027. I am at PM4 and VC3 at the moment.',
+    );
+
+    // Cosmas Nwakanma — Division F Director
+    $flat['cosmas-nwakanma']['answers'] = array(
+        'member_since' => 'January 1, 2022',
+        'education' => 'PhD IT-Convergence Engineering, 2022 (Kumoh National Institute of Technology, South Korea). MBA Project Management Technology, 2016 (Federal University of Technology, Warri, Nigeria). MSc Information Technology, 2012 (Federal University of Technology, Warri, Nigeria). B.Eng. Communication Engineering, 2005 (Federal University of Technology, Warri, Nigeria).',
+        'offices' => '1. Area 24 Director: Division C, District 13, July 1, 2025 - June 30, 2026. 2. Club VPE: Laurel Highlands Toastmasters Club July 1, 2025 - June 30, 2026. 3. Club VPM: Country Roads Toastmasters Club June 1, 2025 - June 30, 2026. 4. Club President: Daegu Toastmasters Club - SOUTH KOREA July 1 2024 - September 30, 2024. 5. Club VPM: Daegu Toastmasters Club - SOUTH KOREA July 1, 2023 - June 30, 2024. 6. Club Secretary: Daegu Toastmasters Club - SOUTH KOREA July 1, 2022 - June 30, 2023.',
+        'honors' => '1. Club Sponsor: June 23, 2025 Country Roads Toastmasters Club. 2. Country Roads Toasters Club had all 7 Leaders trained twice in record time. 3. Innovative Planning Level 5 completion. 4. Co-Chair, Spring 2026 Conference (District 13).',
+        'work_experience' => 'My experience in banking, research, and academia has prepared me to serve effectively as a Division Director. As a Senior Banking Assistant, I developed organizational, financial, and process management skills, supporting accountability and operational excellence. As a Senior Research Scientist, I led complex projects and applied data-driven decision-making, reflecting strategic planning and results orientation. My work as a Postdoctoral Researcher strengthened my ability to mentor, collaborate, and manage priorities. As a University Lecturer and Project Supervisor, I coached and guided students through complex projects, demonstrating the competencies of developing leaders and empowering others.',
+        'strategic_planning' => 'As a project manager, my first interest in the pathway was innovative planning as it aligned with my core strength in strategic planning. I have experience in strategic planning through both my education and leadership roles. In my MBA in Project Management, I was trained in setting strategic objectives, aligning initiatives with organizational goals, and developing action plans with measurable outcomes. Outside Toastmasters, I am currently a strategic leader in IEEE as a Senior Member of IEEE. As a researcher, I applied my strategic planning skills in ensuring that multi million dollar funded projects are delivered on time, within budget and with optimal results.',
+        'finance' => 'My experience in finance is primarily applied and managerial rather than technical accounting. Through my MBA in Project Management, I developed a strong foundation in budgeting, cost control, financial planning, and performance tracking. I have applied these skills in leadership roles by managing budgets, monitoring expenses against plans, and making data-driven decisions to ensure resources are used effectively. I have a three (3) years working experience in the largest bank in Nigeria.',
+        'procedures' => 'I have solid experience developing and improving procedures through my leadership roles. In Toastmasters, I have worked with clubs and teams to turn goals into clear, repeatable processes. Whether that\'s planning events, tracking performance, or supporting officers. I focus on understanding what already exists, identifying gaps, and then documenting simple, practical steps that people can actually follow. As Division Director, I would apply this same approach to ensure alignment with District goals and smooth coordination across areas and clubs. As a University lecturer and researcher for 17 years, this comes naturally for me.',
+        'leadership_lessons' => '1. A leader is not the one who works or walks alone. As you lead, watch to ensure your followers are still behind you. 2. Sponsoring a new club in Morgantown taught me that people see and know a good leader who leads by example and transparency.',
+        'why_serve' => 'Two reasons. 1. Professionally, I have grown to be better person through numerous years of service to the public. That will continue all my life time. 2. Toastmasters has gave me so much in terms of capacity development and district 13 helped me settle down when I arrived the United States in 2024. I promise to pay back by serving in any little way I can to support Toastmasters.',
+        'district_objectives' => 'As we transition to district 219, my focus will be to hold the clubs assigned together in unity, radiating support for one another and endearing new members to the clubs. If I can achieve the inter and intra club relationships, I would have helped set the foundation for a strong future for district 219.',
+        'additional_info' => 'I am a servant leader who is always ready to lead by serving the people. People love to be served and when I serve them, they naturally allow me to lead the way. It has worked for me for over 3 decades.',
+    );
+
+    return $flat;
+}
+
+// =============================================================================
 // GITHUB AUTO-UPDATER
 // =============================================================================
 
@@ -402,10 +626,13 @@ add_action('init', function() {
     add_rewrite_rule('^dlc/?$', 'index.php?d219_dlc=1', 'top');
     add_rewrite_rule('^staging/transition/?$', 'index.php?d219_transition=1&d219_staging=1', 'top');
     add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
+    add_rewrite_rule('^candidates/?$', 'index.php?d219_profiles=1', 'top');
+    add_rewrite_rule('^staging/candidates/?$', 'index.php?d219_profiles=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
+    add_rewrite_tag('%d219_profiles%', '([^&]+)');
     add_rewrite_tag('%d219_staging%', '([^&]+)');
-    
+
     // Auto-flush rewrite rules when plugin version changes (handles updates)
     $stored_version = get_option('d219_transition_version');
     if ($stored_version !== D219_TRANSITION_VERSION) {
@@ -418,8 +645,11 @@ register_activation_hook(__FILE__, function() {
     add_rewrite_rule('^dlc/?$', 'index.php?d219_dlc=1', 'top');
     add_rewrite_rule('^staging/transition/?$', 'index.php?d219_transition=1&d219_staging=1', 'top');
     add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
+    add_rewrite_rule('^candidates/?$', 'index.php?d219_profiles=1', 'top');
+    add_rewrite_rule('^staging/candidates/?$', 'index.php?d219_profiles=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
+    add_rewrite_tag('%d219_profiles%', '([^&]+)');
     add_rewrite_tag('%d219_staging%', '([^&]+)');
     flush_rewrite_rules();
     update_option('d219_transition_version', D219_TRANSITION_VERSION);
@@ -447,7 +677,14 @@ add_filter('template_include', function($template) {
             return $custom_template;
         }
     }
-    
+
+    if (get_query_var('d219_profiles')) {
+        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-candidate-profiles.php';
+        if (file_exists($custom_template)) {
+            return $custom_template;
+        }
+    }
+
     return $template;
 });
 
@@ -457,7 +694,7 @@ add_filter('template_include', function($template) {
 
 // Enqueue external styles (Google Fonts, Font Awesome) — only on plugin pages
 add_action('wp_enqueue_scripts', function() {
-    $is_plugin_page = get_query_var('d219_transition') || get_query_var('d219_dlc');
+    $is_plugin_page = get_query_var('d219_transition') || get_query_var('d219_dlc') || get_query_var('d219_profiles');
     if ($is_plugin_page) {
         // Google Fonts
         wp_enqueue_style('d219-google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap', array(), null);
@@ -476,7 +713,7 @@ add_action('wp_enqueue_scripts', function() {
 // Inject plugin CSS directly to bypass SiteGround Optimizer CSS combination
 // (SG Optimizer drops/fails to combine local plugin CSS with spaces in folder path)
 add_action('wp_head', function() {
-    $is_plugin_page = get_query_var('d219_transition') || get_query_var('d219_dlc');
+    $is_plugin_page = get_query_var('d219_transition') || get_query_var('d219_dlc') || get_query_var('d219_profiles');
 
     if ($is_plugin_page) {
         // Full CSS on /transition and /dlc pages
@@ -503,7 +740,7 @@ add_action('wp_head', function() {
 
 // Add body class on transition/dlc page to hide footer
 add_filter('body_class', function($classes) {
-    if (get_query_var('d219_transition') || get_query_var('d219_dlc')) {
+    if (get_query_var('d219_transition') || get_query_var('d219_dlc') || get_query_var('d219_profiles')) {
         $classes[] = 'd219-hide-footer';
     }
     return $classes;
