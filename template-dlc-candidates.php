@@ -202,7 +202,26 @@ get_header();
                     <input type="checkbox" value="<?php echo esc_attr($slug); ?>" class="d219-compare-cb">
                     <img src="<?php echo esc_url($candidates_url . 'photos/' . $bio['photo']); ?>" alt="">
                     <span class="d219-chip-name"><?php echo esc_html($bio['name']); ?></span>
-                    <span class="d219-chip-role">Candidate for <?php echo esc_html($bio['role']); ?></span>
+                    <span class="d219-chip-role"><?php
+                        // Short role labels for compact chips
+                        $short_roles = array(
+                            'District Director' => 'DD',
+                            'Program Quality Director' => 'PQD',
+                            'Club Growth Director' => 'CGD',
+                            'Division A Director' => 'Div A',
+                            'Division B Director' => 'Div B',
+                            'Division C Director' => 'Div C',
+                            'Division D Director' => 'Div D',
+                            'Division E Director' => 'Div E',
+                            'Division F Director' => 'Div F',
+                        );
+                        $chip_roles = array_map('trim', explode('&', $bio['role']));
+                        $chip_short = array();
+                        foreach ($chip_roles as $cr) {
+                            $chip_short[] = isset($short_roles[$cr]) ? $short_roles[$cr] : $cr;
+                        }
+                        echo esc_html(implode(' & ', $chip_short));
+                    ?></span>
                 </label>
                 <?php endforeach; ?>
             </div>
