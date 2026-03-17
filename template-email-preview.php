@@ -150,7 +150,7 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <td style="padding:18px 24px;text-align:center;">
 <p style="margin:0 0 4px;font-size:14px;color:<?php echo $navy; ?>;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Election Meeting</p>
 <p style="margin:0 0 10px;font-size:18px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
-<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All members are encouraged to participate.</p>
+<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">District Council members will vote at this meeting.</p>
 </td>
 </tr>
 </table>
