@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.3
+ * Version: 1.9.4
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.3');
+define('D219_TRANSITION_VERSION', '1.9.4');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -728,9 +728,11 @@ add_action('init', function() {
     add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
     add_rewrite_rule('^candidates/?$', 'index.php?d219_profiles=1', 'top');
     add_rewrite_rule('^staging/candidates/?$', 'index.php?d219_profiles=1&d219_staging=1', 'top');
+    add_rewrite_rule('^staging/email/?$', 'index.php?d219_email=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
     add_rewrite_tag('%d219_profiles%', '([^&]+)');
+    add_rewrite_tag('%d219_email%', '([^&]+)');
     add_rewrite_tag('%d219_staging%', '([^&]+)');
 
     // Auto-flush rewrite rules when plugin version changes (handles updates)
@@ -747,9 +749,11 @@ register_activation_hook(__FILE__, function() {
     add_rewrite_rule('^staging/dlc/?$', 'index.php?d219_dlc=1&d219_staging=1', 'top');
     add_rewrite_rule('^candidates/?$', 'index.php?d219_profiles=1', 'top');
     add_rewrite_rule('^staging/candidates/?$', 'index.php?d219_profiles=1&d219_staging=1', 'top');
+    add_rewrite_rule('^staging/email/?$', 'index.php?d219_email=1&d219_staging=1', 'top');
     add_rewrite_tag('%d219_transition%', '([^&]+)');
     add_rewrite_tag('%d219_dlc%', '([^&]+)');
     add_rewrite_tag('%d219_profiles%', '([^&]+)');
+    add_rewrite_tag('%d219_email%', '([^&]+)');
     add_rewrite_tag('%d219_staging%', '([^&]+)');
     flush_rewrite_rules();
     update_option('d219_transition_version', D219_TRANSITION_VERSION);
@@ -797,6 +801,18 @@ add_filter('template_include', function($template) {
         $dlc_url = ($is_staging && !$published) ? '/staging/dlc' : '/dlc';
         wp_redirect(home_url($dlc_url), 301);
         exit;
+    }
+
+    // Email preview — admin-only, always accessible (even after publish date)
+    if (get_query_var('d219_email')) {
+        if (!current_user_can('manage_options')) {
+            wp_redirect(home_url('/'), 302);
+            exit;
+        }
+        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-email-preview.php';
+        if (file_exists($custom_template)) {
+            return $custom_template;
+        }
     }
 
     return $template;
