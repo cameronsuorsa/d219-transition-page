@@ -2440,15 +2440,31 @@ body .d219-nominations-section,
 .d219-btn-video { color: #2b6cb0; border-color: #bee3f8; background: #ebf8ff; }
 .d219-btn-video:hover { background: #bee3f8; }
 
-/* Video placeholder */
+/* Video — responsive embed + placeholder */
 .d219-profile-video { display: none; padding: 0 20px 12px; }
 .d219-video-open { display: block; }
+.d219-video-embed {
+    position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0; overflow: hidden; border-radius: 8px; background: #000;
+}
+.d219-video-embed iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border: 0; border-radius: 8px;
+}
 .d219-video-placeholder {
     background: #1a202c; color: #a0aec0; border-radius: 8px; padding: 30px 20px;
     text-align: center; font-size: 0.88rem;
     display: flex; flex-direction: column; align-items: center; gap: 8px;
 }
 .d219-video-placeholder i { font-size: 1.5rem; color: #4a5568; }
+/* Compare table video cell */
+.d219-ct-video { padding: 0 !important; }
+.d219-ct-video .d219-video-embed-sm {
+    position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;
+}
+.d219-ct-video .d219-video-embed-sm iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
 
 /* Q&A accordion */
 .d219-profile-qa { display: none; padding: 0 20px 20px; }

@@ -450,7 +450,7 @@ get_header();
         html += '<tr><td class="d219-ct-label"><i class="fa-solid fa-video"></i> Showcase Video</td>';
         selected.forEach(function(c) {
             if (c.video) {
-                html += '<td class="d219-ct-video">' + c.video + '</td>';
+                html += '<td class="d219-ct-video"><div class="d219-video-embed-sm">' + c.video + '</div></td>';
             } else {
                 html += '<td class="d219-ct-video-soon">Available after April 22, 2026</td>';
             }
