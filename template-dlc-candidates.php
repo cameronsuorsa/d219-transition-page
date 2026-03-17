@@ -91,10 +91,9 @@ get_header();
             </div>
             <div class="d219-profiles-filter">
                 <button class="d219-pfilt d219-pfilt-active" data-filter="all">All</button>
-                <button class="d219-pfilt" data-filter="district-director">District Dir.</button>
-                <button class="d219-pfilt" data-filter="program-quality-director">PQ Dir.</button>
-                <button class="d219-pfilt" data-filter="club-growth-director">CG Dir.</button>
-                <button class="d219-pfilt" data-filter="division">All Divisions</button>
+                <button class="d219-pfilt" data-filter="district-director">DD</button>
+                <button class="d219-pfilt" data-filter="program-quality-director">PQD</button>
+                <button class="d219-pfilt" data-filter="club-growth-director">CGD</button>
                 <button class="d219-pfilt d219-pfilt-div" data-filter="division-a-director">Div A</button>
                 <button class="d219-pfilt d219-pfilt-div" data-filter="division-b-director">Div B</button>
                 <button class="d219-pfilt d219-pfilt-div" data-filter="division-c-director">Div C</button>
@@ -343,6 +342,8 @@ get_header();
         views.forEach(function(v) { v.classList.remove('d219-view-active'); });
         document.querySelector('[data-view="' + viewName + '"]').classList.add('d219-ptab-active');
         document.getElementById('view-' + viewName).classList.add('d219-view-active');
+        // Hide compare sticky header when not on compare view
+        if (stickyClone) stickyClone.style.display = (viewName === 'compare') ? '' : 'none';
     }
     tabs.forEach(function(tab) {
         tab.addEventListener('click', function() { switchView(this.dataset.view); });
@@ -471,6 +472,80 @@ get_header();
         }
         html += '</tbody></table></div>';
         wrap.innerHTML = html;
+        setupCompareSticky();
+    }
+
+    // === COMPARE: STICKY HEADER via JS (CSS sticky doesn't work inside overflow-x container) ===
+    var stickyClone = null;
+    var stickyScrollHandler = null;
+    var stickyWrapHandler = null;
+    var stickyResizeHandler = null;
+
+    function setupCompareSticky() {
+        // Clean up previous listeners & clone
+        if (stickyScrollHandler) window.removeEventListener('scroll', stickyScrollHandler);
+        if (stickyResizeHandler) window.removeEventListener('resize', stickyResizeHandler);
+        var oldWrap = document.getElementById('compare-table-wrap');
+        if (stickyWrapHandler && oldWrap) oldWrap.removeEventListener('scroll', stickyWrapHandler);
+        if (stickyClone && stickyClone.parentNode) stickyClone.parentNode.removeChild(stickyClone);
+        stickyClone = null;
+
+        var table = document.querySelector('.d219-compare-table table');
+        if (!table) return;
+        var thead = table.querySelector('thead');
+        if (!thead) return;
+        var wrap = document.getElementById('compare-table-wrap');
+
+        // Create floating clone of header — appended to body so it's outside overflow container
+        var clone = document.createElement('div');
+        clone.className = 'd219-compare-sticky-header';
+        clone.style.display = 'none';
+        clone.innerHTML = '<table>' + thead.outerHTML + '</table>';
+        document.body.appendChild(clone);
+        stickyClone = clone;
+
+        function syncWidths() {
+            var origThs = thead.querySelectorAll('th');
+            var cloneThs = clone.querySelectorAll('th');
+            clone.querySelector('table').style.width = table.offsetWidth + 'px';
+            origThs.forEach(function(th, i) {
+                if (cloneThs[i]) cloneThs[i].style.width = th.offsetWidth + 'px';
+            });
+        }
+
+        function positionClone() {
+            if (!stickyClone) return;
+            var nav = document.querySelector('.d219-profiles-nav-section');
+            var navH = nav ? nav.offsetHeight : 0;
+            var theadRect = thead.getBoundingClientRect();
+            var tableRect = table.getBoundingClientRect();
+            var theadH = thead.offsetHeight;
+            var wrapRect = wrap.getBoundingClientRect();
+
+            if (theadRect.top < navH && tableRect.bottom > navH + theadH + 20) {
+                syncWidths();
+                stickyClone.style.display = 'block';
+                stickyClone.style.top = navH + 'px';
+                stickyClone.style.left = wrapRect.left + 'px';
+                stickyClone.style.width = wrapRect.width + 'px';
+                // Sync horizontal scroll position
+                clone.scrollLeft = wrap.scrollLeft;
+            } else {
+                stickyClone.style.display = 'none';
+            }
+        }
+
+        stickyScrollHandler = function() { positionClone(); };
+        stickyWrapHandler = function() {
+            if (stickyClone && stickyClone.style.display !== 'none') {
+                stickyClone.scrollLeft = wrap.scrollLeft;
+            }
+        };
+        stickyResizeHandler = function() { positionClone(); };
+
+        window.addEventListener('scroll', stickyScrollHandler, { passive: true });
+        wrap.addEventListener('scroll', stickyWrapHandler, { passive: true });
+        window.addEventListener('resize', stickyResizeHandler, { passive: true });
     }
 
     // === BY QUESTION VIEW ===

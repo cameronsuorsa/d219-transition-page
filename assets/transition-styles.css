@@ -2484,22 +2484,24 @@ body .d219-nominations-section,
 .d219-chip-role { font-size: 0.75rem; color: #718096; display: none; }
 
 /* Compare table — EQUAL COLUMN WIDTHS */
-.d219-compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: none; }
+.d219-compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; }
 .d219-compare-table table {
-    width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.88rem;
+    width: 100%; border-collapse: collapse; font-size: 0.88rem;
     font-family: 'Source Sans Pro', sans-serif; table-layout: fixed;
 }
 /* Equal columns: label col fixed, candidate cols split remaining space equally */
 .d219-compare-cols-2 .d219-ct-label { width: 180px; }
 .d219-compare-cols-3 .d219-ct-label { width: 160px; }
-/* Sticky candidate header row — floats as user scrolls down the table */
-/* JS sets --nav-h custom property to clear the sticky nav bar */
-.d219-compare-table thead th {
-    position: sticky; top: var(--nav-h, 0px); z-index: 3;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* JS-based sticky floating header (CSS sticky doesn't work inside overflow-x container) */
+.d219-compare-sticky-header {
+    position: fixed; left: 0; right: 0; z-index: 45;
+    overflow: hidden; pointer-events: auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
-/* Also keep the label column sticky on left for horizontal scroll */
-.d219-compare-table thead .d219-ct-label { z-index: 4; }
+.d219-compare-sticky-header table {
+    border-collapse: collapse; font-size: 0.88rem;
+    font-family: 'Source Sans Pro', sans-serif; table-layout: fixed; margin: 0;
+}
 .d219-ct-head {
     background: #1a365d; color: #fff; padding: 14px 10px; text-align: center;
     font-family: 'Montserrat', sans-serif;
