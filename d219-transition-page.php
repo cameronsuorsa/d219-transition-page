@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.8.1
+ * Version: 1.8.2
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -26,7 +26,7 @@ define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.8.1');
+define('D219_TRANSITION_VERSION', '1.8.2');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -639,15 +639,29 @@ class D219_GitHub_Updater {
         }
         return $response;
     }
-    // Reactivate WP Rollback after our plugin update completes
+    // After install: rename extracted folder to expected plugin slug & reactivate WP Rollback
     public function post_install_enable_rollback($response, $hook_extra, $result) {
         if (!isset($hook_extra['plugin']) || $hook_extra['plugin'] !== $this->slug) return $response;
+
+        // Rename the extracted folder (GitHub zipball creates cameronsuorsa-d219-transition-page-HASH/)
+        // WordPress expects the folder to be d219-transition-page/
+        global $wp_filesystem;
+        $proper_dir = WP_PLUGIN_DIR . '/' . dirname($this->slug) . '/';
+        if (isset($result['destination']) && $result['destination'] !== $proper_dir) {
+            $wp_filesystem->move($result['destination'], $proper_dir);
+            $result['destination'] = $proper_dir;
+            $result['destination_name'] = dirname($this->slug);
+            $result['remote_destination'] = $proper_dir;
+        }
+
+        // Reactivate WP Rollback if it was deactivated
         if ($this->rollback_was_active) {
             $rollback_slug = 'wp-rollback/wp-rollback.php';
             activate_plugin($rollback_slug);
             $this->rollback_was_active = false;
         }
-        return $response;
+
+        return $result;
     }
 }
 if (is_admin()) new D219_GitHub_Updater(D219_TRANSITION_PLUGIN_FILE);
