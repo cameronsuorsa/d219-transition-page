@@ -78,7 +78,7 @@ get_header();
                     </div>
                 </div>
                 <div class="d219-committee-report-body">
-                    <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
+                    <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">Districts 10</a>, <a href="https://d13tm.com/" target="_blank" rel="noopener">13</a> and <a href="https://d38tm.org/" target="_blank" rel="noopener">38</a>.</p>
 
                     <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
 
