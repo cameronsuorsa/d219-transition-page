@@ -109,7 +109,7 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="text-decoration:none;">
 <p style="margin:0 0 4px;font-size:13px;color:<?php echo $gold; ?>;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',Arial,Helvetica,sans-serif;font-weight:600;">Toastmasters International</p>
 <p style="margin:0;font-size:26px;color:#ffffff;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;letter-spacing:0.5px;">District 219</p>
-<p style="margin:6px 0 0;font-size:12px;color:<?php echo $gold; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;letter-spacing:1px;">DISTRICTS 10, 13 &amp; 38 &bull; UNITED AS ONE</p>
+<p style="margin:6px 0 0;font-size:12px;color:<?php echo $gold; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;letter-spacing:1px;">DISTRICT 10 &amp; DISTRICT 13 &bull; UNITED AS ONE</p>
 </a>
 </td>
 </tr>
@@ -242,7 +242,7 @@ View Full Candidate Profiles
 <tr>
 <td style="padding:18px 24px;text-align:center;">
 <p style="margin:0 0 6px;font-size:15px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Transition Updates</p>
-<p style="margin:0 0 12px;font-size:14px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Districts 10, 13 and 38 are merging to form <strong>District 219</strong> on July 1, 2026. The proposed club alignment into <strong>6 divisions and 27 areas</strong> is available to review, along with the timeline and transition committee details.</p>
+<p style="margin:0 0 12px;font-size:14px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">District 10 and District 13 are merging to form <strong>District 219</strong> on July 1, 2026. The proposed club alignment into <strong>6 divisions and 27 areas</strong> is available to review, along with the timeline and transition committee details.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
 <td style="background-color:<?php echo $navy; ?>;border-radius:6px;">
