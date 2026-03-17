@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.16
+ * Version: 1.9.17
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.16');
+define('D219_TRANSITION_VERSION', '1.9.17');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -918,15 +918,12 @@ add_action('wp_footer', function() {
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) {
     $site = home_url();
-    $published = d219_is_published();
 
-    // Production links (only when published)
-    if ($published) {
-        $prod = array();
-        $prod[] = '<a href="' . esc_url($site . '/transition') . '">Transition</a>';
-        $prod[] = '<a href="' . esc_url($site . '/dlc') . '">DLC</a>';
-        $links[] = '<strong>Production:</strong> ' . implode(' &middot; ', $prod);
-    }
+    // Production links (always available — these pages are already live)
+    $prod = array();
+    $prod[] = '<a href="' . esc_url($site . '/transition') . '">Transition</a>';
+    $prod[] = '<a href="' . esc_url($site . '/dlc') . '">DLC</a>';
+    $links[] = '<strong>Production:</strong> ' . implode(' &middot; ', $prod);
 
     // Staging links (always available)
     $stage = array();
