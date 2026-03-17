@@ -65,18 +65,32 @@ get_header();
         </div>
     </section>
 
-    <!-- Intro -->
+    <!-- DLC Nomination Report -->
     <section class="d219-candidates-intro-section">
         <div class="d219-container">
-            <div class="d219-candidates-intro-card">
-                <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
-                <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
-                <p><em>Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</em></p>
-                <div class="d219-dlc-report-link">
-                    <i class="fa-solid fa-file-pdf"></i> <strong>Official DLC Nomination Report</strong> &mdash; <span class="d219-coming-soon">Coming Soon</span>
-                    <!-- When PDF is ready, replace above with:
-                    <a href="<?php echo esc_url(D219_ASSETS_URL . 'forms/dlc-nomination-report.pdf'); ?>" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> Official DLC Nomination Report (PDF)</a>
-                    -->
+            <?php $dlc_chair = $committees['leadership']; ?>
+            <div class="d219-committee-report">
+                <div class="d219-committee-report-header">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <div>
+                        <h4>District Leadership Committee Nomination Report</h4>
+                        <span>District 219 &middot; 2026&ndash;2027 Toastmasters Year</span>
+                    </div>
+                </div>
+                <div class="d219-committee-report-body">
+                    <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
+
+                    <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
+
+                    <p><em>Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</em></p>
+                </div>
+                <div class="d219-committee-report-sig">
+                    <img src="<?php echo esc_url(D219_ASSETS_URL . 'headshots/' . $dlc_chair['photo']); ?>" alt="<?php echo esc_attr($dlc_chair['name']); ?>">
+                    <div class="d219-sig-info">
+                        <span class="d219-sig-name"><?php echo esc_html(explode(',', $dlc_chair['name'])[0]); ?></span>
+                        <span class="d219-sig-title"><?php echo esc_html($dlc_chair['title']); ?></span>
+                        <span class="d219-sig-contact"><a href="mailto:<?php echo antispambot($dlc_chair['email']); ?>"><?php echo antispambot($dlc_chair['email']); ?></a></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +139,7 @@ get_header();
                         if (!$bio) continue;
                         $has_answers = !empty($bio['answers']);
                     ?>
-                    <div class="d219-profile-card" data-slug="<?php echo esc_attr($slug); ?>">
+                    <div class="d219-profile-card" id="<?php echo esc_attr($slug); ?>" data-slug="<?php echo esc_attr($slug); ?>">
                         <div class="d219-profile-card-top">
                             <img src="<?php echo esc_url($candidates_url . 'photos/' . $bio['photo']); ?>" alt="<?php echo esc_attr($bio['name']); ?>" class="d219-profile-photo-lg">
                             <div class="d219-profile-card-info">

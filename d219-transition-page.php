@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.8
+ * Version: 1.9.9
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -33,7 +33,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PRE-PRODUCTION CHECKLIST — Items needed before D10 can update the live plugin
 // =============================================================================
 // [x] Bio PDF for Jolyn Redic — added from unlocked PDF
-// [ ] Official DLC Nomination Report PDF (addressed to both DDs jointly?)
+// [x] DLC Nomination Report — styled as committee report card from Melissa on /dlc page
 // [ ] Candidate Showcase Videos (available after April 22, 2026)
 // [ ] Verify Quick Interest Form — remove elected position options from form
 // [ ] Melissa / transition committee page review & feedback
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.8');
+define('D219_TRANSITION_VERSION', '1.9.9');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);

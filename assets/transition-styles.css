@@ -2669,7 +2669,7 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
 .d219-committee-report-header i { font-size: 1.3rem; opacity: 0.8; }
 .d219-committee-report-header h4 {
     margin: 0; font-family: 'Montserrat', sans-serif; font-size: 1rem;
-    font-weight: 700; letter-spacing: 0.02em;
+    font-weight: 700; letter-spacing: 0.02em; color: #fff !important;
 }
 .d219-committee-report-header span {
     display: block; font-size: 0.82rem; font-weight: 400; opacity: 0.8; margin-top: 2px;
