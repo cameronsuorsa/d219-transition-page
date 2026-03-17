@@ -131,11 +131,11 @@ get_header();
                             <div class="d219-profile-card-info">
                                 <h3><?php echo esc_html($bio['name']); ?></h3>
                                 <p class="d219-profile-creds"><?php echo esc_html($bio['credentials']); ?></p>
-                                <p class="d219-profile-role"><?php echo esc_html($role['role']); ?>
+                                <p class="d219-profile-role">Candidate for <?php echo esc_html($role['role']); ?>
                                     <?php if (!empty($role['region'])) : ?> <span class="d219-profile-region">(<?php echo esc_html($role['region']); ?>)</span><?php endif; ?>
                                 </p>
                                 <?php if (strpos($bio['role'], '&') !== false) : ?>
-                                <p class="d219-profile-dual-note"><i class="fa-solid fa-circle-info"></i> Also nominated for <?php
+                                <p class="d219-profile-dual-note"><i class="fa-solid fa-circle-info"></i> Also candidate for <?php
                                     // Show the OTHER role
                                     $all_roles = array_map('trim', explode('&', $bio['role']));
                                     foreach ($all_roles as $r) {
@@ -202,7 +202,7 @@ get_header();
                     <input type="checkbox" value="<?php echo esc_attr($slug); ?>" class="d219-compare-cb">
                     <img src="<?php echo esc_url($candidates_url . 'photos/' . $bio['photo']); ?>" alt="">
                     <span class="d219-chip-name"><?php echo esc_html($bio['name']); ?></span>
-                    <span class="d219-chip-role"><?php echo esc_html($bio['role']); ?></span>
+                    <span class="d219-chip-role">Candidate for <?php echo esc_html($bio['role']); ?></span>
                 </label>
                 <?php endforeach; ?>
             </div>
@@ -459,7 +459,7 @@ get_header();
             html += '<th class="d219-ct-head">';
             html += '<img src="' + c.photo + '" alt="">';
             html += '<span>' + escHtml(c.name) + '</span>';
-            html += '<small>' + escHtml(c.role) + '</small>';
+            html += '<small>Candidate for ' + escHtml(c.role) + '</small>';
             if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" class="d219-ct-pdf" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
             html += '</th>';
         });
@@ -588,7 +588,7 @@ get_header();
                 html += '<div class="d219-qr-card">';
                 html += '<div class="d219-qr-head">';
                 html += '<img src="' + c.photo + '" alt="">';
-                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
+                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>Candidate for ' + escHtml(c.role) + '</span></div>';
                 html += '<div class="d219-qr-links">';
                 if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
                 html += '</div>';
@@ -605,7 +605,7 @@ get_header();
                 html += '<div class="d219-qr-card">';
                 html += '<div class="d219-qr-head">';
                 html += '<img src="' + c.photo + '" alt="">';
-                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
+                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>Candidate for ' + escHtml(c.role) + '</span></div>';
                 html += '<div class="d219-qr-links">';
                 if (c.video) html += '<a href="#" class="d219-qr-video-link" data-slug="' + c.slug + '" title="Watch Video"><i class="fa-solid fa-video"></i></a>';
                 if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
