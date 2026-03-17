@@ -102,10 +102,18 @@ The nominated slate for District 219 leadership has been announced. See who is r
 
 <!-- ====== BANNER ====== -->
 <tr>
-<td style="padding:0;background-color:<?php echo $maroon; ?>;">
+<td style="padding:0;background-color:<?php echo $navy; ?>;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+<td style="padding:24px 30px;text-align:center;">
 <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="text-decoration:none;">
-<img src="<?php echo esc_url($email_url . 'd219-banner.jpg'); ?>" alt="District 219 - Toastmasters International" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0;" />
+<p style="margin:0 0 4px;font-size:13px;color:<?php echo $gold; ?>;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',Arial,Helvetica,sans-serif;font-weight:600;">Toastmasters International</p>
+<p style="margin:0;font-size:26px;color:#ffffff;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;letter-spacing:0.5px;">District 219</p>
+<p style="margin:6px 0 0;font-size:12px;color:<?php echo $gold; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;letter-spacing:1px;">DISTRICT 10 &amp; DISTRICT 13 &bull; UNITED AS ONE</p>
 </a>
+</td>
+</tr>
+</table>
 </td>
 </tr>
 
@@ -124,8 +132,9 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $gold_light; ?>;border-radius:8px;border-left:4px solid <?php echo $gold; ?>;">
 <tr>
 <td style="padding:18px 24px;">
-<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">As we prepare for the formation of District 219, we are excited to share the slate of candidates who have stepped forward to lead our new district. These individuals represent the best of Districts 10 and 13, and their willingness to serve reflects the spirit of collaboration that will define District 219.</p>
-<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">We encourage every member to review the candidate profiles, attend the Candidate Showcase, and participate in the election on April 27th. Your vote matters &mdash; together we will choose the leaders who will guide our district through its historic first year.</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from District 10 and District 13.</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;font-style:italic;">Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</p>
 <p style="margin:0;font-size:14px;color:<?php echo $text_muted; ?>;font-style:italic;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">&mdash; <?php echo esc_html($dlc_chair['name']); ?>, <?php echo esc_html($dlc_chair['title']); ?></p>
 </td>
 </tr>
@@ -141,7 +150,7 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <td style="padding:18px 24px;text-align:center;">
 <p style="margin:0 0 4px;font-size:14px;color:<?php echo $navy; ?>;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Election Meeting</p>
 <p style="margin:0 0 10px;font-size:18px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
-<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All dues-paid members of clubs within the District 219 boundary are eligible to vote.</p>
+<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All members are encouraged to participate.</p>
 </td>
 </tr>
 </table>
@@ -178,19 +187,19 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <?php foreach ($group['candidates'] as $c) : ?>
 <tr>
 <td style="padding:0 30px;">
-<a href="<?php echo esc_url($c['profile_url']); ?>" target="_blank" style="text-decoration:none;display:block;padding:12px 0;border-bottom:1px solid #eeeeee;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-bottom:1px solid #eeeeee;">
 <tr>
-<td width="80" valign="top" style="padding-right:16px;">
+<td width="80" valign="top" style="padding:12px 16px 12px 0;">
+<a href="<?php echo esc_url($c['profile_url']); ?>" target="_blank" style="text-decoration:none;">
 <img src="<?php echo esc_url($c['photo_jpg']); ?>" alt="<?php echo esc_attr($c['name']); ?>" width="70" height="70" style="display:block;width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #dddddd;" />
+</a>
 </td>
-<td valign="middle" style="font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
-<strong style="font-size:16px;color:<?php echo $navy; ?>;"><?php echo esc_html($c['name']); ?></strong><br />
+<td valign="middle" style="padding:12px 0;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
+<a href="<?php echo esc_url($c['profile_url']); ?>" target="_blank" style="text-decoration:none;color:<?php echo $navy; ?>;font-size:16px;font-weight:bold;"><?php echo esc_html($c['name']); ?></a><br />
 <span style="font-size:13px;color:<?php echo $text_muted; ?>;"><?php echo esc_html($c['credentials']); ?></span>
 </td>
 </tr>
 </table>
-</a>
 </td>
 </tr>
 <?php endforeach; ?>
