@@ -2580,13 +2580,16 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
 .d219-qr-info { flex: 1; }
 .d219-qr-info strong { display: block; font-size: 1rem; color: #1a365d; font-family: 'Montserrat', sans-serif; }
 .d219-qr-info span { display: block; font-size: 0.82rem; color: #718096; }
-.d219-qr-links { flex-shrink: 0; }
+.d219-qr-links { flex-shrink: 0; display: flex; gap: 10px; align-items: center; }
 .d219-qr-links a { color: #c53030; font-size: 1.1rem; opacity: 0.6; transition: opacity 0.2s; text-decoration: none; }
 .d219-qr-links a:hover { opacity: 1; }
+.d219-qr-video-link { color: #2b6cb0 !important; }
 .d219-qr-card p {
     margin: 0; font-size: 0.92rem; color: #2d3748; line-height: 1.6;
     font-family: 'Source Sans Pro', sans-serif;
 }
+.d219-qr-card .d219-video-embed { margin-top: 8px; }
+.d219-qr-card .d219-video-placeholder { margin-top: 8px; }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {

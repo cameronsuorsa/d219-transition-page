@@ -15,6 +15,7 @@ $headshots_url = D219_ASSETS_URL . 'headshots/';
 
 // Question labels
 $questions = array(
+    'showcase_video' => 'Candidate Showcase Video',
     'member_since' => 'Toastmasters Member Since',
     'education' => 'Education',
     'offices' => 'Toastmasters Offices Held',
@@ -148,6 +149,9 @@ get_header();
                             <?php if ($has_answers) : ?>
                             <button class="d219-btn-sm d219-btn-expand" data-slug="<?php echo esc_attr($slug); ?>"><i class="fa-solid fa-chevron-down"></i> View Responses</button>
                             <?php endif; ?>
+                            <?php if ($bio['video']) : ?>
+                            <button class="d219-btn-sm d219-btn-video" data-slug="<?php echo esc_attr($slug); ?>"><i class="fa-solid fa-video"></i> Video</button>
+                            <?php endif; ?>
                             <?php if ($bio['bio_pdf']) : ?>
                             <a href="<?php echo esc_url($candidates_url . 'bios/' . $bio['bio_pdf']); ?>" class="d219-btn-sm d219-btn-pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a>
                             <?php else : ?>
@@ -169,6 +173,7 @@ get_header();
                         <?php if ($has_answers) : ?>
                         <div class="d219-profile-qa" data-slug="<?php echo esc_attr($slug); ?>">
                             <?php foreach ($questions as $key => $label) :
+                                if ($key === 'showcase_video') continue;
                                 $answer = isset($bio['answers'][$key]) ? $bio['answers'][$key] : '';
                                 if (empty($answer)) continue;
                             ?>
@@ -406,6 +411,20 @@ get_header();
         });
     });
 
+    // === BROWSE: VIDEO TOGGLE (independent of Q&A) ===
+    document.querySelectorAll('.d219-btn-video').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var slug = this.dataset.slug;
+            var video = document.querySelector('.d219-profile-video[data-slug="' + slug + '"]');
+            if (!video) return;
+            video.classList.toggle('d219-video-open');
+            var isOpen = video.classList.contains('d219-video-open');
+            this.innerHTML = isOpen
+                ? '<i class="fa-solid fa-video"></i> Hide Video'
+                : '<i class="fa-solid fa-video"></i> Video';
+        });
+    });
+
     // === COMPARE: CHECKBOX LOGIC ===
     var maxCompare = 3;
     document.querySelectorAll('.d219-compare-cb').forEach(function(cb) {
@@ -457,8 +476,9 @@ get_header();
         });
         html += '</tr>';
 
-        // Question rows
+        // Question rows (skip showcase_video — already rendered above)
         for (var key in questions) {
+            if (key === 'showcase_video') continue;
             html += '<tr><td class="d219-ct-label">' + escHtml(questions[key]) + '</td>';
             selected.forEach(function(c) {
                 var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
@@ -558,24 +578,53 @@ get_header();
         var wrap = document.getElementById('question-results');
         var activeFilter = document.querySelector('.d219-pfilt-active');
         var filter = activeFilter ? activeFilter.dataset.filter : 'all';
+        var isVideo = (key === 'showcase_video');
         var html = '';
         candidates.forEach(function(c) {
             // Apply role filter
             if (!matchesFilter(filter, c.type, c.all_role_slugs.join(' '))) return;
-            var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
-            if (!ans) return;
-            html += '<div class="d219-qr-card">';
-            html += '<div class="d219-qr-head">';
-            html += '<img src="' + c.photo + '" alt="">';
-            html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
-            html += '<div class="d219-qr-links">';
-            if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
-            html += '</div>';
-            html += '</div>';
-            html += '<p>' + escHtml(ans) + '</p>';
-            html += '</div>';
+            if (isVideo) {
+                // Show video embed or coming soon
+                html += '<div class="d219-qr-card">';
+                html += '<div class="d219-qr-head">';
+                html += '<img src="' + c.photo + '" alt="">';
+                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
+                html += '<div class="d219-qr-links">';
+                if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
+                html += '</div>';
+                html += '</div>';
+                if (c.video) {
+                    html += '<div class="d219-video-embed">' + c.video + '</div>';
+                } else {
+                    html += '<div class="d219-video-placeholder"><i class="fa-solid fa-video"></i><span>Candidate Showcase Video — Available after April 22, 2026</span></div>';
+                }
+                html += '</div>';
+            } else {
+                var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
+                if (!ans) return;
+                html += '<div class="d219-qr-card">';
+                html += '<div class="d219-qr-head">';
+                html += '<img src="' + c.photo + '" alt="">';
+                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
+                html += '<div class="d219-qr-links">';
+                if (c.video) html += '<a href="#" class="d219-qr-video-link" data-slug="' + c.slug + '" title="Watch Video"><i class="fa-solid fa-video"></i></a>';
+                if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
+                html += '</div>';
+                html += '</div>';
+                html += '<p>' + escHtml(ans) + '</p>';
+                html += '</div>';
+            }
         });
         wrap.innerHTML = html || '<p class="d219-compare-empty">No responses for this question with current filter.</p>';
+        // Wire up video links in by-question view
+        wrap.querySelectorAll('.d219-qr-video-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Switch to video question
+                qSelect.value = 'showcase_video';
+                buildQuestionView();
+            });
+        });
     }
 
     function escHtml(s) {
