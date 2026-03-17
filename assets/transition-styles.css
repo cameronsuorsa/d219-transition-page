@@ -2084,3 +2084,256 @@ body .d219-nominations-section,
     padding: 32px 0 48px !important;
     text-align: center !important;
 }
+
+/* ==========================================================================
+   CANDIDATES PAGE
+   ========================================================================== */
+
+/* Candidates intro */
+.d219-candidates-intro-section {
+    padding: 48px 0 24px !important;
+}
+
+.d219-candidates-intro-card {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 32px 36px !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 1.05rem !important;
+    line-height: 1.7 !important;
+    color: #333 !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+.d219-candidates-intro-card p {
+    margin: 0 0 12px !important;
+}
+
+.d219-candidates-intro-card p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Candidates sections */
+.d219-candidates-section {
+    padding: 48px 0 !important;
+}
+
+.d219-candidates-section h2 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: #004165 !important;
+    text-align: center !important;
+    margin: 0 0 40px !important;
+}
+
+.d219-candidates-section h2 i {
+    margin-right: 10px !important;
+    color: #006699 !important;
+}
+
+.d219-candidates-divisions {
+    background: #f8f9fb !important;
+}
+
+/* Role groups */
+.d219-role-group {
+    margin-bottom: 40px !important;
+}
+
+.d219-role-group:last-child {
+    margin-bottom: 0 !important;
+}
+
+.d219-role-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    color: #004165 !important;
+    text-align: center !important;
+    margin: 0 0 24px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 2px solid #e8edf2 !important;
+}
+
+.d219-role-region {
+    display: block !important;
+    font-size: 0.85rem !important;
+    font-weight: 400 !important;
+    color: #666 !important;
+    margin-top: 4px !important;
+}
+
+/* Candidates grid */
+.d219-candidates-grid {
+    display: grid !important;
+    gap: 24px !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+.d219-candidates-1 {
+    grid-template-columns: 1fr !important;
+    max-width: 360px !important;
+}
+
+.d219-candidates-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 680px !important;
+}
+
+.d219-candidates-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/* Candidate card */
+.d219-candidate-card {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    text-align: center !important;
+}
+
+.d219-candidate-card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+}
+
+.d219-candidate-photo {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    background: #e8edf2 !important;
+}
+
+.d219-candidate-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+}
+
+.d219-candidate-info {
+    padding: 20px 16px 24px !important;
+}
+
+.d219-candidate-info h4 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: #004165 !important;
+    margin: 0 0 4px !important;
+}
+
+.d219-candidate-credentials {
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 0.85rem !important;
+    color: #666 !important;
+    margin: 0 0 14px !important;
+    letter-spacing: 0.3px !important;
+}
+
+.d219-candidate-bio-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #006699 !important;
+    text-decoration: none !important;
+    padding: 6px 16px !important;
+    border: 2px solid #006699 !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.d219-candidate-bio-link:hover {
+    background: #006699 !important;
+    color: #fff !important;
+}
+
+/* Election section */
+.d219-candidates-election-section {
+    padding: 48px 0 !important;
+}
+
+.d219-election-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+    background: linear-gradient(135deg, #004165 0%, #006699 100%) !important;
+    border-radius: 12px !important;
+    padding: 32px 36px !important;
+    color: #fff !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+.d219-election-icon {
+    font-size: 2.5rem !important;
+    opacity: 0.9 !important;
+    flex-shrink: 0 !important;
+}
+
+.d219-election-details {
+    flex: 1 !important;
+}
+
+.d219-election-details h3 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    margin: 0 0 4px !important;
+}
+
+.d219-election-date {
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 1.05rem !important;
+    color: #F2DF74 !important;
+    font-weight: 600 !important;
+    margin: 0 0 8px !important;
+}
+
+.d219-election-details p:last-child {
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-size: 0.95rem !important;
+    color: rgba(255,255,255,0.85) !important;
+    margin: 0 !important;
+}
+
+/* Responsive candidates */
+@media (max-width: 768px) {
+    .d219-candidates-2,
+    .d219-candidates-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .d219-election-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 24px 20px !important;
+    }
+
+    .d219-election-icon {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .d219-candidates-2,
+    .d219-candidates-3 {
+        grid-template-columns: 1fr !important;
+        max-width: 300px !important;
+    }
+
+    .d219-candidates-1 {
+        max-width: 300px !important;
+    }
+}

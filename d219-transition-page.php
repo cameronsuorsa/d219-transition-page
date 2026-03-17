@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.4.1
+ * Version: 1.5.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -20,12 +20,13 @@ if (defined('D219_TRANSITION_VERSION')) return;
 
 define('D219_SHOW_BANNER', true);
 define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall Q&A Zoom link
+define('D219_DLC_MODE', 'candidates'); // 'candidates' = show nominated slate, 'nominations' = show call for nominations
 
 // =============================================================================
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.4.1');
+define('D219_TRANSITION_VERSION', '1.5.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -185,6 +186,90 @@ function d219_get_nomination_forms() {
 }
 
 // =============================================================================
+// CANDIDATE DATA (2026-2027 Nominated Slate)
+// =============================================================================
+
+function d219_get_candidates() {
+    return array(
+        array(
+            'role' => 'District Director',
+            'type' => 'elected',
+            'candidates' => array(
+                array('name' => 'Sharon Imes, DTM', 'photo' => 'sharon-imes.webp', 'bio' => 'sharon-imes.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Program Quality Director',
+            'type' => 'elected',
+            'candidates' => array(
+                array('name' => 'Lori Davis, DTM', 'photo' => 'lorie-davis.webp', 'bio' => 'lorie-davis.pdf'),
+                array('name' => 'Javier Diaz, LD4', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
+                array('name' => 'Stephanie Hill, IP5, LD5, PI3, MS3, EH1', 'photo' => 'stephanie-hill.webp', 'bio' => 'stephanie-hill.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Club Growth Director',
+            'type' => 'elected',
+            'candidates' => array(
+                array('name' => 'Ed Haller, ACG, ALB, PM5, DL2', 'photo' => 'ed-haller.webp', 'bio' => 'ed-haller.pdf'),
+                array('name' => 'Tamika Leslie, DL5, VC5, EH1', 'photo' => 'tamika-leslie.webp', 'bio' => 'tamika-leslie.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Division A Director',
+            'type' => 'division',
+            'region' => 'Western & Central OH',
+            'candidates' => array(
+                array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
+                array('name' => 'Jolyn Redic, DTM', 'photo' => 'jolyn-redic.webp', 'bio' => null),
+            )
+        ),
+        array(
+            'role' => 'Division B Director',
+            'type' => 'division',
+            'region' => 'Eastern OH & Erie, PA',
+            'candidates' => array(
+                array('name' => 'Adam Brown, PI5', 'photo' => 'adam-brown.webp', 'bio' => 'adam-brown.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Division C Director',
+            'type' => 'division',
+            'region' => 'Akron, Canton & Southern OH',
+            'candidates' => array(
+                array('name' => 'Megan Rossetti, PM4', 'photo' => 'megan-rossetti.webp', 'bio' => 'megan-rossetti.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Division D Director',
+            'type' => 'division',
+            'region' => 'North & West Pittsburgh, PA',
+            'candidates' => array(
+                array('name' => 'James Leslie, PI5', 'photo' => 'james-leslie.webp', 'bio' => 'james-leslie.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Division E Director',
+            'type' => 'division',
+            'region' => 'Central & South Pittsburgh, PA',
+            'candidates' => array(
+                array('name' => 'Stuart Strickland, DTM', 'photo' => 'stuart-strickland.webp', 'bio' => 'stuart-strickland.pdf'),
+            )
+        ),
+        array(
+            'role' => 'Division F Director',
+            'type' => 'division',
+            'region' => 'Central PA, WV & MD',
+            'candidates' => array(
+                array('name' => 'Catherine Cullen, VC5, MS4, PM3, DL1', 'photo' => 'catherine-cullen.webp', 'bio' => 'catherine-cullen.pdf'),
+                array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
+                array('name' => 'Cosmas Nwakanma, IP5, MS2, DL2', 'photo' => 'cosmas-nwakanma.webp', 'bio' => 'cosmas-nwakanma.pdf'),
+            )
+        ),
+    );
+}
+
+// =============================================================================
 // GITHUB AUTO-UPDATER
 // =============================================================================
 
@@ -334,7 +419,8 @@ add_filter('template_include', function($template) {
     }
     
     if (get_query_var('d219_dlc')) {
-        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-dlc.php';
+        $dlc_file = (D219_DLC_MODE === 'candidates') ? 'template-dlc-candidates.php' : 'template-dlc-nominations.php';
+        $custom_template = D219_TRANSITION_PLUGIN_DIR . $dlc_file;
         if (file_exists($custom_template)) {
             return $custom_template;
         }
