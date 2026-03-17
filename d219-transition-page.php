@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.17
+ * Version: 1.9.18
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.17');
+define('D219_TRANSITION_VERSION', '1.9.18');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -267,7 +267,7 @@ function d219_get_candidates() {
             'role' => 'Program Quality Director',
             'type' => 'elected',
             'candidates' => array(
-                array('name' => 'Lori Davis, DTM', 'photo' => 'lorie-davis.webp', 'bio' => 'lorie-davis.pdf'),
+                array('name' => 'Lorie Davis, DTM', 'photo' => 'lorie-davis.webp', 'bio' => 'lorie-davis.pdf'),
                 array('name' => 'Javier Diaz, LD5, PM1', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
                 array('name' => 'Stephanie Hill, IP5, LD5, PI3, MS3, EH1', 'photo' => 'stephanie-hill.webp', 'bio' => 'stephanie-hill.pdf'),
             )
@@ -381,7 +381,7 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I love life and I love people - they are our greatest asset. I believe that leadership is about influencing people to accomplish a purpose. It\'s about turning followers into leaders and preparing and allowing those leaders to accomplish established goals, while using their gifts and abilities to accomplish their life\'s purpose and impact their communities.',
     );
 
-    // Lori Davis — Program Quality Director
+    // Lorie Davis — Program Quality Director
     $flat['lori-davis']['answers'] = array(
         'member_since' => '2021',
         'education' => 'BA Slippery Rock University (French, Education, Spanish). Certified in HealthCare Compliance (CHC). Six Sigma Belts (White, Yellow, Green).',
