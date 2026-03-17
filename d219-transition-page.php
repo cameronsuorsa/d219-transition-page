@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.18
+ * Version: 1.9.19
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.18');
+define('D219_TRANSITION_VERSION', '1.9.19');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -382,7 +382,7 @@ function d219_get_candidate_bios() {
     );
 
     // Lorie Davis — Program Quality Director
-    $flat['lori-davis']['answers'] = array(
+    $flat['lorie-davis']['answers'] = array(
         'member_since' => '2021',
         'education' => 'BA Slippery Rock University (French, Education, Spanish). Certified in HealthCare Compliance (CHC). Six Sigma Belts (White, Yellow, Green).',
         'offices' => 'Secretary - Treasurer - 2021-2022. VP Membership - 2022-2023. President / VP Education - 2023-2024. Vice-President Education 2025-2026.',
