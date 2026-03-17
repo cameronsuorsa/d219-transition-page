@@ -49,10 +49,10 @@ get_header();
             <div class="d219-hero-nominations">
                 <?php if ($dlc_mode === 'candidates') : ?>
                 <p><i class="fa-solid fa-check-to-slot"></i> <strong>Candidate Slate Announced</strong> — Election: April 27, 2026</p>
-                <a href="/dlc" class="d219-btn d219-btn-hero"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-hero"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
                 <?php else : ?>
                 <p><i class="fa-solid fa-bullhorn"></i> <strong>Now Accepting Leadership Nominations</strong> — Deadline: February 25, 2026</p>
-                <a href="/dlc" class="d219-btn d219-btn-hero"><i class="fa-solid fa-hand"></i> I Want to Help</a>
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-hero"><i class="fa-solid fa-hand"></i> I Want to Help</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -106,7 +106,7 @@ get_header();
                         <p>To learn more about District 219 leadership positions or to nominate yourself or someone else, visit the District Leadership Committee page.</p>
                         <?php endif; ?>
                     </div>
-                    <a href="/dlc" class="d219-btn d219-btn-cta">
+                    <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-cta">
                         <?php if ($dlc_mode === 'candidates') : ?>
                         <i class="fa-solid fa-users"></i> View Candidates
                         <?php else : ?>
@@ -385,9 +385,9 @@ get_header();
                     <p class="d219-date-desc">Submit nominations for District 219 leadership positions</p>
                     <div class="d219-date-action">
                         <?php if ($dlc_mode === 'candidates') : ?>
-                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                        <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-date-btn"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
                         <?php else : ?>
-                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-hand"></i> I Want to Help</a>
+                        <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-date-btn"><i class="fa-solid fa-hand"></i> I Want to Help</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -414,7 +414,7 @@ get_header();
                     <p class="d219-date-desc">Candidate Showcase recordings — videos available after this date</p>
                     <div class="d219-date-action">
                         <?php if ($dlc_mode === 'candidates') : ?>
-                        <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-users"></i> View Candidates</a>
+                        <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-date-btn"><i class="fa-solid fa-users"></i> View Candidates</a>
                         <?php else : ?>
                         <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-clock"></i> Coming Soon</span>
                         <?php endif; ?>
@@ -495,7 +495,7 @@ get_header();
             <h2>Meet the Candidates</h2>
             <p>The nominated slate for District 219 leadership has been announced. See who's running for each position before the April 27th election.</p>
             <div class="d219-cta-buttons">
-                <a href="/dlc" class="d219-btn d219-btn-primary">
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-primary">
                     <i class="fa-solid fa-users"></i> View Candidates
                 </a>
                 <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>" class="d219-btn d219-btn-secondary">
@@ -506,7 +506,7 @@ get_header();
             <h2>Get Involved</h2>
             <p>To learn more about District 219 leadership positions or to nominate yourself or someone else, visit the District Leadership Committee page.</p>
             <div class="d219-cta-buttons">
-                <a href="/dlc" class="d219-btn d219-btn-primary">
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-primary">
                     <i class="fa-solid fa-hand"></i> I Want to Help
                 </a>
                 <a href="mailto:<?php echo antispambot('district219dlc1@gmail.com'); ?>" class="d219-btn d219-btn-secondary">
@@ -525,7 +525,7 @@ get_header();
                 <a href="https://www.toastmasters.org/membership/leadership/districtrealignment/districtmaps" target="_blank" rel="noopener">District Maps</a>
                 <a href="#alignment">Division Alignment</a>
                 <a href="#clubs">Club Directory</a>
-                <a href="/dlc">Leadership Nominations</a>
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>">Leadership Nominations</a>
                 <a href="https://www.toastmasters.org/membership/leadership/districtrealignment" target="_blank" rel="noopener">About Realignment</a>
                 <a href="https://www.toastmasters.org/leadership-central/district-leader-tools/district-realignment/district-realignment-faq" target="_blank" rel="noopener">Realignment FAQ</a>
             </div>
@@ -547,7 +547,7 @@ get_header();
             <i class="fa-solid fa-address-book"></i>
             <span>Clubs</span>
         </a>
-        <a href="/dlc" class="d219-fnav-item">
+        <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-fnav-item">
             <i class="fa-solid fa-hand"></i>
             <span>Nominate</span>
         </a>

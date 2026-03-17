@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.2
+ * Version: 1.9.3
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -22,17 +22,68 @@ define('D219_SHOW_BANNER', true);
 define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall Q&A Zoom link
 define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 'nominations' = show call for nominations
 
+// Publish date/time (Eastern). When set and in the past:
+//   - /staging/transition and /staging/dlc will 301-redirect to /transition and /dlc
+//   - /transition and /dlc will serve content (D219_DLC_MODE will be used as-is)
+// When empty string: staging URLs work, live URLs use D219_DLC_MODE as normal.
+// Format: 'YYYY-MM-DD HH:MM' in America/New_York timezone, e.g. '2026-04-01 09:00'
+define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate release
+
+// =============================================================================
+// PRE-PRODUCTION CHECKLIST — Items needed before D10 can update the live plugin
+// =============================================================================
+// [ ] Bio PDF for Jolyn Redic (wasn't included in her Google Drive folder)
+// [ ] Official DLC Nomination Report PDF (addressed to both DDs jointly?)
+// [ ] Candidate Showcase Videos (available after April 22, 2026)
+// [ ] Verify Quick Interest Form — remove elected position options from form
+// [ ] Melissa / transition committee page review & feedback
+// [ ] Set D219_DLC_MODE to 'candidates'
+// [ ] Set D219_PUBLISH_DATE to coordinated release date/time with both DDs
+// [ ] Coordinate release timing with D10 (Tricia) and newsletters from both districts
+// [ ] Remove "NOT READY FOR D10 UPDATE" from release notes
 // =============================================================================
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.2');
+define('D219_TRANSITION_VERSION', '1.9.3');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
 
 define('D219_ASSETS_URL', D219_TRANSITION_PLUGIN_URL . 'assets/');
 define('D219_ASSETS_DIR', D219_TRANSITION_PLUGIN_DIR . 'assets/');
+
+// =============================================================================
+// PUBLISH HELPERS
+// =============================================================================
+
+/**
+ * Check if the publish date has passed (content should be live at normal slugs).
+ * Returns true if D219_PUBLISH_DATE is set and in the past (Eastern time).
+ */
+function d219_is_published() {
+    if (!defined('D219_PUBLISH_DATE') || D219_PUBLISH_DATE === '') return false;
+    try {
+        $tz = new DateTimeZone('America/New_York');
+        $publish = new DateTime(D219_PUBLISH_DATE, $tz);
+        $now = new DateTime('now', $tz);
+        return $now >= $publish;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * Get the correct URL prefix for cross-links between plugin pages.
+ * When on staging, links point to /staging/slug. When live, links point to /slug.
+ */
+function d219_page_url($slug) {
+    $is_staging = get_query_var('d219_staging');
+    if ($is_staging && !d219_is_published()) {
+        return '/staging/' . ltrim($slug, '/');
+    }
+    return '/' . ltrim($slug, '/');
+}
 
 // =============================================================================
 // COMMITTEE DATA
@@ -710,15 +761,29 @@ register_deactivation_hook(__FILE__, function() {
 
 // Use template_include filter instead of template_redirect for better compatibility
 add_filter('template_include', function($template) {
+    $is_staging = get_query_var('d219_staging');
+    $published = d219_is_published();
+
+    // When published, redirect /staging/* to the live URLs
+    if ($is_staging && $published) {
+        if (get_query_var('d219_transition')) {
+            wp_redirect(home_url('/transition'), 301);
+            exit;
+        }
+        if (get_query_var('d219_dlc')) {
+            wp_redirect(home_url('/dlc'), 301);
+            exit;
+        }
+    }
+
     if (get_query_var('d219_transition')) {
         $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-transition.php';
         if (file_exists($custom_template)) {
             return $custom_template;
         }
     }
-    
+
     if (get_query_var('d219_dlc')) {
-        $is_staging = get_query_var('d219_staging');
         $mode = $is_staging ? 'candidates' : D219_DLC_MODE;
         $dlc_file = ($mode === 'candidates') ? 'template-dlc-candidates.php' : 'template-dlc-nominations.php';
         $custom_template = D219_TRANSITION_PLUGIN_DIR . $dlc_file;
@@ -729,7 +794,8 @@ add_filter('template_include', function($template) {
 
     if (get_query_var('d219_profiles')) {
         // /candidates redirects to /dlc — profiles are integrated into DLC page
-        wp_redirect(home_url('/dlc'), 301);
+        $dlc_url = ($is_staging && !$published) ? '/staging/dlc' : '/dlc';
+        wp_redirect(home_url($dlc_url), 301);
         exit;
     }
 
@@ -804,9 +870,9 @@ add_action('wp_body_open', function() {
         <?php $banner_mode = get_query_var('d219_staging') ? 'candidates' : D219_DLC_MODE; ?>
         <div class="d219-transition-banner">
             <?php if ($banner_mode === 'candidates') : ?>
-            <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">Meet the Candidates</a> — Election April 27th.
+            <a href="<?php echo esc_url(d219_page_url('transition')); ?>">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="<?php echo esc_url(d219_page_url('dlc')); ?>">Meet the Candidates</a> — Election April 27th.
             <?php else : ?>
-            <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">DLC Nominations</a> close Feb 25th.
+            <a href="<?php echo esc_url(d219_page_url('transition')); ?>">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="<?php echo esc_url(d219_page_url('dlc')); ?>">DLC Nominations</a> close Feb 25th.
             <?php endif; ?>
         </div>
         <?php
@@ -823,7 +889,7 @@ add_action('wp_footer', function() {
         <script>
         (function() {
             if (window.location.hash === '#nominations') {
-                window.location.replace('/dlc');
+                window.location.replace('<?php echo esc_js(d219_page_url('dlc')); ?>');
             }
         })();
         </script>

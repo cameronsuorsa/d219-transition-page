@@ -159,8 +159,8 @@ get_header();
     <section class="d219-cta-section">
         <div class="d219-container">
             <div class="d219-cta-buttons">
-                <a href="/dlc" class="d219-btn d219-btn-primary"><i class="fa-solid fa-arrow-left"></i> Back to Candidates</a>
-                <a href="/transition" class="d219-btn d219-btn-secondary"><i class="fa-solid fa-circle-info"></i> Transition Overview</a>
+                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-primary"><i class="fa-solid fa-arrow-left"></i> Back to Candidates</a>
+                <a href="<?php echo esc_url(d219_page_url('transition')); ?>" class="d219-btn d219-btn-secondary"><i class="fa-solid fa-circle-info"></i> Transition Overview</a>
             </div>
         </div>
     </section>

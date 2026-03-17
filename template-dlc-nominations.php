@@ -161,7 +161,7 @@ get_header();
             <h2>About the Transition</h2>
             <p>Learn more about the District 219 merger, timeline, territory maps, and meet the full transition committee.</p>
             <div class="d219-cta-buttons">
-                <a href="/transition" class="d219-btn d219-btn-primary">
+                <a href="<?php echo esc_url(d219_page_url('transition')); ?>" class="d219-btn d219-btn-primary">
                     <i class="fa-solid fa-circle-info"></i> Transition Overview
                 </a>
             </div>
@@ -176,7 +176,7 @@ get_header();
                 <a href="https://www.toastmasters.org/resources/candidate-application" target="_blank" rel="noopener">Candidate Application</a>
                 <a href="https://www.toastmasters.org/resources/district-leader-nominating-form" target="_blank" rel="noopener">Nominating Form</a>
                 <a href="https://www.toastmasters.org/membership/leadership/districtrealignment" target="_blank" rel="noopener">About Realignment</a>
-                <a href="/transition" rel="noopener">Transition Overview</a>
+                <a href="<?php echo esc_url(d219_page_url('transition')); ?>" rel="noopener">Transition Overview</a>
             </div>
             <p class="d219-disclaimer">The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only. It is not to be used for solicitation and distribution of non&#8209;Toastmasters material or information.</p>
         </div>
@@ -184,15 +184,15 @@ get_header();
 
     <!-- Floating Bottom Nav (mobile) -->
     <nav class="d219-floating-nav d219-fnav-dlc" id="d219-floating-nav" aria-label="Quick navigation">
-        <a href="/transition" class="d219-fnav-item">
+        <a href="<?php echo esc_url(d219_page_url('transition')); ?>" class="d219-fnav-item">
             <i class="fa-solid fa-circle-info"></i>
             <span>D219</span>
         </a>
-        <a href="/transition#alignment" class="d219-fnav-item">
+        <a href="<?php echo esc_url(d219_page_url('transition') . '#alignment'); ?>" class="d219-fnav-item">
             <i class="fa-solid fa-map"></i>
             <span>Alignment</span>
         </a>
-        <a href="/transition#clubs" class="d219-fnav-item">
+        <a href="<?php echo esc_url(d219_page_url('transition') . '#clubs'); ?>" class="d219-fnav-item">
             <i class="fa-solid fa-address-book"></i>
             <span>Clubs</span>
         </a>
