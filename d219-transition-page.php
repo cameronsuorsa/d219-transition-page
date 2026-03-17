@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.7
+ * Version: 1.9.8
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -32,7 +32,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // =============================================================================
 // PRE-PRODUCTION CHECKLIST — Items needed before D10 can update the live plugin
 // =============================================================================
-// [ ] Bio PDF for Jolyn Redic (wasn't included in her Google Drive folder)
+// [x] Bio PDF for Jolyn Redic — added from unlocked PDF
 // [ ] Official DLC Nomination Report PDF (addressed to both DDs jointly?)
 // [ ] Candidate Showcase Videos (available after April 22, 2026)
 // [ ] Verify Quick Interest Form — remove elected position options from form
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.7');
+define('D219_TRANSITION_VERSION', '1.9.8');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -268,7 +268,7 @@ function d219_get_candidates() {
             'type' => 'elected',
             'candidates' => array(
                 array('name' => 'Lori Davis, DTM', 'photo' => 'lorie-davis.webp', 'bio' => 'lorie-davis.pdf'),
-                array('name' => 'Javier Diaz, LD4', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
+                array('name' => 'Javier Diaz, LD5, PM1', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
                 array('name' => 'Stephanie Hill, IP5, LD5, PI3, MS3, EH1', 'photo' => 'stephanie-hill.webp', 'bio' => 'stephanie-hill.pdf'),
             )
         ),
@@ -286,7 +286,7 @@ function d219_get_candidates() {
             'region' => 'Western & Central OH',
             'candidates' => array(
                 array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
-                array('name' => 'Jolyn Redic, DTM', 'photo' => 'jolyn-redic.webp', 'bio' => null),
+                array('name' => 'Jolyn Redic, DTM', 'photo' => 'jolyn-redic.webp', 'bio' => 'jolyn-redic.pdf'),
             )
         ),
         array(
@@ -402,7 +402,7 @@ function d219_get_candidate_bios() {
         'member_since' => '2020',
         'education' => 'Attended University of Puerto Rico, Risk Management, BA. 1996. Scrum Master Certified, Scrum Master Product Owner Certified, PMI Member.',
         'offices' => 'Club Growth Director 2025-2026; Eastern Division Director 2024-2025; Area Director Area 10 and 21, 2023-2024; President of Diversity for Success Club 2023-2024. VP of Education Progressive Messengers 2023-2024; VP of Public Relations, Progressive Messengers 2022-2023; Seargeant at Arms, Progressive Messengers 2021-2022.',
-        'honors' => 'Speech Contest First Place, Progressive Messengers December of 2022. Triple Crown and LD4. Area 21 Select Distinguished, 2023-2024, Division Director of the Year 2024-2025.',
+        'honors' => 'Speech Contest First Place, Progressive Messengers December of 2022. Triple Crown and LD5, PM1. Area 21 Select Distinguished, 2023-2024, Division Director of the Year 2024-2025.',
         'work_experience' => 'Over 20 years of experience working with Fortune 500 and 100 companies in the area of Information Technology quality assurance and analysis in leading roles which includes Insurance, Banking, and Healthcare. I have spent around 12 years at Progressive supporting and leading the quality assurance of major projects that span multiple organizations and emerging technologies. Most recently, innovating with AI, ML, and Natural Language Telecommunications.',
         'strategic_planning' => 'Most recently, as a CGD for District 10 I have developed a multiyear plan to penetrate the local market while leveraging latest technology and footprint changes. Part of my day job duties include the strategic analysis, planning, testing and quality assurance activities for major projects that require rigorous test strategies and approaches to secure the highest level of quality for critical projects that involve artificial intelligence, customer experience, innovative technologies. This includes handling relationships with outside vendors and assisting in decision making for major designs.',
         'finance' => 'As a current CGD, I have been directly involved in budgeting and planning for district expenditures. In my early years, I managed accounts payables and accounts receivables, including balance sheets and statements for a family insurance agency and other early career experiences. Also, while working as a quality assurance consultant at National City and PNC, I managed the testing and quality of Finance systems that decisioned major loans for multi-million dollars corporations across United States, including the quality assurance of financial systems, credit decisioning tools, etc.',
@@ -493,21 +493,20 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I am a relationship-driven, servant leader who values collaboration, inclusion, and intentional growth. I bring energy, creativity, and strong work ethic to every role, and I am committed to helping our district thrive. I also have extensive experience in Canva, Adobe Suite, Managing Websites, Developing newsletters including using Flipping Book, creating ads and so much more.',
     );
 
-    // Jolyn Redic — Division A Director (bio PDF pending)
-    $coming = 'Response coming soon.';
+    // Jolyn Redic — Division A Director
     $flat['jolyn-redic']['answers'] = array(
-        'member_since' => $coming,
-        'education' => $coming,
-        'offices' => $coming,
-        'honors' => $coming,
-        'work_experience' => $coming,
-        'strategic_planning' => $coming,
-        'finance' => $coming,
-        'procedures' => $coming,
-        'leadership_lessons' => $coming,
-        'why_serve' => $coming,
-        'district_objectives' => $coming,
-        'additional_info' => $coming,
+        'member_since' => 'January 1, 2016',
+        'education' => 'Graduated High School and a Degree in Real Estate through Hondros College, and a Brokers program through Walsh College.',
+        'offices' => 'Attached are offices held. I have served in every officer role since I joined in 2016.',
+        'honors' => 'Completed all to receive my DTM in 2018.',
+        'work_experience' => 'My professional and volunteer experience focuses on leadership development, communication and mentoring others. Through one of my roles as VPE I have helped members build confidence, develop speaking skills, and grow as leaders. I enjoy supporting people at different stages of their journey and creating an encouraging a learning environment. As a District leader I would focus on strengthening clubs, mentoring leaders, and increasing member engagement.',
+        'strategic_planning' => 'I have experience contributing to strategic planning by identifying priorities, setting clear goals, and creating practical steps to achieve them. In Toastmasters this has included focusing on member engagement, leadership development, and strengthening club performance. I believe strategic plans should be clear, focused, and realistic so volunteers can successfully implement them.',
+        'finance' => 'I do understand the importance of responsible financial management. My experience includes working with budgets and ensuring resources are used wisely and transparently. My past businesses taught me a great deal about financial responsibility which in turn can relate to how important it is in the District.',
+        'procedures' => 'In several leadership roles I have helped create procedures, checklists and guidance that help volunteers clearly understand their responsibilities. Clear and simple procedures help leaders feel confident in their roles and make transitions between leadership teams much easier.',
+        'leadership_lessons' => 'One of the most important lessons I have learned is that leadership is about people. When leaders support, listen to, and encourage their teams, success follows. I have also learned that clear communication, appreciation for volunteers, and developing future leaders are essential for long term success. I am extremely high on "recognition" for everything that has been accomplished.',
+        'why_serve' => 'Toastmasters has had a meaningful impact on my personal and professional growth. I want to give back by helping others experience the same opportunities. Serving as a District leader allows me to support clubs, mentor leaders, and help create an environment where members can grow and succeed.',
+        'district_objectives' => 'The mission of the District is to build new clubs and support all clubs in achieving excellence. I would work to achieve this by strengthening club leadership, supporting Area and other Division Directors, encouraging member engagement and maintaining strong communication across the District.',
+        'additional_info' => 'I am passionate about leadership development, mentoring others, and helping members build confidence. I believe in leading with integrity, collaboration, and encouragement. My goal is to support our members, strengthen our clubs, and contribute to a strong and successful District.',
     );
 
     // Catherine Cullen — Division B Director
