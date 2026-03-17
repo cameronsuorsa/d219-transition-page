@@ -2358,6 +2358,17 @@ body .d219-nominations-section,
 /* Hero note */
 .d219-hero-note { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8px; line-height: 1.5; }
 
+/* DLC Nomination Report link */
+.d219-dlc-report-link {
+    margin-top: 14px; padding: 10px 16px; background: #f7fafc; border: 1px solid #e2e8f0;
+    border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.92rem; color: #2d3748; font-family: 'Source Sans Pro', sans-serif;
+}
+.d219-dlc-report-link i { color: #c53030; font-size: 1.1rem; }
+.d219-dlc-report-link a { color: #1a365d; text-decoration: underline; font-weight: 600; }
+.d219-dlc-report-link a:hover { color: #c53030; }
+.d219-coming-soon { color: #a0aec0; font-style: italic; font-weight: 400; }
+
 /* View Tabs (sticky bar) */
 .d219-profiles-nav-section { background: #fff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; }
 .d219-profiles-tabs { display: flex; gap: 4px; justify-content: center; padding: 12px 0 8px; }
@@ -2374,6 +2385,8 @@ body .d219-nominations-section,
 }
 .d219-pfilt:hover { background: #edf2f7; color: #1a365d; border-color: #cbd5e0; }
 .d219-pfilt-active { background: #ebf4ff; color: #1a365d; border-color: #1a365d; font-weight: 700; }
+/* Division-specific filter pills — smaller, grouped look */
+.d219-pfilt-div { font-size: 0.75rem; padding: 4px 10px; letter-spacing: 0.02em; }
 
 /* View sections */
 .d219-view { display: none; padding: 30px 0; }
@@ -2471,15 +2484,22 @@ body .d219-nominations-section,
 .d219-chip-role { font-size: 0.75rem; color: #718096; display: none; }
 
 /* Compare table — EQUAL COLUMN WIDTHS */
-.d219-compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.d219-compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: none; }
 .d219-compare-table table {
-    width: 100%; border-collapse: collapse; font-size: 0.88rem;
+    width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.88rem;
     font-family: 'Source Sans Pro', sans-serif; table-layout: fixed;
 }
 /* Equal columns: label col fixed, candidate cols split remaining space equally */
 .d219-compare-cols-2 .d219-ct-label { width: 180px; }
 .d219-compare-cols-3 .d219-ct-label { width: 160px; }
-.d219-compare-table thead { position: sticky; top: 0; z-index: 2; }
+/* Sticky candidate header row — floats as user scrolls down the table */
+/* JS sets --nav-h custom property to clear the sticky nav bar */
+.d219-compare-table thead th {
+    position: sticky; top: var(--nav-h, 0px); z-index: 3;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+/* Also keep the label column sticky on left for horizontal scroll */
+.d219-compare-table thead .d219-ct-label { z-index: 4; }
 .d219-ct-head {
     background: #1a365d; color: #fff; padding: 14px 10px; text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -2505,7 +2525,16 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
 .d219-compare-table tbody tr:hover td { background: #f0f4ff; }
 
 /* ============ BY QUESTION VIEW ============ */
-.d219-question-controls { text-align: center; margin-bottom: 24px; }
+.d219-question-controls {
+    text-align: center; margin-bottom: 24px;
+}
+/* Sticky question picker — floats below the nav bar as user scrolls */
+.d219-question-sticky {
+    position: sticky; top: var(--nav-h, 0px); z-index: 40;
+    background: #fff; padding: 14px 0 14px; margin: -30px -20px 24px;
+    padding-left: 20px; padding-right: 20px;
+    border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
 .d219-question-picker {
     display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
 }
@@ -2548,6 +2577,10 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
     .d219-ptab span { display: none; }
     .d219-ptab i { font-size: 1.1rem; }
 
+    .d219-profiles-filter { gap: 4px; }
+    .d219-pfilt { font-size: 0.75rem; padding: 4px 10px; }
+    .d219-pfilt-div { font-size: 0.7rem; padding: 3px 8px; }
+
     .d219-profile-card-top { gap: 12px; padding: 14px; }
     .d219-profile-photo-lg { width: 80px; height: 80px; }
     .d219-profile-actions { padding: 0 14px 10px; }
@@ -2561,6 +2594,7 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
 
     .d219-question-picker { flex-direction: column; align-items: center; gap: 6px; }
     #d219-q-select { width: 100%; }
+    .d219-question-sticky { margin: -30px -16px 24px; padding-left: 16px; padding-right: 16px; }
 }
 
 @media (min-width: 769px) {
@@ -2573,7 +2607,6 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
     .d219-compare-chip { padding: 4px 8px 4px 4px; }
     .d219-compare-chip img { width: 26px; height: 26px; }
     .d219-chip-name { font-size: 0.8rem; }
-    .d219-pfilt { font-size: 0.75rem; padding: 4px 10px; }
 }
 
 /* Interest / Volunteer CTA */

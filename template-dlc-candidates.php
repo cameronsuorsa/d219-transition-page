@@ -71,6 +71,12 @@ get_header();
                 <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
                 <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
                 <p><em>Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</em></p>
+                <div class="d219-dlc-report-link">
+                    <i class="fa-solid fa-file-pdf"></i> <strong>Official DLC Nomination Report</strong> &mdash; <span class="d219-coming-soon">Coming Soon</span>
+                    <!-- When PDF is ready, replace above with:
+                    <a href="<?php echo esc_url(D219_ASSETS_URL . 'forms/dlc-nomination-report.pdf'); ?>" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> Official DLC Nomination Report (PDF)</a>
+                    -->
+                </div>
             </div>
         </div>
     </section>
@@ -84,11 +90,17 @@ get_header();
                 <button class="d219-ptab" data-view="question"><i class="fa-solid fa-list-check"></i> <span>By Question</span></button>
             </div>
             <div class="d219-profiles-filter">
-                <button class="d219-pfilt d219-pfilt-active" data-filter="all">All Candidates</button>
-                <button class="d219-pfilt" data-filter="district-director">District Director</button>
-                <button class="d219-pfilt" data-filter="program-quality-director">Program Quality Dir.</button>
-                <button class="d219-pfilt" data-filter="club-growth-director">Club Growth Dir.</button>
-                <button class="d219-pfilt" data-filter="division">All Division Directors</button>
+                <button class="d219-pfilt d219-pfilt-active" data-filter="all">All</button>
+                <button class="d219-pfilt" data-filter="district-director">District Dir.</button>
+                <button class="d219-pfilt" data-filter="program-quality-director">PQ Dir.</button>
+                <button class="d219-pfilt" data-filter="club-growth-director">CG Dir.</button>
+                <button class="d219-pfilt" data-filter="division">All Divisions</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-a-director">Div A</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-b-director">Div B</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-c-director">Div C</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-d-director">Div D</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-e-director">Div E</button>
+                <button class="d219-pfilt d219-pfilt-div" data-filter="division-f-director">Div F</button>
             </div>
         </div>
     </section>
@@ -199,7 +211,7 @@ get_header();
     <!-- ============ BY QUESTION VIEW ============ -->
     <section class="d219-view d219-view-question" id="view-question">
         <div class="d219-container">
-            <div class="d219-question-controls">
+            <div class="d219-question-controls d219-question-sticky">
                 <div class="d219-question-picker">
                     <label for="d219-q-select">Question:</label>
                     <select id="d219-q-select">
@@ -357,25 +369,21 @@ get_header();
         });
     });
 
+    function matchesFilter(filter, type, roleSlugsStr) {
+        if (filter === 'all') return true;
+        if (filter === 'division') return type === 'division';
+        var slugs = roleSlugsStr ? roleSlugsStr.split(' ') : [];
+        return slugs.indexOf(filter) >= 0;
+    }
+
     function applyFilter(filter) {
         // Browse view — role groups
         document.querySelectorAll('.d219-role-browse-group').forEach(function(group) {
-            if (filter === 'all') { group.style.display = ''; return; }
-            if (filter === 'division') {
-                group.style.display = (group.dataset.type === 'division') ? '' : 'none';
-            } else {
-                group.style.display = (group.dataset.roleSlug === filter) ? '' : 'none';
-            }
+            group.style.display = matchesFilter(filter, group.dataset.type, group.dataset.roleSlug) ? '' : 'none';
         });
         // Compare view — chips
         document.querySelectorAll('.d219-compare-chip').forEach(function(chip) {
-            if (filter === 'all') { chip.style.display = ''; return; }
-            if (filter === 'division') {
-                chip.style.display = (chip.dataset.type === 'division') ? '' : 'none';
-            } else {
-                var slugs = chip.dataset.roleSlugs.split(' ');
-                chip.style.display = (slugs.indexOf(filter) >= 0) ? '' : 'none';
-            }
+            chip.style.display = matchesFilter(filter, chip.dataset.type, chip.dataset.roleSlugs) ? '' : 'none';
         });
         // Re-run by-question view
         setTimeout(buildQuestionView, 50);
@@ -478,13 +486,7 @@ get_header();
         var html = '';
         candidates.forEach(function(c) {
             // Apply role filter
-            if (filter !== 'all') {
-                if (filter === 'division') {
-                    if (c.type !== 'division') return;
-                } else {
-                    if (c.all_role_slugs.indexOf(filter) < 0) return;
-                }
-            }
+            if (!matchesFilter(filter, c.type, c.all_role_slugs.join(' '))) return;
             var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
             if (!ans) return;
             html += '<div class="d219-qr-card">';
@@ -507,6 +509,14 @@ get_header();
         d.textContent = s;
         return d.innerHTML;
     }
+
+    // === STICKY NAV HEIGHT — sets CSS custom property for sticky elements below nav ===
+    function updateNavHeight() {
+        var nav = document.querySelector('.d219-profiles-nav-section');
+        if (nav) document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    }
+    updateNavHeight();
+    window.addEventListener('resize', updateNavHeight);
 
     // === FLOATING NAV ===
     var floatingNav = document.getElementById('d219-floating-nav');
