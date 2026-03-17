@@ -195,7 +195,7 @@ get_header();
     <!-- ============ COMPARE VIEW ============ -->
     <section class="d219-view d219-view-compare" id="view-compare">
         <div class="d219-container">
-            <p class="d219-compare-hint">Select 2 or 3 candidates to compare their responses side by side.</p>
+            <p class="d219-compare-hint">Select candidates to view or compare their responses side by side.</p>
             <div class="d219-compare-picker" id="compare-picker">
                 <?php foreach ($bios as $slug => $bio) : ?>
                 <label class="d219-compare-chip" data-type="<?php echo esc_attr($bio['type']); ?>" data-role-slugs="<?php echo esc_attr(implode(' ', array_map('sanitize_title', array_map('trim', explode('&', $bio['role']))))); ?>">
@@ -226,7 +226,7 @@ get_header();
                 <?php endforeach; ?>
             </div>
             <div class="d219-compare-table-wrap" id="compare-table-wrap">
-                <p class="d219-compare-empty">Select at least 2 candidates above to compare.</p>
+                <p class="d219-compare-empty">Select candidates above to view and compare responses.</p>
             </div>
         </div>
     </section>
@@ -433,8 +433,7 @@ get_header();
             });
             buildCompareTable();
         } else {
-            // "All" filter — uncheck everything, reset compare
-            document.querySelectorAll('.d219-compare-cb').forEach(function(cb) { cb.checked = false; });
+            // "All" filter — keep existing selections so user can add more from full list
             buildCompareTable();
         }
         // Re-run by-question view
@@ -489,8 +488,8 @@ get_header();
     function buildCompareTable() {
         var checked = document.querySelectorAll('.d219-compare-cb:checked');
         var wrap = document.getElementById('compare-table-wrap');
-        if (checked.length < 2) {
-            wrap.innerHTML = '<p class="d219-compare-empty">Select at least 2 candidates above to compare.</p>';
+        if (checked.length < 1) {
+            wrap.innerHTML = '<p class="d219-compare-empty">Select candidates above to view and compare responses.</p>';
             return;
         }
         var slugs = [];
