@@ -2403,12 +2403,22 @@ body .d219-nominations-section,
 
 .d219-profile-card {
     background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
-    overflow: hidden; transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s;
 }
 .d219-profile-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
 .d219-profile-card-top {
     display: flex; align-items: center; gap: 18px; padding: 18px 20px;
+    border-radius: 12px 12px 0 0;
+}
+/* Sticky name/photo when Q&A is expanded */
+.d219-profile-card.d219-card-expanded .d219-profile-card-top {
+    position: sticky;
+    top: var(--nav-h, 0px);
+    z-index: 35;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 /* BIGGER PHOTOS in browse view */
 .d219-profile-photo-lg {

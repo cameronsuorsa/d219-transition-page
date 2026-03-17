@@ -402,8 +402,10 @@ get_header();
             var qa = document.querySelector('.d219-profile-qa[data-slug="' + slug + '"]');
             var video = document.querySelector('.d219-profile-video[data-slug="' + slug + '"]');
             if (!qa) return;
+            var card = this.closest('.d219-profile-card');
             var isOpen = qa.classList.contains('d219-qa-open');
             qa.classList.toggle('d219-qa-open');
+            if (card) card.classList.toggle('d219-card-expanded');
             if (video) video.classList.toggle('d219-video-open');
             this.innerHTML = isOpen
                 ? '<i class="fa-solid fa-chevron-down"></i> View Responses'
