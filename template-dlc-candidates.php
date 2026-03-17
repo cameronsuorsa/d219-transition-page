@@ -219,8 +219,13 @@ get_header();
                 <div class="d219-question-picker">
                     <label for="d219-q-select">Question:</label>
                     <select id="d219-q-select">
-                        <?php foreach ($questions as $key => $label) : ?>
-                        <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></option>
+                        <?php
+                        // Default to member_since until at least one candidate has a video
+                        $any_video = false;
+                        foreach ($bios as $b) { if (!empty($b['video'])) { $any_video = true; break; } }
+                        $default_q = $any_video ? 'showcase_video' : 'member_since';
+                        foreach ($questions as $key => $label) : ?>
+                        <option value="<?php echo esc_attr($key); ?>"<?php if ($key === $default_q) echo ' selected'; ?>><?php echo esc_html($label); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -387,10 +392,32 @@ get_header();
         document.querySelectorAll('.d219-role-browse-group').forEach(function(group) {
             group.style.display = matchesFilter(filter, group.dataset.type, group.dataset.roleSlug) ? '' : 'none';
         });
-        // Compare view — chips
+        // Compare view — chips: show/hide AND auto-select matching candidates
+        var matchCount = 0;
         document.querySelectorAll('.d219-compare-chip').forEach(function(chip) {
-            chip.style.display = matchesFilter(filter, chip.dataset.type, chip.dataset.roleSlugs) ? '' : 'none';
+            var matches = matchesFilter(filter, chip.dataset.type, chip.dataset.roleSlugs);
+            chip.style.display = matches ? '' : 'none';
+            if (matches) matchCount++;
         });
+        // If a specific filter (not "all"), auto-check matching and uncheck others (up to max 3)
+        if (filter !== 'all') {
+            var checked = 0;
+            document.querySelectorAll('.d219-compare-chip').forEach(function(chip) {
+                var cb = chip.querySelector('.d219-compare-cb');
+                var matches = matchesFilter(filter, chip.dataset.type, chip.dataset.roleSlugs);
+                if (matches && checked < maxCompare) {
+                    cb.checked = true;
+                    checked++;
+                } else {
+                    cb.checked = false;
+                }
+            });
+            buildCompareTable();
+        } else {
+            // "All" filter — uncheck everything, reset compare
+            document.querySelectorAll('.d219-compare-cb').forEach(function(cb) { cb.checked = false; });
+            buildCompareTable();
+        }
         // Re-run by-question view
         setTimeout(buildQuestionView, 50);
     }
