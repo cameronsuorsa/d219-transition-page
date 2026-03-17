@@ -244,7 +244,7 @@ get_header();
                     <div class="d219-sig-info">
                         <span class="d219-sig-name">Dave Wiley</span>
                         <span class="d219-sig-title">District 219 Realignment Chair</span>
-                        <span class="d219-sig-contact"><a href="mailto:davewiley2018@gmail.com">davewiley2018@gmail.com</a> &middot; (440) 725-8359</span>
+                        <span class="d219-sig-contact"><a href="mailto:davewiley2018@gmail.com">davewiley2018@gmail.com</a></span>
                     </div>
                 </div>
             </div>
