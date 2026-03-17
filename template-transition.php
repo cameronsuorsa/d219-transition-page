@@ -413,7 +413,11 @@ get_header();
                     <p class="d219-date-value">April 22, 2026</p>
                     <p class="d219-date-desc">Candidate Showcase recordings — videos available after this date</p>
                     <div class="d219-date-action">
+                        <?php if ($dlc_mode === 'candidates') : ?>
                         <a href="/dlc" class="d219-date-btn"><i class="fa-solid fa-users"></i> View Candidates</a>
+                        <?php else : ?>
+                        <span class="d219-date-btn d219-disabled"><i class="fa-solid fa-clock"></i> Coming Soon</span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="d219-date-card<?php echo d219_date_status('2026-04-27') === 'past' ? ' d219-date-past' : ''; ?>">

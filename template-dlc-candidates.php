@@ -20,7 +20,7 @@ get_header();
     <section class="d219-hero d219-hero-dlc">
         <div class="d219-container">
             <h1 class="d219-title">District 219 Candidates</h1>
-            <p class="d219-subtitle">Nominated Candidates for 2026–2027 District Leadership</p>
+            <p class="d219-subtitle">Nominations are closed — the candidate slate has been announced</p>
             <div class="d219-hero-nominations">
                 <p><i class="fa-solid fa-calendar-check"></i> <strong>Election Meeting:</strong> April 27, 2026 &middot; 7:00 PM via Zoom</p>
             </div>
@@ -33,6 +33,7 @@ get_header();
             <div class="d219-candidates-intro-card">
                 <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026–2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
                 <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>. Candidate Showcase videos will be available after April 22nd.</p>
+                <p><em>Candidates are listed in alphabetical order by last name.</em></p>
             </div>
         </div>
     </section>

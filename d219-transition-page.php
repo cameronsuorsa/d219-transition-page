@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -26,7 +26,7 @@ define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.6.1');
+define('D219_TRANSITION_VERSION', '1.6.2');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -516,8 +516,9 @@ add_filter('body_class', function($classes) {
 add_action('wp_body_open', function() {
     if (D219_SHOW_BANNER) {
         ?>
+        <?php $banner_mode = get_query_var('d219_staging') ? 'candidates' : D219_DLC_MODE; ?>
         <div class="d219-transition-banner">
-            <?php if (D219_DLC_MODE === 'candidates') : ?>
+            <?php if ($banner_mode === 'candidates') : ?>
             <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">Meet the Candidates</a> — Election April 27th.
             <?php else : ?>
             <a href="/transition">Transition</a>: D10 &amp; D13 merge to become <span class="d219-banner-219">D219</span> on July 1st. <a href="/dlc">DLC Nominations</a> close Feb 25th.
