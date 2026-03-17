@@ -1,7 +1,7 @@
 <?php
 /**
  * Template: Email Preview for D219 Candidate Announcement
- * Admin-only — accessible at /staging/email even after publish date
+ * Accessible at /staging/email — public before publish, admin-only after
  * Generates Constant Contact-ready HTML email with copy helpers
  */
 
@@ -10,6 +10,8 @@ if (!defined('ABSPATH')) exit;
 $email_url = D219_ASSETS_URL . 'email/';
 $roles = d219_get_candidates();
 $bios = d219_get_candidate_bios();
+$committees = d219_get_committees();
+$dlc_chair = $committees['leadership'];
 
 // Determine base URLs — email always links to live (non-staging) pages
 $site_url = home_url();
@@ -34,12 +36,25 @@ foreach ($roles as $role) {
             'credentials' => $bio['credentials'],
             'slug' => $slug,
             'photo_jpg' => $email_url . $slug . '.jpg',
+            'profile_url' => $dlc_url . '#' . $slug,
         );
     }
     $role_groups[] = $group;
 }
 
 $subject_line = 'Meet Your District 219 Candidates — Election April 27th';
+
+// Brand colors
+$navy = '#004165';
+$maroon = '#772432';
+$gold = '#F2DF74';
+$navy_dark = '#002d47';
+$navy_light = '#e8f1f5';
+$maroon_light = '#f5eaed';
+$gold_light = '#fdf8e8';
+$text_dark = '#333333';
+$text_muted = '#666666';
+$text_light = '#999999';
 
 // Buffer the email HTML
 ob_start();
@@ -72,8 +87,11 @@ div {margin:0 !important;}
 
 <!-- Preheader text (hidden, shows in inbox preview) -->
 <div style="display:none;font-size:1px;color:#f4f4f4;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-The nominated slate for District 219 leadership has been announced. See who&#8217;s running and learn about each candidate before the April 27th election.
+The nominated slate for District 219 leadership has been announced. See who is running and learn about each candidate before the April 27th election.
 </div>
+
+<!-- Tracking pixel — near top for reliable open tracking -->
+[[trackingImage]]
 
 <!-- Outer wrapper -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f4f4;">
@@ -84,7 +102,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 
 <!-- ====== BANNER ====== -->
 <tr>
-<td style="padding:0;background-color:#772432;">
+<td style="padding:0;background-color:<?php echo $maroon; ?>;">
 <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="text-decoration:none;">
 <img src="<?php echo esc_url($email_url . 'd219-banner.jpg'); ?>" alt="District 219 - Toastmasters International" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0;" />
 </a>
@@ -93,22 +111,22 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 
 <!-- ====== GREETING ====== -->
 <tr>
-<td style="padding:30px 30px 10px;text-align:center;">
-<h1 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#1a365d;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Meet Your District 219 Candidates</h1>
-<p style="margin:0 0 6px;font-size:16px;color:#4a5568;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Hello [[First Name]],</p>
-<p style="margin:0;font-size:16px;color:#4a5568;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">The District Leadership Committee is pleased to announce the nominated slate of candidates for <strong>District 219</strong> leadership for the <strong>2026&ndash;2027</strong> Toastmasters year.</p>
+<td style="padding:30px 30px 10px;">
+<h1 style="margin:0 0 12px;font-size:24px;font-weight:700;color:<?php echo $navy; ?>;font-family:'Montserrat',Arial,Helvetica,sans-serif;text-align:center;">Meet Your District 219 Candidates</h1>
+<p style="margin:0 0 6px;font-size:16px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Hello [[First Name]],</p>
+<p style="margin:0;font-size:16px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">The District Leadership Committee is pleased to announce the nominated slate of candidates for <strong>District 219</strong> leadership for the <strong>2026&ndash;2027</strong> Toastmasters year.</p>
 </td>
 </tr>
 
-<!-- ====== DD MESSAGE ====== -->
+<!-- ====== DLC CHAIR MESSAGE ====== -->
 <tr>
 <td style="padding:16px 30px 10px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fefcf3;border-radius:8px;border:1px solid #ecc94b;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $gold_light; ?>;border-radius:8px;border-left:4px solid <?php echo $gold; ?>;">
 <tr>
 <td style="padding:18px 24px;">
-<p style="margin:0 0 10px;font-size:15px;color:#2d3748;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">As we prepare for the formation of District 219, we are excited to share the slate of candidates who have stepped forward to lead our new district. These individuals represent the best of Districts 10 and 13, and their willingness to serve reflects the spirit of collaboration that will define District 219.</p>
-<p style="margin:0 0 10px;font-size:15px;color:#2d3748;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">We encourage every member to review the candidate profiles, attend the Candidate Showcase, and participate in the election on April 27th. Your vote matters &mdash; together we will choose the leaders who will guide our district through its historic first year.</p>
-<p style="margin:0;font-size:14px;color:#4a5568;font-style:italic;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">&mdash; District Directors, Districts 10 &amp; 13</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">As we prepare for the formation of District 219, we are excited to share the slate of candidates who have stepped forward to lead our new district. These individuals represent the best of Districts 10 and 13, and their willingness to serve reflects the spirit of collaboration that will define District 219.</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">We encourage every member to review the candidate profiles, attend the Candidate Showcase, and participate in the election on April 27th. Your vote matters &mdash; together we will choose the leaders who will guide our district through its historic first year.</p>
+<p style="margin:0;font-size:14px;color:<?php echo $text_muted; ?>;font-style:italic;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">&mdash; <?php echo esc_html($dlc_chair['name']); ?>, <?php echo esc_html($dlc_chair['title']); ?></p>
 </td>
 </tr>
 </table>
@@ -118,12 +136,12 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== ELECTION CTA ====== -->
 <tr>
 <td style="padding:20px 30px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f0f5ff;border-radius:8px;border:1px solid #c3dafe;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $navy_light; ?>;border-radius:8px;border:1px solid #c0d6e4;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 4px;font-size:14px;color:#2b6cb0;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#128499; District 219 Election Meeting</p>
-<p style="margin:0 0 10px;font-size:18px;color:#1a365d;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
-<p style="margin:0;font-size:14px;color:#4a5568;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All dues-paid members of clubs within the District 219 boundary are eligible to vote.</p>
+<p style="margin:0 0 4px;font-size:14px;color:<?php echo $navy; ?>;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Election Meeting</p>
+<p style="margin:0 0 10px;font-size:18px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
+<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All dues-paid members of clubs within the District 219 boundary are eligible to vote.</p>
 </td>
 </tr>
 </table>
@@ -133,7 +151,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== CANDIDATE SORT NOTE ====== -->
 <tr>
 <td style="padding:10px 30px 0;text-align:center;">
-<p style="margin:0;font-size:13px;color:#718096;font-style:italic;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Candidates are listed in alphabetical order by last name within each role. Roles with more than one candidate are marked as contested.</p>
+<p style="margin:0;font-size:13px;color:<?php echo $text_light; ?>;font-style:italic;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Candidates are listed in alphabetical order by last name within each role. Roles with more than one candidate are marked as contested.</p>
 </td>
 </tr>
 
@@ -143,13 +161,13 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <td style="padding:10px 30px 0;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
-<td style="padding:16px 0 8px;border-bottom:2px solid #004165;">
-<h2 style="margin:0;font-size:18px;color:#004165;font-family:'Montserrat',Arial,Helvetica,sans-serif;font-weight:700;">
+<td style="padding:16px 0 8px;border-bottom:2px solid <?php echo $navy; ?>;">
+<h2 style="margin:0;font-size:18px;color:<?php echo $navy; ?>;font-family:'Montserrat',Arial,Helvetica,sans-serif;font-weight:700;">
 <?php echo esc_html($group['role']); ?>
-<?php if ($group['region']) : ?><span style="font-weight:normal;font-size:14px;color:#718096;"> &mdash; <?php echo esc_html($group['region']); ?></span><?php endif; ?>
+<?php if ($group['region']) : ?><span style="font-weight:normal;font-size:14px;color:<?php echo $text_muted; ?>;"> &mdash; <?php echo esc_html($group['region']); ?></span><?php endif; ?>
 </h2>
 <?php if ($group['contested']) : ?>
-<p style="margin:4px 0 0;font-size:13px;color:#e53e3e;font-weight:bold;">&#9733; Contested &mdash; <?php echo count($group['candidates']); ?> candidates</p>
+<p style="margin:4px 0 0;font-size:13px;color:<?php echo $maroon; ?>;font-weight:bold;">Contested &mdash; <?php echo count($group['candidates']); ?> candidates</p>
 <?php endif; ?>
 </td>
 </tr>
@@ -159,18 +177,20 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 
 <?php foreach ($group['candidates'] as $c) : ?>
 <tr>
-<td style="padding:12px 30px;">
+<td style="padding:0 30px;">
+<a href="<?php echo esc_url($c['profile_url']); ?>" target="_blank" style="text-decoration:none;display:block;padding:12px 0;border-bottom:1px solid #eeeeee;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 <td width="80" valign="top" style="padding-right:16px;">
-<img src="<?php echo esc_url($c['photo_jpg']); ?>" alt="<?php echo esc_attr($c['name']); ?>" width="70" height="70" style="display:block;width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;" />
+<img src="<?php echo esc_url($c['photo_jpg']); ?>" alt="<?php echo esc_attr($c['name']); ?>" width="70" height="70" style="display:block;width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #dddddd;" />
 </td>
-<td valign="middle" style="font-size:15px;color:#2d3748;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
-<strong style="font-size:16px;color:#1a365d;"><?php echo esc_html($c['name']); ?></strong><br />
-<span style="font-size:13px;color:#718096;"><?php echo esc_html($c['credentials']); ?></span>
+<td valign="middle" style="font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
+<strong style="font-size:16px;color:<?php echo $navy; ?>;"><?php echo esc_html($c['name']); ?></strong><br />
+<span style="font-size:13px;color:<?php echo $text_muted; ?>;"><?php echo esc_html($c['credentials']); ?></span>
 </td>
 </tr>
 </table>
+</a>
 </td>
 </tr>
 <?php endforeach; ?>
@@ -181,25 +201,25 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <td style="padding:30px 30px 10px;text-align:center;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
-<td style="background-color:#004165;border-radius:6px;">
+<td style="background-color:<?php echo $navy; ?>;border-radius:6px;">
 <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="display:inline-block;padding:14px 36px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
-&#128100; View Full Candidate Profiles
+View Full Candidate Profiles
 </a>
 </td>
 </tr>
 </table>
-<p style="margin:10px 0 0;font-size:13px;color:#a0aec0;">Read each candidate&rsquo;s full bio, compare responses side by side, and download their official PDFs.</p>
+<p style="margin:10px 0 0;font-size:13px;color:<?php echo $text_light; ?>;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Read each candidate&rsquo;s full bio, compare responses side by side, and download their official PDF applicant bios.</p>
 </td>
 </tr>
 
 <!-- ====== SHOWCASE VIDEOS ====== -->
 <tr>
 <td style="padding:20px 30px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fffaf0;border-radius:8px;border:1px solid #fbd38d;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $gold_light; ?>;border-radius:8px;border:1px solid <?php echo $gold; ?>;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#c05621;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#127909; Candidate Showcase Videos Coming Soon</p>
-<p style="margin:0;font-size:14px;color:#744210;line-height:1.5;">After <strong>April 22, 2026</strong>, recorded Candidate Showcase videos will be available on the <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:#2b6cb0;text-decoration:underline;">candidate profiles page</a> so you can hear directly from each candidate before the election.</p>
+<p style="margin:0 0 6px;font-size:15px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Candidate Showcase Videos Coming Soon</p>
+<p style="margin:0;font-size:14px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">After <strong>April 22, 2026</strong>, recorded Candidate Showcase videos will be available on the <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:<?php echo $navy; ?>;text-decoration:underline;">candidate profiles page</a> so you can hear directly from each candidate before the election.</p>
 </td>
 </tr>
 </table>
@@ -209,16 +229,16 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== TRANSITION / ALIGNMENT ====== -->
 <tr>
 <td style="padding:10px 30px 20px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f0fff4;border-radius:8px;border:1px solid #c6f6d5;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $navy_light; ?>;border-radius:8px;border:1px solid #c0d6e4;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#276749;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#127758; District 219 Transition Updates</p>
-<p style="margin:0 0 12px;font-size:14px;color:#2f855a;line-height:1.5;">District 10 and District 13 are merging to form <strong>District 219</strong> on July 1, 2026. The proposed club alignment into <strong>6 divisions and 27 areas</strong> is available to review, along with the timeline and transition committee details.</p>
+<p style="margin:0 0 6px;font-size:15px;color:<?php echo $navy; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Transition Updates</p>
+<p style="margin:0 0 12px;font-size:14px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">District 10 and District 13 are merging to form <strong>District 219</strong> on July 1, 2026. The proposed club alignment into <strong>6 divisions and 27 areas</strong> is available to review, along with the timeline and transition committee details.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
-<td style="background-color:#276749;border-radius:6px;">
+<td style="background-color:<?php echo $navy; ?>;border-radius:6px;">
 <a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
-&#9432; View Transition Details &amp; Club Alignment
+View Transition Details and Club Alignment
 </a>
 </td>
 </tr>
@@ -232,16 +252,16 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== INTEREST FORM ====== -->
 <tr>
 <td style="padding:0 30px 20px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#faf5ff;border-radius:8px;border:1px solid #d6bcfa;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:<?php echo $maroon_light; ?>;border-radius:8px;border:1px solid #dcc0c7;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#553c9a;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#128588; Interested in Serving District 219?</p>
-<p style="margin:0 0 12px;font-size:14px;color:#6b46c1;line-height:1.5;">While elected positions are on the ballot, there are many <strong>appointed and volunteer roles</strong> available &mdash; Area Directors, Finance Manager, PR Chair, Conference Chair, and more.</p>
+<p style="margin:0 0 6px;font-size:15px;color:<?php echo $maroon; ?>;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Interested in Serving District 219?</p>
+<p style="margin:0 0 12px;font-size:14px;color:<?php echo $text_dark; ?>;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">While elected positions are on the ballot, there are many <strong>appointed and volunteer roles</strong> available &mdash; Area Directors, Finance Manager, PR Chair, Conference Chair, and more.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
-<td style="background-color:#553c9a;border-radius:6px;">
+<td style="background-color:<?php echo $maroon; ?>;border-radius:6px;">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScVoaKQ8Sq8Yp_mTAwsHnahVUAjr9qXdlOV0wvzzdh9f6L-sQ/viewform" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
-&#9997;&#65039; Quick Interest Form
+Quick Interest Form
 </a>
 </td>
 </tr>
@@ -254,15 +274,11 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 
 <!-- ====== FOOTER ====== -->
 <tr>
-<td style="padding:20px 30px;background-color:#1a365d;text-align:center;border-radius:0 0 8px 8px;">
+<td style="padding:20px 30px;background-color:<?php echo $navy_dark; ?>;text-align:center;border-radius:0 0 8px 8px;">
 <p style="margin:0 0 8px;font-size:14px;color:#ffffff;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Toastmasters</p>
-<p style="margin:0 0 12px;font-size:13px;color:#a0aec0;line-height:1.5;">
-<a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="color:#90cdf4;text-decoration:underline;">Transition Overview</a> &nbsp;&middot;&nbsp;
-<a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:#90cdf4;text-decoration:underline;">Meet the Candidates</a>
-</p>
-<p style="margin:0;font-size:11px;color:#718096;line-height:1.4;">
-The information in this email is for the sole use of Toastmasters&rsquo; members, for Toastmasters business only.<br />
-It is not to be used for solicitation and distribution of non-Toastmasters material or information.
+<p style="margin:0 0 12px;font-size:13px;color:#bbbbbb;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
+<a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="color:<?php echo $gold; ?>;text-decoration:underline;">Transition Overview</a> &nbsp;&middot;&nbsp;
+<a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:<?php echo $gold; ?>;text-decoration:underline;">Meet the Candidates</a>
 </p>
 </td>
 </tr>
@@ -270,14 +286,16 @@ It is not to be used for solicitation and distribution of non-Toastmasters mater
 </table>
 <!-- /Email container -->
 
-<!-- Constant Contact unsubscribe -->
+<!-- Constant Contact footer -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;width:100%;">
 <tr>
 <td style="padding:16px 30px;text-align:center;">
-<p style="margin:0;font-size:11px;color:#a0aec0;line-height:1.4;">
-[[trackingImage]]<br />
-<a href="[[viewAsWebpage]]" style="color:#718096;text-decoration:underline;">View as webpage</a><br />
-<a href="[[unsubscribeUrl]]" style="color:#718096;text-decoration:underline;">Unsubscribe</a> | <a href="[[managePreferencesUrl]]" style="color:#718096;text-decoration:underline;">Manage Preferences</a><br />
+<p style="margin:0 0 6px;font-size:11px;color:#999999;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
+This email was sent by [[organizationName]] on behalf of the District 219 Transition effort.<br />
+<a href="[[viewAsWebpage]]" style="color:#666666;text-decoration:underline;">View as webpage</a>
+</p>
+<p style="margin:0;font-size:11px;color:#999999;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
+<a href="[[unsubscribeUrl]]" style="color:#666666;text-decoration:underline;">Unsubscribe</a> | <a href="[[managePreferencesUrl]]" style="color:#666666;text-decoration:underline;">Manage Preferences</a><br />
 [[organizationAddress]]
 </p>
 </td>
@@ -304,23 +322,23 @@ $email_html = ob_get_clean();
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a202c; color: #e2e8f0; }
-.admin-bar { background: #2d3748; padding: 16px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 3px solid #4299e1; }
+.admin-bar { background: #2d3748; padding: 16px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 3px solid <?php echo $navy; ?>; }
 .admin-bar h1 { font-size: 18px; color: #fff; flex: 1; }
 .admin-bar .badge { background: #e53e3e; color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
 .copy-section { background: #2d3748; margin: 20px auto; max-width: 640px; border-radius: 8px; overflow: hidden; }
 .copy-header { padding: 12px 20px; background: #4a5568; display: flex; align-items: center; justify-content: space-between; }
 .copy-header h3 { font-size: 14px; color: #e2e8f0; }
-.copy-btn { background: #4299e1; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; }
-.copy-btn:hover { background: #3182ce; }
-.copy-btn.copied { background: #48bb78; }
+.copy-btn { background: <?php echo $navy; ?>; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.copy-btn:hover { background: #003350; }
+.copy-btn.copied { background: #38a169; }
 .copy-content { padding: 12px 20px; background: #1a202c; max-height: 120px; overflow-y: auto; }
 .copy-content code { font-size: 12px; color: #a0aec0; word-break: break-all; white-space: pre-wrap; }
 .subject-display { padding: 12px 20px; background: #1a202c; }
-.subject-display code { font-size: 14px; color: #f6e05e; }
+.subject-display code { font-size: 14px; color: <?php echo $gold; ?>; }
 .preview-frame { margin: 20px auto; max-width: 640px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 .preview-label { padding: 10px 20px; background: #4a5568; font-size: 13px; color: #a0aec0; text-align: center; }
-.note { background: #2d3748; margin: 20px auto; max-width: 640px; padding: 16px 20px; border-radius: 8px; border-left: 4px solid #f6ad55; }
-.note h4 { color: #f6ad55; margin-bottom: 6px; font-size: 14px; }
+.note { background: #2d3748; margin: 20px auto; max-width: 640px; padding: 16px 20px; border-radius: 8px; border-left: 4px solid <?php echo $gold; ?>; }
+.note h4 { color: <?php echo $gold; ?>; margin-bottom: 6px; font-size: 14px; }
 .note p, .note li { font-size: 13px; color: #cbd5e0; line-height: 1.6; }
 .note ul { padding-left: 20px; margin-top: 6px; }
 </style>
@@ -328,7 +346,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 <body>
 
 <div class="admin-bar">
-    <h1>&#9993; Email Preview — District 219 Candidate Announcement</h1>
+    <h1>Email Preview — District 219 Candidate Announcement</h1>
     <?php if (d219_is_published()) : ?><span class="badge">ADMIN ONLY</span><?php else : ?><span class="badge" style="background:#38a169;">PRE-PUBLISH</span><?php endif; ?>
 </div>
 
@@ -356,26 +374,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- Notes -->
 <div class="note">
-    <h4>&#9888;&#65039; Before Sending This Email</h4>
+    <h4>Before Sending This Email</h4>
     <ul>
         <li><strong>Banner image:</strong> Save your D219 banner as <code>assets/email/d219-banner.jpg</code> (PNG also works). Must be JPG or PNG — webp is not supported in most email clients.</li>
         <li><strong>Candidate photos:</strong> JPG versions (150px) are already generated in <code>assets/email/</code>.</li>
-        <li><strong>Constant Contact variables:</strong> <code>[[First Name]]</code>, <code>[[unsubscribeUrl]]</code>, <code>[[viewAsWebpage]]</code>, <code>[[managePreferencesUrl]]</code>, <code>[[organizationAddress]]</code>, <code>[[trackingImage]]</code> are included.</li>
+        <li><strong>Constant Contact variables:</strong> <code>[[First Name]]</code>, <code>[[trackingImage]]</code>, <code>[[unsubscribeUrl]]</code>, <code>[[viewAsWebpage]]</code>, <code>[[managePreferencesUrl]]</code>, <code>[[organizationName]]</code>, <code>[[organizationAddress]]</code> are included.</li>
         <li><strong>Image hosting:</strong> All images reference <code><?php echo esc_html($email_url); ?></code> — they must be publicly accessible on the live site.</li>
-        <li><strong>Links:</strong> All links point to live URLs (<code>/transition</code> and <code>/dlc</code>), not staging.</li>
-        <li><strong>DD message:</strong> The intro message from the District Directors is a shared draft. Both DDs should review and approve the final wording before send.</li>
+        <li><strong>Links:</strong> All links point to live URLs (<code>/transition</code> and <code>/dlc</code>), not staging. Each candidate card links to their profile anchor (<code>/dlc#slug</code>).</li>
+        <li><strong>DLC Chair message:</strong> The intro message is attributed to Melissa McGavick as DLC Chair. She should review and approve the final wording before send.</li>
         <li><strong>Fonts:</strong> Uses Toastmasters brand fonts (Source Sans Pro for body, Montserrat for headings) via Google Fonts. Falls back to Arial/Helvetica in Outlook and clients that strip web fonts.</li>
+        <li><strong>Footer attribution:</strong> <code>[[organizationName]]</code> will show whichever district is sending (D10 or D13). Each sends from their own Constant Contact account.</li>
     </ul>
 </div>
 
 <div class="note">
-    <h4>&#128203; Waiting On (Page Publish Blockers)</h4>
+    <h4>Waiting On (Page Publish Blockers)</h4>
     <ul>
         <li>Bio PDF for Jolyn Redic (wasn't included in her Google Drive folder)</li>
         <li>Official DLC Nomination Report PDF</li>
         <li>Candidate Showcase Videos (available after April 22, 2026)</li>
         <li>Verify Quick Interest Form — remove elected position options</li>
-        <li>Melissa / transition committee page review &amp; feedback</li>
+        <li>Melissa / transition committee page review and feedback</li>
         <li>Set <code>D219_DLC_MODE</code> to <code>'candidates'</code></li>
         <li>Set <code>D219_PUBLISH_DATE</code> to coordinated release date/time</li>
         <li>Coordinate release timing with D10 (Tricia) and newsletters</li>
@@ -385,7 +404,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- Visual Preview -->
 <div class="preview-frame">
-    <div class="preview-label">&#128065; Email Preview (how it will look in inbox)</div>
+    <div class="preview-label">Email Preview (how it will look in inbox)</div>
     <?php echo $email_html; ?>
 </div>
 
