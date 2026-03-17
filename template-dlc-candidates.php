@@ -1,16 +1,51 @@
 <?php
 /**
- * Template for District 219 DLC — Nominated Candidates Showcase
- * Shows the nominated slate for the 2026-2027 Toastmasters year
+ * Template for District 219 DLC — Candidate Showcase with Browse, Compare & By Question
+ * Integrated interactive tool for exploring candidates without downloading PDFs
  */
 
 if (!defined('ABSPATH')) exit;
 
 $candidates_url = D219_ASSETS_URL . 'candidates/';
 $roles = d219_get_candidates();
+$bios = d219_get_candidate_bios();
 $committees = d219_get_committees();
 $dlc = $committees['leadership'];
 $headshots_url = D219_ASSETS_URL . 'headshots/';
+
+// Question labels
+$questions = array(
+    'member_since' => 'Toastmasters Member Since',
+    'education' => 'Education',
+    'offices' => 'Toastmasters Offices Held',
+    'honors' => 'Honors & Recognition',
+    'work_experience' => 'Relevant Work Experience',
+    'strategic_planning' => 'Strategic Planning Experience',
+    'finance' => 'Finance Experience',
+    'procedures' => 'Developing Procedures Experience',
+    'leadership_lessons' => 'Lessons from Leadership',
+    'why_serve' => 'Why Serve as a District Leader?',
+    'district_objectives' => 'District Mission Objectives',
+    'additional_info' => 'Additional Information',
+);
+
+// Build JSON for JS
+$candidates_json = array();
+foreach ($bios as $slug => $bio) {
+    $candidates_json[] = array(
+        'slug' => $slug,
+        'name' => $bio['name'],
+        'credentials' => $bio['credentials'],
+        'role' => $bio['role'],
+        'type' => $bio['type'],
+        'region' => $bio['region'],
+        'photo' => $candidates_url . 'photos/' . $bio['photo'],
+        'bio_pdf' => $bio['bio_pdf'] ? $candidates_url . 'bios/' . $bio['bio_pdf'] : null,
+        'video' => $bio['video'],
+        'answers' => $bio['answers'],
+        'all_role_slugs' => array_map('sanitize_title', array_map('trim', explode('&', $bio['role']))),
+    );
+}
 
 get_header();
 ?>
@@ -20,7 +55,9 @@ get_header();
     <section class="d219-hero d219-hero-dlc">
         <div class="d219-container">
             <h1 class="d219-title">District 219 Candidates</h1>
-            <p class="d219-subtitle">Nominations are closed — the candidate slate has been announced</p>
+            <p class="d219-subtitle">Nominations are closed &mdash; the candidate slate has been announced</p>
+            <p class="d219-hero-note">Browse profiles, compare responses side by side, or explore by question<br>
+            <em>Candidates listed in alphabetical order by last name &middot; Candidate Showcase videos will be added after April 22, 2026</em></p>
             <div class="d219-hero-nominations">
                 <p><i class="fa-solid fa-calendar-check"></i> <strong>Election Meeting:</strong> April 27, 2026 &middot; 7:00 PM via Zoom</p>
             </div>
@@ -31,39 +68,106 @@ get_header();
     <section class="d219-candidates-intro-section">
         <div class="d219-container">
             <div class="d219-candidates-intro-card">
-                <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026–2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
-                <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>. Candidate Showcase videos will be available after April 22nd.</p>
-                <p><em>Candidates are listed in alphabetical order by last name.</em></p>
-                <div style="margin-top: 16px;">
-                    <a href="/candidates" class="d219-btn d219-btn-primary"><i class="fa-solid fa-table-columns"></i> Compare Candidates &amp; View Full Responses</a>
-                </div>
+                <p>The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from <a href="https://district10.org/" target="_blank" rel="noopener">District 10</a> and <a href="https://d13tm.com/" target="_blank" rel="noopener">District 13</a>.</p>
+                <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
+                <p><em>Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</em></p>
             </div>
         </div>
     </section>
 
-    <!-- Elected Officers -->
-    <section class="d219-candidates-section" id="elected">
+    <!-- View Tabs + Filters (sticky) -->
+    <section class="d219-profiles-nav-section" id="views">
         <div class="d219-container">
-            <h2><i class="fa-solid fa-award"></i> Elected Officer Candidates</h2>
+            <div class="d219-profiles-tabs">
+                <button class="d219-ptab d219-ptab-active" data-view="browse"><i class="fa-solid fa-user"></i> <span>Browse</span></button>
+                <button class="d219-ptab" data-view="compare"><i class="fa-solid fa-table-columns"></i> <span>Compare</span></button>
+                <button class="d219-ptab" data-view="question"><i class="fa-solid fa-list-check"></i> <span>By Question</span></button>
+            </div>
+            <div class="d219-profiles-filter">
+                <button class="d219-pfilt d219-pfilt-active" data-filter="all">All Candidates</button>
+                <button class="d219-pfilt" data-filter="district-director">District Director</button>
+                <button class="d219-pfilt" data-filter="program-quality-director">Program Quality Dir.</button>
+                <button class="d219-pfilt" data-filter="club-growth-director">Club Growth Dir.</button>
+                <button class="d219-pfilt" data-filter="division">All Division Directors</button>
+            </div>
+        </div>
+    </section>
 
-            <?php foreach ($roles as $role) : if ($role['type'] !== 'elected') continue; ?>
-            <div class="d219-role-group">
-                <h3 class="d219-role-title"><?php echo esc_html($role['role']); ?></h3>
-                <div class="d219-candidates-grid d219-candidates-<?php echo count($role['candidates']); ?>">
-                    <?php foreach ($role['candidates'] as $c) : ?>
-                    <div class="d219-candidate-card">
-                        <div class="d219-candidate-photo">
-                            <img src="<?php echo esc_url($candidates_url . 'photos/' . $c['photo']); ?>" alt="<?php echo esc_attr(explode(',', $c['name'])[0]); ?>">
+    <!-- ============ BROWSE VIEW ============ -->
+    <section class="d219-view d219-view-browse d219-view-active" id="view-browse">
+        <div class="d219-container">
+
+            <?php foreach ($roles as $role) :
+                $role_slug = sanitize_title($role['role']);
+                $type_class = $role['type'];
+            ?>
+            <div class="d219-role-browse-group" data-role-slug="<?php echo esc_attr($role_slug); ?>" data-type="<?php echo esc_attr($type_class); ?>">
+                <h2 class="d219-role-browse-title">
+                    <?php echo esc_html($role['role']); ?>
+                    <?php if (!empty($role['region'])) : ?> <span class="d219-role-region">(<?php echo esc_html($role['region']); ?>)</span><?php endif; ?>
+                </h2>
+                <div class="d219-browse-cards">
+                    <?php foreach ($role['candidates'] as $c) :
+                        $slug = sanitize_title(explode(',', $c['name'])[0]);
+                        $bio = isset($bios[$slug]) ? $bios[$slug] : null;
+                        if (!$bio) continue;
+                        $has_answers = !empty($bio['answers']);
+                    ?>
+                    <div class="d219-profile-card" data-slug="<?php echo esc_attr($slug); ?>">
+                        <div class="d219-profile-card-top">
+                            <img src="<?php echo esc_url($candidates_url . 'photos/' . $bio['photo']); ?>" alt="<?php echo esc_attr($bio['name']); ?>" class="d219-profile-photo-lg">
+                            <div class="d219-profile-card-info">
+                                <h3><?php echo esc_html($bio['name']); ?></h3>
+                                <p class="d219-profile-creds"><?php echo esc_html($bio['credentials']); ?></p>
+                                <p class="d219-profile-role"><?php echo esc_html($role['role']); ?>
+                                    <?php if (!empty($role['region'])) : ?> <span class="d219-profile-region">(<?php echo esc_html($role['region']); ?>)</span><?php endif; ?>
+                                </p>
+                                <?php if (strpos($bio['role'], '&') !== false) : ?>
+                                <p class="d219-profile-dual-note"><i class="fa-solid fa-circle-info"></i> Also nominated for <?php
+                                    // Show the OTHER role
+                                    $all_roles = array_map('trim', explode('&', $bio['role']));
+                                    foreach ($all_roles as $r) {
+                                        if (trim($r) !== $role['role']) echo esc_html($r);
+                                    }
+                                ?></p>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <div class="d219-candidate-info">
-                            <h4><?php echo esc_html(explode(',', $c['name'])[0]); ?></h4>
-                            <p class="d219-candidate-credentials"><?php echo esc_html(trim(substr($c['name'], strpos($c['name'], ',') + 1))); ?></p>
-                            <?php if ($c['bio']) : ?>
-                            <a href="<?php echo esc_url($candidates_url . 'bios/' . $c['bio']); ?>" class="d219-candidate-bio-link" target="_blank" rel="noopener">
-                                <i class="fa-solid fa-file-pdf"></i> View Bio
-                            </a>
+                        <div class="d219-profile-actions">
+                            <?php if ($has_answers) : ?>
+                            <button class="d219-btn-sm d219-btn-expand" data-slug="<?php echo esc_attr($slug); ?>"><i class="fa-solid fa-chevron-down"></i> View Responses</button>
+                            <?php endif; ?>
+                            <?php if ($bio['bio_pdf']) : ?>
+                            <a href="<?php echo esc_url($candidates_url . 'bios/' . $bio['bio_pdf']); ?>" class="d219-btn-sm d219-btn-pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+                            <?php else : ?>
+                            <span class="d219-btn-sm d219-btn-disabled"><i class="fa-solid fa-file-pdf"></i> PDF Coming Soon</span>
                             <?php endif; ?>
                         </div>
+                        <!-- Video -->
+                        <div class="d219-profile-video" data-slug="<?php echo esc_attr($slug); ?>">
+                            <?php if ($bio['video']) : ?>
+                            <div class="d219-video-embed"><?php echo $bio['video']; ?></div>
+                            <?php else : ?>
+                            <div class="d219-video-placeholder">
+                                <i class="fa-solid fa-video"></i>
+                                <span>Candidate Showcase Video &mdash; Available after April 22, 2026</span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <!-- Expandable Q&A -->
+                        <?php if ($has_answers) : ?>
+                        <div class="d219-profile-qa" data-slug="<?php echo esc_attr($slug); ?>">
+                            <?php foreach ($questions as $key => $label) :
+                                $answer = isset($bio['answers'][$key]) ? $bio['answers'][$key] : '';
+                                if (empty($answer)) continue;
+                            ?>
+                            <div class="d219-qa-item">
+                                <h4><?php echo esc_html($label); ?></h4>
+                                <p><?php echo esc_html($answer); ?></p>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -72,34 +176,42 @@ get_header();
         </div>
     </section>
 
-    <!-- Division Directors -->
-    <section class="d219-candidates-section d219-candidates-divisions" id="divisions">
+    <!-- ============ COMPARE VIEW ============ -->
+    <section class="d219-view d219-view-compare" id="view-compare">
         <div class="d219-container">
-            <h2><i class="fa-solid fa-sitemap"></i> Division Director Candidates</h2>
+            <p class="d219-compare-hint">Select 2 or 3 candidates to compare their responses side by side.</p>
+            <div class="d219-compare-picker" id="compare-picker">
+                <?php foreach ($bios as $slug => $bio) : ?>
+                <label class="d219-compare-chip" data-type="<?php echo esc_attr($bio['type']); ?>" data-role-slugs="<?php echo esc_attr(implode(' ', array_map('sanitize_title', array_map('trim', explode('&', $bio['role']))))); ?>">
+                    <input type="checkbox" value="<?php echo esc_attr($slug); ?>" class="d219-compare-cb">
+                    <img src="<?php echo esc_url($candidates_url . 'photos/' . $bio['photo']); ?>" alt="">
+                    <span class="d219-chip-name"><?php echo esc_html($bio['name']); ?></span>
+                    <span class="d219-chip-role"><?php echo esc_html($bio['role']); ?></span>
+                </label>
+                <?php endforeach; ?>
+            </div>
+            <div class="d219-compare-table-wrap" id="compare-table-wrap">
+                <p class="d219-compare-empty">Select at least 2 candidates above to compare.</p>
+            </div>
+        </div>
+    </section>
 
-            <?php foreach ($roles as $role) : if ($role['type'] !== 'division') continue; ?>
-            <div class="d219-role-group">
-                <h3 class="d219-role-title"><?php echo esc_html($role['role']); ?><?php if (!empty($role['region'])) : ?> <span class="d219-role-region"><?php echo esc_html($role['region']); ?></span><?php endif; ?></h3>
-                <div class="d219-candidates-grid d219-candidates-<?php echo count($role['candidates']); ?>">
-                    <?php foreach ($role['candidates'] as $c) : ?>
-                    <div class="d219-candidate-card">
-                        <div class="d219-candidate-photo">
-                            <img src="<?php echo esc_url($candidates_url . 'photos/' . $c['photo']); ?>" alt="<?php echo esc_attr(explode(',', $c['name'])[0]); ?>">
-                        </div>
-                        <div class="d219-candidate-info">
-                            <h4><?php echo esc_html(explode(',', $c['name'])[0]); ?></h4>
-                            <p class="d219-candidate-credentials"><?php echo esc_html(trim(substr($c['name'], strpos($c['name'], ',') + 1))); ?></p>
-                            <?php if ($c['bio']) : ?>
-                            <a href="<?php echo esc_url($candidates_url . 'bios/' . $c['bio']); ?>" class="d219-candidate-bio-link" target="_blank" rel="noopener">
-                                <i class="fa-solid fa-file-pdf"></i> View Bio
-                            </a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
+    <!-- ============ BY QUESTION VIEW ============ -->
+    <section class="d219-view d219-view-question" id="view-question">
+        <div class="d219-container">
+            <div class="d219-question-controls">
+                <div class="d219-question-picker">
+                    <label for="d219-q-select">Question:</label>
+                    <select id="d219-q-select">
+                        <?php foreach ($questions as $key => $label) : ?>
+                        <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
-            <?php endforeach; ?>
+            <div class="d219-question-results" id="question-results">
+                <!-- JS fills this -->
+            </div>
         </div>
     </section>
 
@@ -111,7 +223,6 @@ get_header();
                 <div class="d219-election-details">
                     <h3>District 219 Election Meeting</h3>
                     <p class="d219-election-date">April 27, 2026 &middot; 7:00 PM via Zoom</p>
-                    <p>All club members in good standing are eligible to vote. Each chartered club may send delegates to cast votes.</p>
                 </div>
                 <?php $zoom_link = defined('D219_ZOOM_LINK') ? D219_ZOOM_LINK : ''; ?>
                 <?php if (!empty($zoom_link)) : ?>
@@ -119,6 +230,20 @@ get_header();
                     <i class="fa-solid fa-video"></i> Join on Zoom
                 </a>
                 <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interested in Appointed / Volunteer Roles -->
+    <section class="d219-interest-section">
+        <div class="d219-container">
+            <div class="d219-interest-card">
+                <h3><i class="fa-solid fa-hand-holding-heart"></i> Interested in Serving District 219?</h3>
+                <p>While nominations for elected roles (District Director, Program Quality Director, Club Growth Director, and Division Directors) are closed, there are many <strong>appointed and volunteer leadership roles</strong> available in the new district &mdash; including Area Directors, Finance Manager, Public Relations, Conference Chair, and more.</p>
+                <p>Submit the interest form below and your name will be shared with the newly elected District leaders.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVoaKQ8Sq8Yp_mTAwsHnahVUAjr9qXdlOV0wvzzdh9f6L-sQ/viewform" class="d219-btn d219-btn-primary" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-paper-plane"></i> Quick Interest Form
+                </a>
             </div>
         </div>
     </section>
@@ -177,15 +302,15 @@ get_header();
             <i class="fa-solid fa-circle-info"></i>
             <span>D219</span>
         </a>
-        <a href="#elected" class="d219-fnav-item">
-            <i class="fa-solid fa-award"></i>
-            <span>Officers</span>
+        <a href="#views" class="d219-fnav-item d219-fnav-active">
+            <i class="fa-solid fa-user"></i>
+            <span>Profiles</span>
         </a>
-        <a href="#divisions" class="d219-fnav-item">
-            <i class="fa-solid fa-sitemap"></i>
-            <span>Divisions</span>
+        <a href="#" class="d219-fnav-item" id="fnav-compare-btn">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Compare</span>
         </a>
-        <a href="#" class="d219-fnav-item d219-fnav-active" data-section="top">
+        <a href="#" class="d219-fnav-item" data-section="top">
             <i class="fa-solid fa-check-to-slot"></i>
             <span>Election</span>
         </a>
@@ -195,32 +320,217 @@ get_header();
 
 <script>
 (function() {
-    var floatingNav = document.getElementById('d219-floating-nav');
-    if (!floatingNav) return;
+    var candidates = <?php echo wp_json_encode($candidates_json); ?>;
+    var questions = <?php echo wp_json_encode($questions); ?>;
 
-    function checkNavVisibility() {
-        if (window.scrollY > 200) {
-            floatingNav.classList.add('d219-fnav-visible');
-        } else {
-            floatingNav.classList.remove('d219-fnav-visible');
-        }
+    // === VIEW SWITCHING ===
+    var tabs = document.querySelectorAll('.d219-ptab');
+    var views = document.querySelectorAll('.d219-view');
+    function switchView(viewName) {
+        tabs.forEach(function(t) { t.classList.remove('d219-ptab-active'); });
+        views.forEach(function(v) { v.classList.remove('d219-view-active'); });
+        document.querySelector('[data-view="' + viewName + '"]').classList.add('d219-ptab-active');
+        document.getElementById('view-' + viewName).classList.add('d219-view-active');
     }
-    window.addEventListener('scroll', checkNavVisibility);
-    checkNavVisibility();
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() { switchView(this.dataset.view); });
+    });
 
-    floatingNav.querySelectorAll('.d219-fnav-item').forEach(function(item) {
-        item.addEventListener('click', function(e) {
-            var href = this.getAttribute('href');
-            if (href === '#') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (href.charAt(0) === '#') {
-                e.preventDefault();
-                var target = document.querySelector(href);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+    // Mobile nav compare button
+    var fnavCompare = document.getElementById('fnav-compare-btn');
+    if (fnavCompare) {
+        fnavCompare.addEventListener('click', function(e) {
+            e.preventDefault();
+            switchView('compare');
+            document.getElementById('views').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // === ROLE FILTER ===
+    var filters = document.querySelectorAll('.d219-pfilt');
+    filters.forEach(function(f) {
+        f.addEventListener('click', function() {
+            filters.forEach(function(b) { b.classList.remove('d219-pfilt-active'); });
+            this.classList.add('d219-pfilt-active');
+            var filter = this.dataset.filter;
+            applyFilter(filter);
         });
     });
+
+    function applyFilter(filter) {
+        // Browse view — role groups
+        document.querySelectorAll('.d219-role-browse-group').forEach(function(group) {
+            if (filter === 'all') { group.style.display = ''; return; }
+            if (filter === 'division') {
+                group.style.display = (group.dataset.type === 'division') ? '' : 'none';
+            } else {
+                group.style.display = (group.dataset.roleSlug === filter) ? '' : 'none';
+            }
+        });
+        // Compare view — chips
+        document.querySelectorAll('.d219-compare-chip').forEach(function(chip) {
+            if (filter === 'all') { chip.style.display = ''; return; }
+            if (filter === 'division') {
+                chip.style.display = (chip.dataset.type === 'division') ? '' : 'none';
+            } else {
+                var slugs = chip.dataset.roleSlugs.split(' ');
+                chip.style.display = (slugs.indexOf(filter) >= 0) ? '' : 'none';
+            }
+        });
+        // Re-run by-question view
+        setTimeout(buildQuestionView, 50);
+    }
+
+    // === BROWSE: EXPAND/COLLAPSE ===
+    document.querySelectorAll('.d219-btn-expand').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var slug = this.dataset.slug;
+            var qa = document.querySelector('.d219-profile-qa[data-slug="' + slug + '"]');
+            var video = document.querySelector('.d219-profile-video[data-slug="' + slug + '"]');
+            if (!qa) return;
+            var isOpen = qa.classList.contains('d219-qa-open');
+            qa.classList.toggle('d219-qa-open');
+            if (video) video.classList.toggle('d219-video-open');
+            this.innerHTML = isOpen
+                ? '<i class="fa-solid fa-chevron-down"></i> View Responses'
+                : '<i class="fa-solid fa-chevron-up"></i> Hide Responses';
+        });
+    });
+
+    // === COMPARE: CHECKBOX LOGIC ===
+    var maxCompare = 3;
+    document.querySelectorAll('.d219-compare-cb').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+            var checked = document.querySelectorAll('.d219-compare-cb:checked');
+            if (checked.length > maxCompare) {
+                this.checked = false;
+                return;
+            }
+            buildCompareTable();
+        });
+    });
+
+    function buildCompareTable() {
+        var checked = document.querySelectorAll('.d219-compare-cb:checked');
+        var wrap = document.getElementById('compare-table-wrap');
+        if (checked.length < 2) {
+            wrap.innerHTML = '<p class="d219-compare-empty">Select at least 2 candidates above to compare.</p>';
+            return;
+        }
+        var slugs = [];
+        checked.forEach(function(cb) { slugs.push(cb.value); });
+        var selected = slugs.map(function(s) {
+            return candidates.find(function(c) { return c.slug === s; });
+        });
+        var colCount = selected.length;
+
+        var html = '<div class="d219-compare-table d219-compare-cols-' + colCount + '"><table>';
+        // Header row
+        html += '<thead><tr><th class="d219-ct-label"></th>';
+        selected.forEach(function(c) {
+            html += '<th class="d219-ct-head">';
+            html += '<img src="' + c.photo + '" alt="">';
+            html += '<span>' + escHtml(c.name) + '</span>';
+            html += '<small>' + escHtml(c.role) + '</small>';
+            if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" class="d219-ct-pdf" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
+            html += '</th>';
+        });
+        html += '</tr></thead><tbody>';
+
+        // Video row
+        html += '<tr><td class="d219-ct-label"><i class="fa-solid fa-video"></i> Showcase Video</td>';
+        selected.forEach(function(c) {
+            if (c.video) {
+                html += '<td class="d219-ct-video">' + c.video + '</td>';
+            } else {
+                html += '<td class="d219-ct-video-soon">Available after April 22, 2026</td>';
+            }
+        });
+        html += '</tr>';
+
+        // Question rows
+        for (var key in questions) {
+            html += '<tr><td class="d219-ct-label">' + escHtml(questions[key]) + '</td>';
+            selected.forEach(function(c) {
+                var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
+                if (!ans) {
+                    html += '<td class="d219-ct-empty">No response provided</td>';
+                } else {
+                    html += '<td>' + escHtml(ans) + '</td>';
+                }
+            });
+            html += '</tr>';
+        }
+        html += '</tbody></table></div>';
+        wrap.innerHTML = html;
+    }
+
+    // === BY QUESTION VIEW ===
+    var qSelect = document.getElementById('d219-q-select');
+    qSelect.addEventListener('change', buildQuestionView);
+    buildQuestionView();
+
+    function buildQuestionView() {
+        var key = qSelect.value;
+        var wrap = document.getElementById('question-results');
+        var activeFilter = document.querySelector('.d219-pfilt-active');
+        var filter = activeFilter ? activeFilter.dataset.filter : 'all';
+        var html = '';
+        candidates.forEach(function(c) {
+            // Apply role filter
+            if (filter !== 'all') {
+                if (filter === 'division') {
+                    if (c.type !== 'division') return;
+                } else {
+                    if (c.all_role_slugs.indexOf(filter) < 0) return;
+                }
+            }
+            var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
+            if (!ans) return;
+            html += '<div class="d219-qr-card">';
+            html += '<div class="d219-qr-head">';
+            html += '<img src="' + c.photo + '" alt="">';
+            html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>' + escHtml(c.role) + '</span></div>';
+            html += '<div class="d219-qr-links">';
+            if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
+            html += '</div>';
+            html += '</div>';
+            html += '<p>' + escHtml(ans) + '</p>';
+            html += '</div>';
+        });
+        wrap.innerHTML = html || '<p class="d219-compare-empty">No responses for this question with current filter.</p>';
+    }
+
+    function escHtml(s) {
+        if (!s) return '';
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+
+    // === FLOATING NAV ===
+    var floatingNav = document.getElementById('d219-floating-nav');
+    if (floatingNav) {
+        function checkNavVisibility() {
+            floatingNav.classList.toggle('d219-fnav-visible', window.scrollY > 200);
+        }
+        window.addEventListener('scroll', checkNavVisibility);
+        checkNavVisibility();
+        floatingNav.querySelectorAll('.d219-fnav-item').forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (this.id === 'fnav-compare-btn') return;
+                if (href === '#') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (href.charAt(0) === '#') {
+                    e.preventDefault();
+                    var target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    }
 })();
 </script>
 

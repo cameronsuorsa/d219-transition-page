@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.7.0
+ * Version: 1.8.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -26,7 +26,7 @@ define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.7.0');
+define('D219_TRANSITION_VERSION', '1.8.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -293,7 +293,12 @@ function d219_get_candidate_bios() {
     foreach ($candidates as $role) {
         foreach ($role['candidates'] as $c) {
             $slug = sanitize_title(explode(',', $c['name'])[0]);
-            if (isset($flat[$slug])) continue; // Autumn Jose appears twice
+            if (isset($flat[$slug])) {
+                // Autumn Jose appears in Division A and Division F — note both roles
+                $flat[$slug]['role'] = $flat[$slug]['role'] . ' & ' . $role['role'];
+                $flat[$slug]['region'] = $flat[$slug]['region'] . ' / ' . (isset($role['region']) ? $role['region'] : '');
+                continue;
+            }
             $flat[$slug] = array(
                 'slug' => $slug,
                 'name' => explode(',', $c['name'])[0],
@@ -417,7 +422,7 @@ function d219_get_candidate_bios() {
         'procedures' => 'I have developed Standard Operating Procedures for my business.',
         'leadership_lessons' => 'I have learned multiple lessons. I have learned that leading by example is one of the most important qualities as people will do what they see the leader doing. Also, Leadership at all levels of Toastmasters starts with the success of each and every Toastmaster.',
         'why_serve' => 'It is an opportunity to serve the Toastmasters community and pay it forward to others. Toastmasters has help me in many more ways than just learning leadership and public speaking and I enjoy helping others in much the same way.',
-        'district_objectives' => 'If the District\'s mission is to build new clubs and help them achieve excellence, then the major objectives should be to first focus on having each member succeed. If we accomplish that, then the second focus should be on having healthy membership numbers with our current clubs. Healthy membership numbers happens with a great membership experience combined with a strong public relations effort. I would work to achieve all of this by first encouraging and teaching clubs on how to onboard new members properly and provide all members with a positive experience.',
+        'district_objectives' => 'If the District\'s mission is to build new clubs and help them achieve excellence, then the major objectives should be to first focus having a each member succeed. If we accomplish that, then the second focus should be on having healthy membership numbers with our current clubs. Healthy membership numbers happens with a great membership experience combined with a strong public relations effort. If we have both, then we should be able to accomplish the mission of building each existing club and therefore have need to build new clubs as well. I would work to achieve all of this by 1st by encouraging and teaching clubs on how to onboard new members properly and provide all members with a positive experience that also encourages the success of each member. A strong public relations effort can be achieved by many platforms including referrals, a strong social media presence, and even hosting tables at events. This will help grow each club and build new ones as well.',
         'additional_info' => 'I love the outdoors, working out, and spending time with family. I also worked as a Strength and Conditioning Coach in Professional Baseball for 4 years (5 years if you include my internship with the Cleveland Guardians in 2012) from 2013-2016.',
     );
 
@@ -437,8 +442,22 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I am a relationship-driven, servant leader who values collaboration, inclusion, and intentional growth. I bring energy, creativity, and strong work ethic to every role, and I am committed to helping our district thrive. I also have extensive experience in Canva, Adobe Suite, Managing Websites, Developing newsletters including using Flipping Book, creating ads and so much more.',
     );
 
-    // Jolyn Redic — Division A Director (no bio PDF)
-    // No answers available
+    // Jolyn Redic — Division A Director (bio PDF pending)
+    $coming = 'Response coming soon.';
+    $flat['jolyn-redic']['answers'] = array(
+        'member_since' => $coming,
+        'education' => $coming,
+        'offices' => $coming,
+        'honors' => $coming,
+        'work_experience' => $coming,
+        'strategic_planning' => $coming,
+        'finance' => $coming,
+        'procedures' => $coming,
+        'leadership_lessons' => $coming,
+        'why_serve' => $coming,
+        'district_objectives' => $coming,
+        'additional_info' => $coming,
+    );
 
     // Megan Rossetti — Division C Director
     $flat['megan-rossetti']['answers'] = array(
@@ -679,10 +698,9 @@ add_filter('template_include', function($template) {
     }
 
     if (get_query_var('d219_profiles')) {
-        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-candidate-profiles.php';
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
+        // /candidates redirects to /dlc — profiles are integrated into DLC page
+        wp_redirect(home_url('/dlc'), 301);
+        exit;
     }
 
     return $template;
