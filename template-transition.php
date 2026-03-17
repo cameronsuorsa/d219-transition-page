@@ -216,10 +216,37 @@ get_header();
             <p class="d219-alignment-intro">This is the <strong>proposed alignment</strong> from the District 219 Alignment Committee. It will be voted on at the <strong>Business Meeting on April 27, 2026</strong>. The proposed plan includes <strong>6 Divisions</strong> and <strong>27 Areas</strong> across Ohio, Pennsylvania, West Virginia, and Maryland.</p>
             <p class="d219-alignment-contact">Questions? Contact Alignment Committee Chair <a href="#committees"><strong>Dave Wiley</strong></a></p>
 
-            <!-- Realignment Committee Recognition -->
-            <div class="d219-alignment-committee-compact">
-                <p class="d219-committee-credit"><strong>Alignment Committee:</strong> Leonard Taylor, Steff Hill, Allison Blakeman, William McGee, Stephanie Scott, Carly Chiavaroli, Tamika Leslie</p>
-                <p class="d219-committee-credit"><strong>Advisors:</strong> Dave Wiley, Deonna Moore Taylor, Kathy Wolfe, Jing Humphreys, Melissa McGavick, Rhonda Mauer, Lorie Davis, Javi Diaz</p>
+            <!-- Realignment Committee Report -->
+            <div class="d219-committee-report">
+                <div class="d219-committee-report-header">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <div>
+                        <h4>Realignment Committee Report</h4>
+                        <span>Finalized March 2026</span>
+                    </div>
+                </div>
+                <div class="d219-committee-report-body">
+                    <p class="d219-report-salutation">Dear Rhonda Mauer, District 10 Director Deonna Moore Taylor, District 13 Director Kathy Wolf, and fellow 219 Chairs Jing Humphreys and Melissa McGavick.</p>
+
+                    <p>The realignment committee report is finalized and up on the 219 Transition website.</p>
+
+                    <div class="d219-report-members">
+                        <p><strong>Committee Members:</strong> Leonard Taylor, Steff Hill, Allison Blakeman, William McGee, Stephanie Scott, Carly Chiavaroli, Tamika Leslie, and Dave Wiley</p>
+                        <p><strong>Advisors / Substitutions:</strong> Deonna Moore Taylor, Kathy Wolf, Jing Humphreys, Melissa McGavick, Rhonda Mauer, Lorie Davis, and Javier Diaz</p>
+                    </div>
+
+                    <p>The committee approved this realignment prior to a March 12 Town Hall for all members to attend and ask questions. The Town Hall did not provide any feedback to change the realignment committee's proposal, so until April dues renewals hit, we will not be modifying what is posted to the 219 transition website.</p>
+
+                    <p>Thanks to all committee members for their input. If there are any questions please let me know. We look forward to moving forward.</p>
+                </div>
+                <div class="d219-committee-report-sig">
+                    <img src="<?php echo esc_url($headshots_url . 'alignment-chair.webp'); ?>" alt="Dave Wiley">
+                    <div class="d219-sig-info">
+                        <span class="d219-sig-name">Dave Wiley</span>
+                        <span class="d219-sig-title">District 219 Realignment Chair</span>
+                        <span class="d219-sig-contact"><a href="mailto:davewiley2018@gmail.com">davewiley2018@gmail.com</a> &middot; (440) 725-8359</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Stat Cards Row -->

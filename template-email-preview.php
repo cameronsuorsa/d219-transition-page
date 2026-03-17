@@ -337,10 +337,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .subject-display code { font-size: 14px; color: <?php echo $gold; ?>; }
 .preview-frame { margin: 20px auto; max-width: 640px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 .preview-label { padding: 10px 20px; background: #4a5568; font-size: 13px; color: #a0aec0; text-align: center; }
-.note { background: #2d3748; margin: 20px auto; max-width: 640px; padding: 16px 20px; border-radius: 8px; border-left: 4px solid <?php echo $gold; ?>; }
-.note h4 { color: <?php echo $gold; ?>; margin-bottom: 6px; font-size: 14px; }
-.note p, .note li { font-size: 13px; color: #cbd5e0; line-height: 1.6; }
-.note ul { padding-left: 20px; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -370,36 +366,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="copy-content">
         <code id="email-html-code"><?php echo esc_html($email_html); ?></code>
     </div>
-</div>
-
-<!-- Notes -->
-<div class="note">
-    <h4>Before Sending This Email</h4>
-    <ul>
-        <li><strong>Banner image:</strong> Save your D219 banner as <code>assets/email/d219-banner.jpg</code> (PNG also works). Must be JPG or PNG — webp is not supported in most email clients.</li>
-        <li><strong>Candidate photos:</strong> JPG versions (150px) are already generated in <code>assets/email/</code>.</li>
-        <li><strong>Constant Contact variables:</strong> <code>[[First Name]]</code>, <code>[[trackingImage]]</code>, <code>[[unsubscribeUrl]]</code>, <code>[[viewAsWebpage]]</code>, <code>[[managePreferencesUrl]]</code>, <code>[[organizationName]]</code>, <code>[[organizationAddress]]</code> are included.</li>
-        <li><strong>Image hosting:</strong> All images reference <code><?php echo esc_html($email_url); ?></code> — they must be publicly accessible on the live site.</li>
-        <li><strong>Links:</strong> All links point to live URLs (<code>/transition</code> and <code>/dlc</code>), not staging. Each candidate card links to their profile anchor (<code>/dlc#slug</code>).</li>
-        <li><strong>DLC Chair message:</strong> The intro message is attributed to Melissa McGavick as DLC Chair. She should review and approve the final wording before send.</li>
-        <li><strong>Fonts:</strong> Uses Toastmasters brand fonts (Source Sans Pro for body, Montserrat for headings) via Google Fonts. Falls back to Arial/Helvetica in Outlook and clients that strip web fonts.</li>
-        <li><strong>Footer attribution:</strong> <code>[[organizationName]]</code> will show whichever district is sending (D10 or D13). Each sends from their own Constant Contact account.</li>
-    </ul>
-</div>
-
-<div class="note">
-    <h4>Waiting On (Page Publish Blockers)</h4>
-    <ul>
-        <li>Bio PDF for Jolyn Redic (wasn't included in her Google Drive folder)</li>
-        <li>Official DLC Nomination Report PDF</li>
-        <li>Candidate Showcase Videos (available after April 22, 2026)</li>
-        <li>Verify Quick Interest Form — remove elected position options</li>
-        <li>Melissa / transition committee page review and feedback</li>
-        <li>Set <code>D219_DLC_MODE</code> to <code>'candidates'</code></li>
-        <li>Set <code>D219_PUBLISH_DATE</code> to coordinated release date/time</li>
-        <li>Coordinate release timing with D10 (Tricia) and newsletters</li>
-        <li>Remove "NOT READY FOR D10 UPDATE" from release notes</li>
-    </ul>
 </div>
 
 <!-- Visual Preview -->

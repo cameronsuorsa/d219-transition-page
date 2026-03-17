@@ -2655,3 +2655,64 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
     font-family: 'Source Sans Pro', sans-serif;
 }
 .d219-interest-card .d219-btn { margin-top: 8px; }
+
+/* Committee Report Card */
+.d219-committee-report {
+    background: #fff; border: 1px solid #e2e8f0; border-left: 4px solid #004165;
+    border-radius: 10px; padding: 0; margin: 24px 0 28px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.d219-committee-report-header {
+    background: linear-gradient(135deg, #004165 0%, #002d47 100%);
+    color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 14px;
+}
+.d219-committee-report-header i { font-size: 1.3rem; opacity: 0.8; }
+.d219-committee-report-header h4 {
+    margin: 0; font-family: 'Montserrat', sans-serif; font-size: 1rem;
+    font-weight: 700; letter-spacing: 0.02em;
+}
+.d219-committee-report-header span {
+    display: block; font-size: 0.82rem; font-weight: 400; opacity: 0.8; margin-top: 2px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.d219-committee-report-body {
+    padding: 24px 28px; font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.95rem; line-height: 1.7; color: #2d3748;
+}
+.d219-committee-report-body p { margin: 0 0 14px; }
+.d219-committee-report-body p:last-child { margin-bottom: 0; }
+.d219-committee-report-body .d219-report-salutation {
+    font-style: italic; color: #4a5568;
+}
+.d219-committee-report-body .d219-report-members {
+    background: #f7fafc; border: 1px solid #edf2f7; border-radius: 8px;
+    padding: 14px 18px; margin: 14px 0;
+}
+.d219-committee-report-body .d219-report-members strong { color: #004165; }
+.d219-committee-report-sig {
+    border-top: 1px solid #e2e8f0; padding: 18px 28px; background: #f7fafc;
+    display: flex; align-items: center; gap: 14px;
+}
+.d219-committee-report-sig img {
+    width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+    border: 2px solid #004165;
+}
+.d219-committee-report-sig .d219-sig-info {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.d219-committee-report-sig .d219-sig-name {
+    font-weight: 700; color: #004165; font-size: 0.95rem;
+}
+.d219-committee-report-sig .d219-sig-title {
+    font-size: 0.82rem; color: #4a5568; display: block;
+}
+.d219-committee-report-sig .d219-sig-contact {
+    font-size: 0.82rem; color: #718096; display: block; margin-top: 2px;
+}
+.d219-committee-report-sig .d219-sig-contact a { color: #004165; text-decoration: none; }
+.d219-committee-report-sig .d219-sig-contact a:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+    .d219-committee-report-body { padding: 18px 16px; }
+    .d219-committee-report-sig { padding: 14px 16px; flex-direction: column; text-align: center; }
+    .d219-committee-report-header { padding: 14px 16px; }
+}
