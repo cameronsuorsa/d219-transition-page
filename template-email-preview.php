@@ -50,6 +50,9 @@ ob_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title><?php echo esc_html($subject_line); ?></title>
+<!--[if !mso]><!-->
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+<!--<![endif]-->
 <!--[if mso]>
 <style type="text/css">
 table {border-collapse:collapse;border-spacing:0;margin:0;}
@@ -65,7 +68,7 @@ div {margin:0 !important;}
 </noscript>
 <![endif]-->
 </head>
-<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:'Source Sans Pro',Arial,'Helvetica Neue',Helvetica,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
 
 <!-- Preheader text (hidden, shows in inbox preview) -->
 <div style="display:none;font-size:1px;color:#f4f4f4;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
@@ -91,9 +94,24 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== GREETING ====== -->
 <tr>
 <td style="padding:30px 30px 10px;text-align:center;">
-<h1 style="margin:0 0 12px;font-size:24px;font-weight:bold;color:#1a365d;font-family:Georgia,'Times New Roman',serif;">Meet Your District 219 Candidates</h1>
-<p style="margin:0 0 6px;font-size:16px;color:#4a5568;line-height:1.5;">Hello [[First Name]],</p>
-<p style="margin:0;font-size:16px;color:#4a5568;line-height:1.5;">The District Leadership Committee is pleased to announce the nominated slate of candidates for <strong>District 219</strong> leadership for the <strong>2026&ndash;2027</strong> Toastmasters year.</p>
+<h1 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#1a365d;font-family:'Montserrat',Arial,Helvetica,sans-serif;">Meet Your District 219 Candidates</h1>
+<p style="margin:0 0 6px;font-size:16px;color:#4a5568;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Hello [[First Name]],</p>
+<p style="margin:0;font-size:16px;color:#4a5568;line-height:1.5;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">The District Leadership Committee is pleased to announce the nominated slate of candidates for <strong>District 219</strong> leadership for the <strong>2026&ndash;2027</strong> Toastmasters year.</p>
+</td>
+</tr>
+
+<!-- ====== DD MESSAGE ====== -->
+<tr>
+<td style="padding:16px 30px 10px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fefcf3;border-radius:8px;border:1px solid #ecc94b;">
+<tr>
+<td style="padding:18px 24px;">
+<p style="margin:0 0 10px;font-size:15px;color:#2d3748;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">As we prepare for the formation of District 219, we are excited to share the slate of candidates who have stepped forward to lead our new district. These individuals represent the best of Districts 10 and 13, and their willingness to serve reflects the spirit of collaboration that will define District 219.</p>
+<p style="margin:0 0 10px;font-size:15px;color:#2d3748;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">We encourage every member to review the candidate profiles, attend the Candidate Showcase, and participate in the election on April 27th. Your vote matters &mdash; together we will choose the leaders who will guide our district through its historic first year.</p>
+<p style="margin:0;font-size:14px;color:#4a5568;font-style:italic;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">&mdash; District Directors, Districts 10 &amp; 13</p>
+</td>
+</tr>
+</table>
 </td>
 </tr>
 
@@ -103,12 +121,19 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f0f5ff;border-radius:8px;border:1px solid #c3dafe;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 4px;font-size:14px;color:#2b6cb0;font-weight:bold;text-transform:uppercase;letter-spacing:1px;">&#128499; District 219 Election Meeting</p>
-<p style="margin:0 0 10px;font-size:18px;color:#1a365d;font-weight:bold;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
-<p style="margin:0;font-size:14px;color:#4a5568;">All dues-paid members of clubs within the District 219 boundary are eligible to vote.</p>
+<p style="margin:0 0 4px;font-size:14px;color:#2b6cb0;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#128499; District 219 Election Meeting</p>
+<p style="margin:0 0 10px;font-size:18px;color:#1a365d;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">April 27, 2026 &middot; 7:00 PM via Zoom</p>
+<p style="margin:0;font-size:14px;color:#4a5568;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">All dues-paid members of clubs within the District 219 boundary are eligible to vote.</p>
 </td>
 </tr>
 </table>
+</td>
+</tr>
+
+<!-- ====== CANDIDATE SORT NOTE ====== -->
+<tr>
+<td style="padding:10px 30px 0;text-align:center;">
+<p style="margin:0;font-size:13px;color:#718096;font-style:italic;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Candidates are listed in alphabetical order by last name within each role. Roles with more than one candidate are marked as contested.</p>
 </td>
 </tr>
 
@@ -119,7 +144,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 <td style="padding:16px 0 8px;border-bottom:2px solid #004165;">
-<h2 style="margin:0;font-size:18px;color:#004165;font-family:Georgia,'Times New Roman',serif;">
+<h2 style="margin:0;font-size:18px;color:#004165;font-family:'Montserrat',Arial,Helvetica,sans-serif;font-weight:700;">
 <?php echo esc_html($group['role']); ?>
 <?php if ($group['region']) : ?><span style="font-weight:normal;font-size:14px;color:#718096;"> &mdash; <?php echo esc_html($group['region']); ?></span><?php endif; ?>
 </h2>
@@ -140,7 +165,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <td width="80" valign="top" style="padding-right:16px;">
 <img src="<?php echo esc_url($c['photo_jpg']); ?>" alt="<?php echo esc_attr($c['name']); ?>" width="70" height="70" style="display:block;width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;" />
 </td>
-<td valign="middle" style="font-size:15px;color:#2d3748;line-height:1.4;">
+<td valign="middle" style="font-size:15px;color:#2d3748;line-height:1.4;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
 <strong style="font-size:16px;color:#1a365d;"><?php echo esc_html($c['name']); ?></strong><br />
 <span style="font-size:13px;color:#718096;"><?php echo esc_html($c['credentials']); ?></span>
 </td>
@@ -157,7 +182,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
 <td style="background-color:#004165;border-radius:6px;">
-<a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="display:inline-block;padding:14px 36px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;">
+<a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="display:inline-block;padding:14px 36px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
 &#128100; View Full Candidate Profiles
 </a>
 </td>
@@ -173,7 +198,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fffaf0;border-radius:8px;border:1px solid #fbd38d;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#c05621;font-weight:bold;">&#127909; Candidate Showcase Videos Coming Soon</p>
+<p style="margin:0 0 6px;font-size:15px;color:#c05621;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#127909; Candidate Showcase Videos Coming Soon</p>
 <p style="margin:0;font-size:14px;color:#744210;line-height:1.5;">After <strong>April 22, 2026</strong>, recorded Candidate Showcase videos will be available on the <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:#2b6cb0;text-decoration:underline;">candidate profiles page</a> so you can hear directly from each candidate before the election.</p>
 </td>
 </tr>
@@ -187,12 +212,12 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f0fff4;border-radius:8px;border:1px solid #c6f6d5;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#276749;font-weight:bold;">&#127758; District 219 Transition Updates</p>
+<p style="margin:0 0 6px;font-size:15px;color:#276749;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#127758; District 219 Transition Updates</p>
 <p style="margin:0 0 12px;font-size:14px;color:#2f855a;line-height:1.5;">District 10 and District 13 are merging to form <strong>District 219</strong> on July 1, 2026. The proposed club alignment into <strong>6 divisions and 27 areas</strong> is available to review, along with the timeline and transition committee details.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
 <td style="background-color:#276749;border-radius:6px;">
-<a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;">
+<a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
 &#9432; View Transition Details &amp; Club Alignment
 </a>
 </td>
@@ -210,12 +235,12 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#faf5ff;border-radius:8px;border:1px solid #d6bcfa;">
 <tr>
 <td style="padding:18px 24px;text-align:center;">
-<p style="margin:0 0 6px;font-size:15px;color:#553c9a;font-weight:bold;">&#128588; Interested in Serving District 219?</p>
+<p style="margin:0 0 6px;font-size:15px;color:#553c9a;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">&#128588; Interested in Serving District 219?</p>
 <p style="margin:0 0 12px;font-size:14px;color:#6b46c1;line-height:1.5;">While elected positions are on the ballot, there are many <strong>appointed and volunteer roles</strong> available &mdash; Area Directors, Finance Manager, PR Chair, Conference Chair, and more.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr>
 <td style="background-color:#553c9a;border-radius:6px;">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScVoaKQ8Sq8Yp_mTAwsHnahVUAjr9qXdlOV0wvzzdh9f6L-sQ/viewform" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScVoaKQ8Sq8Yp_mTAwsHnahVUAjr9qXdlOV0wvzzdh9f6L-sQ/viewform" target="_blank" style="display:inline-block;padding:10px 24px;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">
 &#9997;&#65039; Quick Interest Form
 </a>
 </td>
@@ -230,7 +255,7 @@ The nominated slate for District 219 leadership has been announced. See who&#821
 <!-- ====== FOOTER ====== -->
 <tr>
 <td style="padding:20px 30px;background-color:#1a365d;text-align:center;border-radius:0 0 8px 8px;">
-<p style="margin:0 0 8px;font-size:14px;color:#ffffff;font-weight:bold;">District 219 Toastmasters</p>
+<p style="margin:0 0 8px;font-size:14px;color:#ffffff;font-weight:700;font-family:'Montserrat',Arial,Helvetica,sans-serif;">District 219 Toastmasters</p>
 <p style="margin:0 0 12px;font-size:13px;color:#a0aec0;line-height:1.5;">
 <a href="<?php echo esc_url($transition_url); ?>" target="_blank" style="color:#90cdf4;text-decoration:underline;">Transition Overview</a> &nbsp;&middot;&nbsp;
 <a href="<?php echo esc_url($dlc_url); ?>" target="_blank" style="color:#90cdf4;text-decoration:underline;">Meet the Candidates</a>
@@ -304,7 +329,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <div class="admin-bar">
     <h1>&#9993; Email Preview — District 219 Candidate Announcement</h1>
-    <span class="badge">ADMIN ONLY</span>
+    <?php if (d219_is_published()) : ?><span class="badge">ADMIN ONLY</span><?php else : ?><span class="badge" style="background:#38a169;">PRE-PUBLISH</span><?php endif; ?>
 </div>
 
 <!-- Subject Line -->
@@ -331,14 +356,30 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- Notes -->
 <div class="note">
-    <h4>&#9888;&#65039; Before Sending</h4>
+    <h4>&#9888;&#65039; Before Sending This Email</h4>
     <ul>
         <li><strong>Banner image:</strong> Save your D219 banner as <code>assets/email/d219-banner.jpg</code> (PNG also works). Must be JPG or PNG — webp is not supported in most email clients.</li>
         <li><strong>Candidate photos:</strong> JPG versions (150px) are already generated in <code>assets/email/</code>.</li>
         <li><strong>Constant Contact variables:</strong> <code>[[First Name]]</code>, <code>[[unsubscribeUrl]]</code>, <code>[[viewAsWebpage]]</code>, <code>[[managePreferencesUrl]]</code>, <code>[[organizationAddress]]</code>, <code>[[trackingImage]]</code> are included.</li>
         <li><strong>Image hosting:</strong> All images reference <code><?php echo esc_html($email_url); ?></code> — they must be publicly accessible on the live site.</li>
         <li><strong>Links:</strong> All links point to live URLs (<code>/transition</code> and <code>/dlc</code>), not staging.</li>
-        <li>Each district can customize the greeting or add their own intro paragraph before pasting into Constant Contact.</li>
+        <li><strong>DD message:</strong> The intro message from the District Directors is a shared draft. Both DDs should review and approve the final wording before send.</li>
+        <li><strong>Fonts:</strong> Uses Toastmasters brand fonts (Source Sans Pro for body, Montserrat for headings) via Google Fonts. Falls back to Arial/Helvetica in Outlook and clients that strip web fonts.</li>
+    </ul>
+</div>
+
+<div class="note">
+    <h4>&#128203; Waiting On (Page Publish Blockers)</h4>
+    <ul>
+        <li>Bio PDF for Jolyn Redic (wasn't included in her Google Drive folder)</li>
+        <li>Official DLC Nomination Report PDF</li>
+        <li>Candidate Showcase Videos (available after April 22, 2026)</li>
+        <li>Verify Quick Interest Form — remove elected position options</li>
+        <li>Melissa / transition committee page review &amp; feedback</li>
+        <li>Set <code>D219_DLC_MODE</code> to <code>'candidates'</code></li>
+        <li>Set <code>D219_PUBLISH_DATE</code> to coordinated release date/time</li>
+        <li>Coordinate release timing with D10 (Tricia) and newsletters</li>
+        <li>Remove "NOT READY FOR D10 UPDATE" from release notes</li>
     </ul>
 </div>
 

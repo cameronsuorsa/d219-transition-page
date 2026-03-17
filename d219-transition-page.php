@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.4
+ * Version: 1.9.5
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', ''); // Leave empty until ready to coordinate releas
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.4');
+define('D219_TRANSITION_VERSION', '1.9.5');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -803,9 +803,9 @@ add_filter('template_include', function($template) {
         exit;
     }
 
-    // Email preview — admin-only, always accessible (even after publish date)
+    // Email preview — public before publish date, admin-only after publish date
     if (get_query_var('d219_email')) {
-        if (!current_user_can('manage_options')) {
+        if (d219_is_published() && !current_user_can('manage_options')) {
             wp_redirect(home_url('/'), 302);
             exit;
         }
