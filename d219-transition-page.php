@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.21
+ * Version: 1.9.22
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -27,7 +27,7 @@ define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 
 //   - /transition and /dlc will serve content (D219_DLC_MODE will be used as-is)
 // When empty string: staging URLs work, live URLs use D219_DLC_MODE as normal.
 // Format: 'YYYY-MM-DD HH:MM' in America/New_York timezone, e.g. '2026-04-01 09:00'
-define('D219_PUBLISH_DATE', '2026-03-19 00:00'); // Midnight ET, March 19
+define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 
 // =============================================================================
 // PRE-PRODUCTION CHECKLIST — Items needed before D10 can update the live plugin
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-19 00:00'); // Midnight ET, March 19
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.21');
+define('D219_TRANSITION_VERSION', '1.9.22');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
