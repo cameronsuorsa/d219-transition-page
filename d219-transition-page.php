@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.27
+ * Version: 1.9.28
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -20,7 +20,7 @@ if (defined('D219_TRANSITION_VERSION')) return;
 
 define('D219_SHOW_BANNER', true);
 define('D219_ZOOM_LINK', 'https://us02web.zoom.us/j/84094774161'); // Town Hall Q&A Zoom link
-define('D219_DLC_MODE', 'nominations'); // 'candidates' = show nominated slate, 'nominations' = show call for nominations
+define('D219_DLC_MODE', 'candidates'); // 'candidates' = show nominated slate, 'nominations' = show call for nominations
 
 // Publish date/time (Eastern). When set and in the past:
 //   - /staging/transition and /staging/dlc will 301-redirect to /transition and /dlc
@@ -37,15 +37,15 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // [ ] Candidate Showcase Videos (available after April 22, 2026)
 // [ ] Verify Quick Interest Form — remove elected position options from form
 // [ ] Melissa / transition committee page review & feedback
-// [ ] Set D219_DLC_MODE to 'candidates'
-// [ ] Set D219_PUBLISH_DATE to coordinated release date/time with both DDs
+// [x] Set D219_DLC_MODE to 'candidates'
+// [x] Set D219_PUBLISH_DATE to coordinated release date/time with both DDs
 // [ ] Coordinate release timing with D10 (Tricia) and newsletters from both districts
 // [ ] Remove "NOT READY FOR D10 UPDATE" from release notes
 // =============================================================================
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.27');
+define('D219_TRANSITION_VERSION', '1.9.28');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
