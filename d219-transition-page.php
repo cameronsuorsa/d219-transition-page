@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.26
+ * Version: 1.9.27
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.26');
+define('D219_TRANSITION_VERSION', '1.9.27');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -774,67 +774,52 @@ register_deactivation_hook(__FILE__, function() {
     delete_option('d219_transition_version');
 });
 
-// Route by actual URL path — bypasses WordPress page resolution entirely.
-// Strip the site's subdirectory prefix (if any) so matching works on subdirectory installs.
-add_filter('template_include', function($template) {
+// =============================================================================
+// DIRECT TEMPLATE TAKEOVER — priority 0 on template_redirect
+// Fires before Elementor, theme, or any other template system.
+// Checks raw URL, includes our template, and exits. Nothing can override this.
+// =============================================================================
+add_action('template_redirect', function() {
     $raw = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-    // Strip WordPress subdirectory prefix (e.g. site installed at /blog/)
     $home = trim(parse_url(home_url(), PHP_URL_PATH), '/');
     $path = $home ? preg_replace('#^' . preg_quote($home, '#') . '/#', '', $raw) : $raw;
-    $path = rtrim($path, '/'); // handle trailing slash
+    $path = rtrim($path, '/');
 
-    // Helper: reset WP global query so theme header doesn't use the old WP page data
-    $reset_query = function() {
-        global $wp_query, $post;
-        $wp_query->is_page = false;
-        $wp_query->is_singular = false;
-        $wp_query->is_home = false;
-        $wp_query->is_404 = false;
-        $wp_query->queried_object = null;
-        $wp_query->queried_object_id = 0;
-        $post = null;
-    };
+    $map = array(
+        'transition'          => 'template-transition.php',
+        'dlc'                 => 'template-dlc-candidates.php',
+        'staging/transition'  => 'redirect:/transition',
+        'staging/dlc'         => 'redirect:/dlc',
+        'candidates'          => 'redirect:/dlc',
+        'staging/candidates'  => 'redirect:/dlc',
+        'staging/email'       => 'template-email-preview.php',
+    );
 
-    // Serve transition page
-    if ($path === 'transition') {
-        $reset_query();
-        return D219_TRANSITION_PLUGIN_DIR . 'template-transition.php';
-    }
+    if (!isset($map[$path])) return;
 
-    // Serve DLC page
-    if ($path === 'dlc') {
-        $reset_query();
-        return D219_TRANSITION_PLUGIN_DIR . 'template-dlc-candidates.php';
-    }
+    $action = $map[$path];
 
-    // Staging redirects to production (content is live)
-    if ($path === 'staging/transition') {
-        wp_redirect(home_url('/transition'), 301);
-        exit;
-    }
-    if ($path === 'staging/dlc') {
-        wp_redirect(home_url('/dlc'), 301);
+    // Email preview is admin-only
+    if ($path === 'staging/email' && !current_user_can('manage_options')) {
+        wp_redirect(home_url('/'), 302);
         exit;
     }
 
-    // Candidates redirects to DLC
-    if ($path === 'candidates' || $path === 'staging/candidates') {
-        wp_redirect(home_url('/dlc'), 301);
+    // Handle redirects
+    if (strpos($action, 'redirect:') === 0) {
+        wp_redirect(home_url(substr($action, 9)), 301);
         exit;
     }
 
-    // Email preview — admin-only now that content is live
-    if ($path === 'staging/email') {
-        if (!current_user_can('manage_options')) {
-            wp_redirect(home_url('/'), 302);
-            exit;
-        }
-        $reset_query();
-        return D219_TRANSITION_PLUGIN_DIR . 'template-email-preview.php';
+    // Serve the template directly and exit — nothing else runs after this
+    $file = D219_TRANSITION_PLUGIN_DIR . $action;
+    if (file_exists($file)) {
+        // Set query var so templates can detect staging context
+        set_query_var('d219_staging', strpos($path, 'staging/') === 0 ? 1 : 0);
+        include $file;
+        exit;
     }
-
-    return $template;
-});
+}, 0);
 
 // =============================================================================
 // ENQUEUE STYLES
