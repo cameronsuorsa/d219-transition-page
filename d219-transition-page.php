@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.24
+ * Version: 1.9.25
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.24');
+define('D219_TRANSITION_VERSION', '1.9.25');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -774,49 +774,41 @@ register_deactivation_hook(__FILE__, function() {
     delete_option('d219_transition_version');
 });
 
-// Use template_include filter instead of template_redirect for better compatibility
+// Route by actual URL path — bypasses WordPress page resolution entirely.
+// This is the nuclear option: no matter what WP thinks the request is,
+// if the URL matches our slugs, we serve our template.
 add_filter('template_include', function($template) {
-    $is_staging = get_query_var('d219_staging');
-    $published = d219_is_published();
+    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
-    // When published, redirect /staging/* to the live URLs
-    if ($is_staging && $published) {
-        if (get_query_var('d219_transition')) {
-            wp_redirect(home_url('/transition'), 301);
-            exit;
-        }
-        if (get_query_var('d219_dlc')) {
-            wp_redirect(home_url('/dlc'), 301);
-            exit;
-        }
+    // Serve transition page
+    if ($path === 'transition') {
+        return D219_TRANSITION_PLUGIN_DIR . 'template-transition.php';
     }
 
-    if (get_query_var('d219_transition')) {
-        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-transition.php';
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
+    // Serve DLC page
+    if ($path === 'dlc') {
+        return D219_TRANSITION_PLUGIN_DIR . 'template-dlc-candidates.php';
     }
 
-    if (get_query_var('d219_dlc')) {
-        $mode = $is_staging ? 'candidates' : D219_DLC_MODE;
-        $dlc_file = ($mode === 'candidates') ? 'template-dlc-candidates.php' : 'template-dlc-nominations.php';
-        $custom_template = D219_TRANSITION_PLUGIN_DIR . $dlc_file;
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
+    // Staging redirects to production (content is live)
+    if ($path === 'staging/transition') {
+        wp_redirect(home_url('/transition'), 301);
+        exit;
     }
-
-    if (get_query_var('d219_profiles')) {
-        // /candidates redirects to /dlc — profiles are integrated into DLC page
-        $dlc_url = ($is_staging && !$published) ? '/staging/dlc' : '/dlc';
-        wp_redirect(home_url($dlc_url), 301);
+    if ($path === 'staging/dlc') {
+        wp_redirect(home_url('/dlc'), 301);
         exit;
     }
 
-    // Email preview — public before publish date, admin-only after publish date
-    if (get_query_var('d219_email')) {
-        if (d219_is_published() && !current_user_can('manage_options')) {
+    // Candidates redirects to DLC
+    if ($path === 'candidates' || $path === 'staging/candidates') {
+        wp_redirect(home_url('/dlc'), 301);
+        exit;
+    }
+
+    // Email preview — admin-only now that content is live
+    if ($path === 'staging/email') {
+        if (!current_user_can('manage_options')) {
             wp_redirect(home_url('/'), 302);
             exit;
         }
