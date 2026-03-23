@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.25
+ * Version: 1.9.26
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.25');
+define('D219_TRANSITION_VERSION', '1.9.26');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -775,18 +775,35 @@ register_deactivation_hook(__FILE__, function() {
 });
 
 // Route by actual URL path — bypasses WordPress page resolution entirely.
-// This is the nuclear option: no matter what WP thinks the request is,
-// if the URL matches our slugs, we serve our template.
+// Strip the site's subdirectory prefix (if any) so matching works on subdirectory installs.
 add_filter('template_include', function($template) {
-    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $raw = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    // Strip WordPress subdirectory prefix (e.g. site installed at /blog/)
+    $home = trim(parse_url(home_url(), PHP_URL_PATH), '/');
+    $path = $home ? preg_replace('#^' . preg_quote($home, '#') . '/#', '', $raw) : $raw;
+    $path = rtrim($path, '/'); // handle trailing slash
+
+    // Helper: reset WP global query so theme header doesn't use the old WP page data
+    $reset_query = function() {
+        global $wp_query, $post;
+        $wp_query->is_page = false;
+        $wp_query->is_singular = false;
+        $wp_query->is_home = false;
+        $wp_query->is_404 = false;
+        $wp_query->queried_object = null;
+        $wp_query->queried_object_id = 0;
+        $post = null;
+    };
 
     // Serve transition page
     if ($path === 'transition') {
+        $reset_query();
         return D219_TRANSITION_PLUGIN_DIR . 'template-transition.php';
     }
 
     // Serve DLC page
     if ($path === 'dlc') {
+        $reset_query();
         return D219_TRANSITION_PLUGIN_DIR . 'template-dlc-candidates.php';
     }
 
@@ -812,10 +829,8 @@ add_filter('template_include', function($template) {
             wp_redirect(home_url('/'), 302);
             exit;
         }
-        $custom_template = D219_TRANSITION_PLUGIN_DIR . 'template-email-preview.php';
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
+        $reset_query();
+        return D219_TRANSITION_PLUGIN_DIR . 'template-email-preview.php';
     }
 
     return $template;
