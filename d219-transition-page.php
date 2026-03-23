@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.23
+ * Version: 1.9.24
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.23');
+define('D219_TRANSITION_VERSION', '1.9.24');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -725,14 +725,34 @@ add_action('init', function() {
     add_rewrite_tag('%d219_profiles%', '([^&]+)');
     add_rewrite_tag('%d219_email%', '([^&]+)');
     add_rewrite_tag('%d219_staging%', '([^&]+)');
+});
 
-    // Auto-flush rewrite rules when plugin version changes (handles updates)
+// Force plugin query vars even when a WordPress page with matching slug exists.
+// Without this, WP resolves /transition to its own page object and ignores our rewrite.
+add_action('parse_request', function($wp) {
+    $path = trim($wp->request, '/');
+    $map = array(
+        'transition'          => array('d219_transition' => '1'),
+        'dlc'                 => array('d219_dlc' => '1'),
+        'staging/transition'  => array('d219_transition' => '1', 'd219_staging' => '1'),
+        'staging/dlc'         => array('d219_dlc' => '1', 'd219_staging' => '1'),
+        'candidates'          => array('d219_profiles' => '1'),
+        'staging/candidates'  => array('d219_profiles' => '1', 'd219_staging' => '1'),
+        'staging/email'       => array('d219_email' => '1', 'd219_staging' => '1'),
+    );
+    if (isset($map[$path])) {
+        $wp->query_vars = $map[$path];
+    }
+});
+
+// Auto-flush rewrite rules when plugin version changes (handles updates)
+add_action('init', function() {
     $stored_version = get_option('d219_transition_version');
     if ($stored_version !== D219_TRANSITION_VERSION) {
         flush_rewrite_rules();
         update_option('d219_transition_version', D219_TRANSITION_VERSION);
     }
-});
+}, 20);
 register_activation_hook(__FILE__, function() {
     add_rewrite_rule('^transition/?$', 'index.php?d219_transition=1', 'top');
     add_rewrite_rule('^dlc/?$', 'index.php?d219_dlc=1', 'top');
