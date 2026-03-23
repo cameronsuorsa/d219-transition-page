@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.22
+ * Version: 1.9.23
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.22');
+define('D219_TRANSITION_VERSION', '1.9.23');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -62,15 +62,7 @@ define('D219_ASSETS_DIR', D219_TRANSITION_PLUGIN_DIR . 'assets/');
  * Returns true if D219_PUBLISH_DATE is set and in the past (Eastern time).
  */
 function d219_is_published() {
-    if (!defined('D219_PUBLISH_DATE') || D219_PUBLISH_DATE === '') return false;
-    try {
-        $tz = new DateTimeZone('America/New_York');
-        $publish = new DateTime(D219_PUBLISH_DATE, $tz);
-        $now = new DateTime('now', $tz);
-        return $now >= $publish;
-    } catch (Exception $e) {
-        return false;
-    }
+    return true; // Content is live — publish date has passed (2026-03-20)
 }
 
 /**
