@@ -50,7 +50,12 @@ get_header();
             <div class="d219-hero-nominations">
                 <?php if ($dlc_mode === 'candidates') : ?>
                 <p><i class="fa-solid fa-check-to-slot"></i> <strong>Candidate Slate Announced</strong> — Election: April 27, 2026</p>
-                <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-hero"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                <div class="d219-hero-buttons">
+                    <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-hero"><i class="fa-solid fa-users"></i> Meet the Candidates</a>
+                    <?php if (!empty($zoom_link)) : ?>
+                    <a href="<?php echo esc_url($zoom_link); ?>" class="d219-btn d219-btn-hero d219-btn-hero-register" target="_blank" rel="noopener"><i class="fa-solid fa-calendar-check"></i> Register for Meeting</a>
+                    <?php endif; ?>
+                </div>
                 <?php else : ?>
                 <p><i class="fa-solid fa-bullhorn"></i> <strong>Now Accepting Leadership Nominations</strong> — Deadline: February 25, 2026</p>
                 <a href="<?php echo esc_url(d219_page_url('dlc')); ?>" class="d219-btn d219-btn-hero"><i class="fa-solid fa-hand"></i> I Want to Help</a>

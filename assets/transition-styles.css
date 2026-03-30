@@ -192,6 +192,28 @@ body .d219-hero .d219-subtitle a:hover {
 .d219-btn-hero:hover i {
     color: #004165 !important;
 }
+.d219-hero-buttons {
+    display: flex !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+.d219-btn-hero-register {
+    background: rgba(255,255,255,0.2) !important;
+    color: #ffffff !important;
+    border: 2px solid rgba(255,255,255,0.5) !important;
+}
+.d219-btn-hero-register i {
+    color: #F2DF74 !important;
+}
+.d219-btn-hero-register:hover {
+    background: #ffffff !important;
+    color: #004165 !important;
+    border-color: #ffffff !important;
+}
+.d219-btn-hero-register:hover i {
+    color: #004165 !important;
+}
 
 /* =====================================================
    INTRO / WHAT'S HAPPENING
