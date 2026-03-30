@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 1.9.29
+ * Version: 2.0.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -19,7 +19,7 @@ if (defined('D219_TRANSITION_VERSION')) return;
 // =============================================================================
 
 define('D219_SHOW_BANNER', true);
-define('D219_ZOOM_LINK', ''); // Election meeting registration not yet available
+define('D219_ZOOM_LINK', 'https://www.eventbrite.com/e/toastmasters-district-219-annual-district-council-business-meeting-tickets-1985778401655?aff=oddtdtcreator'); // Eventbrite registration
 define('D219_DLC_MODE', 'candidates'); // 'candidates' = show nominated slate, 'nominations' = show call for nominations
 
 // Publish date/time (Eastern). When set and in the past:
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '1.9.29');
+define('D219_TRANSITION_VERSION', '2.0.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);

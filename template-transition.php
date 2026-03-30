@@ -7,6 +7,7 @@
 if (!defined('ABSPATH')) exit;
 
 $zoom_link = defined('D219_ZOOM_LINK') ? D219_ZOOM_LINK : '';
+$meetings_url = D219_ASSETS_URL . 'meetings/';
 $headshots_url = D219_ASSETS_URL . 'headshots/';
 $maps_url = D219_ASSETS_URL . 'maps/';
 $slides = d219_get_slides();
@@ -472,6 +473,66 @@ get_header();
                     <p class="d219-date-desc">First day of the new Toastmasters year for District 219</p>
                     <div class="d219-date-action">
                         <a href="#clubs" class="d219-date-btn"><i class="fa-solid fa-address-book"></i> View Clubs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- District Council Meeting -->
+    <section class="d219-meeting-section" id="council-meeting">
+        <div class="d219-container">
+            <h2><i class="fa-solid fa-gavel"></i> District Council Meeting</h2>
+
+            <div class="d219-meeting-card">
+                <div class="d219-meeting-header">
+                    <div class="d219-meeting-date-block">
+                        <span class="d219-meeting-month">APR</span>
+                        <span class="d219-meeting-day">27</span>
+                    </div>
+                    <div class="d219-meeting-title">
+                        <h3>District 219, District Council Meeting</h3>
+                        <p class="d219-meeting-time"><i class="fa-solid fa-clock"></i> Monday, April 27, 2026 &middot; 7:00 &ndash; 9:00 PM Eastern</p>
+                        <p class="d219-meeting-time"><i class="fa-solid fa-video"></i> Via Zoom &middot; Zoom opens at 6:30 PM</p>
+                    </div>
+                </div>
+
+                <div class="d219-meeting-body">
+                    <div class="d219-meeting-details">
+                        <p>At this very important meeting, <strong>District Council Members</strong> from District 10, District 13, and Lycoming County, PA from District 38 will <strong>vote on the 2026&ndash;2027 alignment and leadership</strong> of our new District 219.</p>
+
+                        <div class="d219-meeting-who">
+                            <h4><i class="fa-solid fa-users"></i> Who Must Attend</h4>
+                            <p><strong>Club Presidents</strong>, <strong>Vice Presidents Education</strong>, and <strong>District Executive Committee (DEC)</strong> members from current District 10 and District 13. Quorum is required &mdash; your votes matter and will help shape the future of District 219.</p>
+                        </div>
+
+                        <div class="d219-meeting-agenda">
+                            <h4><i class="fa-solid fa-list-check"></i> Meeting Agenda</h4>
+                            <div class="d219-agenda-grid">
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">7:00</span> <span>Call to Order &amp; Welcome</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">7:15</span> <span>Credentials Report &amp; Quorum</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">7:25</span> <span>Adoption of the Agenda</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">7:40</span> <span><a href="#alignment">District Alignment Committee Report</a></span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">7:55</span> <span><a href="<?php echo esc_url(d219_page_url('dlc')); ?>">District Leadership Committee Report</a></span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">8:05</span> <span>Elections (DD, PQD, CGD, Division Directors)</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">8:45</span> <span>District Transition Committee Report</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">8:53</span> <span>Announcements</span></div>
+                                <div class="d219-agenda-item"><span class="d219-agenda-time">9:00</span> <span>Adjournment</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d219-meeting-actions">
+                        <?php if (!empty($zoom_link)) : ?>
+                        <a href="<?php echo esc_url($zoom_link); ?>" class="d219-btn d219-btn-register" target="_blank" rel="noopener"><i class="fa-solid fa-calendar-check"></i> Register for Meeting</a>
+                        <?php endif; ?>
+                        <p class="d219-meeting-register-note">Registration is required. The Zoom link will be provided once you register.</p>
+
+                        <div class="d219-meeting-downloads">
+                            <h4><i class="fa-solid fa-file-lines"></i> Official Documents</h4>
+                            <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Notification</a>
+                            <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Agenda.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Agenda</a>
+                        </div>
                     </div>
                 </div>
             </div>

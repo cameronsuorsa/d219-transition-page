@@ -48,6 +48,9 @@ body.d219-hide-footer .elementor-location-footer {
 .d219-transition-page .d219-map-section h3,
 .d219-transition-page .d219-dates-section h2,
 .d219-transition-page .d219-dates-section h3,
+.d219-transition-page .d219-meeting-section h2,
+.d219-transition-page .d219-meeting-section h3,
+.d219-transition-page .d219-meeting-section h4,
 .d219-transition-page .d219-committee-section h2,
 .d219-transition-page .d219-committee-section h3,
 .d219-transition-page .d219-committee-section h4,
@@ -62,6 +65,7 @@ body.d219-hide-footer .elementor-location-footer {
 .d219-transition-page .d219-slides-section p,
 .d219-transition-page .d219-map-section p,
 .d219-transition-page .d219-dates-section p,
+.d219-transition-page .d219-meeting-section p,
 .d219-transition-page .d219-committee-section p,
 .d219-transition-page .d219-cta-section p,
 .d219-transition-page .d219-resources-footer p { margin: 0 !important; }
@@ -1254,12 +1258,12 @@ body .d219-nominations-section,
     .d219-title { font-size: 2.75rem !important; }
     .d219-hero .d219-subtitle,
     .d219-subtitle { font-size: 1.15rem !important; }
-    .d219-intro-section, .d219-slides-section, .d219-map-section, .d219-alignment-section, .d219-clubs-section, .d219-dates-section, .d219-committee-section, .d219-nominations-section {
+    .d219-intro-section, .d219-slides-section, .d219-map-section, .d219-alignment-section, .d219-clubs-section, .d219-dates-section, .d219-meeting-section, .d219-committee-section, .d219-nominations-section {
         padding: 56px 0 !important;
     }
     .d219-intro-content h2, .d219-slides-section h2, .d219-map-section > .d219-container > h2,
     .d219-alignment-section h2, .d219-clubs-section h2,
-    .d219-dates-section h2, .d219-committee-section h2, .d219-cta-section h2, .d219-nominations-section h2 { font-size: 1.75rem !important; }
+    .d219-dates-section h2, .d219-meeting-section h2, .d219-committee-section h2, .d219-cta-section h2, .d219-nominations-section h2 { font-size: 1.75rem !important; }
     .d219-cta-section { padding: 60px 0 !important; }
 }
 
@@ -2715,4 +2719,223 @@ thead .d219-ct-label { background: #2d4a7a; color: #fff; }
     .d219-committee-report-body { padding: 18px 16px; }
     .d219-committee-report-sig { padding: 14px 16px; flex-direction: column; text-align: center; }
     .d219-committee-report-header { padding: 14px 16px; }
+}
+
+/* =====================================================
+   DISTRICT COUNCIL MEETING SECTION
+   ===================================================== */
+.d219-meeting-section {
+    padding: 64px 0 !important;
+    background: var(--d219-gray-light) !important;
+}
+.d219-meeting-section > .d219-container > h2 {
+    font-size: 2rem !important;
+    color: var(--d219-blue-dark) !important;
+    text-align: center !important;
+    margin-bottom: 32px !important;
+}
+.d219-meeting-section > .d219-container > h2 i {
+    margin-right: 8px;
+    color: var(--d219-maroon-light);
+}
+.d219-meeting-card {
+    background: var(--d219-white) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+}
+.d219-meeting-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 24px 28px !important;
+    background: var(--d219-blue-dark) !important;
+    color: var(--d219-white) !important;
+}
+.d219-meeting-date-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    background: var(--d219-maroon-light) !important;
+    border-radius: 8px !important;
+    padding: 8px 14px !important;
+    min-width: 60px !important;
+    line-height: 1.1 !important;
+}
+.d219-meeting-month {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    color: rgba(255,255,255,0.85) !important;
+}
+.d219-meeting-day {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    color: var(--d219-white) !important;
+}
+.d219-meeting-title h3 {
+    font-size: 1.3rem !important;
+    color: var(--d219-white) !important;
+    margin-bottom: 6px !important;
+}
+.d219-meeting-time {
+    font-size: 0.95rem !important;
+    color: rgba(255,255,255,0.85) !important;
+    margin-top: 2px !important;
+}
+.d219-meeting-time i {
+    width: 18px;
+    margin-right: 4px;
+    opacity: 0.75;
+}
+.d219-meeting-body {
+    display: grid !important;
+    grid-template-columns: 1fr 300px !important;
+    gap: 0 !important;
+}
+.d219-meeting-details {
+    padding: 28px !important;
+}
+.d219-meeting-details > p {
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    color: var(--d219-text) !important;
+    margin-bottom: 20px !important;
+}
+.d219-meeting-who,
+.d219-meeting-agenda {
+    margin-top: 20px !important;
+}
+.d219-meeting-who h4,
+.d219-meeting-agenda h4 {
+    font-size: 1rem !important;
+    color: var(--d219-blue-dark) !important;
+    margin-bottom: 8px !important;
+}
+.d219-meeting-who h4 i,
+.d219-meeting-agenda h4 i {
+    margin-right: 6px;
+    color: var(--d219-maroon-light);
+}
+.d219-meeting-who p {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+.d219-agenda-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+.d219-agenda-item {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 10px !important;
+    font-size: 0.93rem !important;
+    padding: 5px 0 !important;
+    border-bottom: 1px solid #eee !important;
+}
+.d219-agenda-item:last-child { border-bottom: none !important; }
+.d219-agenda-time {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+    color: var(--d219-blue-dark) !important;
+    min-width: 36px !important;
+}
+.d219-agenda-item a {
+    color: var(--d219-blue-light) !important;
+}
+.d219-agenda-item a:hover {
+    color: var(--d219-maroon-light) !important;
+    text-decoration: underline !important;
+}
+.d219-meeting-actions {
+    padding: 28px !important;
+    background: #f8fafc !important;
+    border-left: 1px solid #eee !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    text-align: center !important;
+}
+.d219-btn-register {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: var(--d219-maroon-light) !important;
+    color: var(--d219-white) !important;
+    padding: 14px 28px !important;
+    border-radius: 8px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    transition: background 0.2s ease !important;
+    width: 100% !important;
+    justify-content: center !important;
+}
+.d219-btn-register:hover {
+    background: var(--d219-maroon-dark) !important;
+    color: var(--d219-white) !important;
+}
+.d219-meeting-register-note {
+    font-size: 0.82rem !important;
+    color: var(--d219-text-light) !important;
+    font-style: italic !important;
+}
+.d219-meeting-downloads {
+    width: 100% !important;
+    margin-top: 8px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+.d219-meeting-downloads h4 {
+    font-size: 0.85rem !important;
+    color: var(--d219-text-light) !important;
+    margin-bottom: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+.d219-meeting-downloads h4 i {
+    margin-right: 4px;
+}
+.d219-meeting-downloads .d219-btn-download {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    margin-bottom: 8px !important;
+    font-size: 0.88rem !important;
+}
+
+/* DLC election docs row */
+.d219-election-docs {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+}
+
+@media (max-width: 768px) {
+    .d219-meeting-body {
+        grid-template-columns: 1fr !important;
+    }
+    .d219-meeting-actions {
+        border-left: none !important;
+        border-top: 1px solid #eee !important;
+    }
+    .d219-meeting-header {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    .d219-election-docs {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
 }

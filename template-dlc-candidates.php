@@ -275,15 +275,20 @@ get_header();
             <div class="d219-election-card">
                 <div class="d219-election-icon"><i class="fa-solid fa-check-to-slot"></i></div>
                 <div class="d219-election-details">
-                    <h3>District 219 Election Meeting</h3>
-                    <p class="d219-election-date">April 27, 2026 &middot; 7:00 PM via Zoom</p>
+                    <h3>District 219 District Council Meeting</h3>
+                    <p class="d219-election-date">Monday, April 27, 2026 &middot; 7:00 &ndash; 9:00 PM Eastern via Zoom</p>
                 </div>
                 <?php $zoom_link = defined('D219_ZOOM_LINK') ? D219_ZOOM_LINK : ''; ?>
                 <?php if (!empty($zoom_link)) : ?>
                 <a href="<?php echo esc_url($zoom_link); ?>" class="d219-btn d219-btn-primary" target="_blank" rel="noopener">
-                    <i class="fa-solid fa-video"></i> Join on Zoom
+                    <i class="fa-solid fa-calendar-check"></i> Register Now
                 </a>
                 <?php endif; ?>
+            </div>
+            <?php $meetings_url = D219_ASSETS_URL . 'meetings/'; ?>
+            <div class="d219-election-docs">
+                <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Notification</a>
+                <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Agenda.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Agenda</a>
             </div>
         </div>
     </section>
