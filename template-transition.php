@@ -526,11 +526,11 @@ get_header();
                         <?php if (!empty($zoom_link)) : ?>
                         <a href="<?php echo esc_url($zoom_link); ?>" class="d219-btn d219-btn-register" target="_blank" rel="noopener"><i class="fa-solid fa-calendar-check"></i> Register for Meeting</a>
                         <?php endif; ?>
-                        <p class="d219-meeting-register-note">Registration is required. The Zoom link will be provided once you register.</p>
+                        <p class="d219-meeting-register-note">Registration is required.</p>
 
                         <div class="d219-meeting-downloads">
                             <h4><i class="fa-solid fa-file-lines"></i> Official Documents</h4>
-                            <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Notification</a>
+                            <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.docx'); ?>" class="d219-btn d219-btn-download" download><i class="fa-solid fa-file-word"></i> Meeting Notification</a>
                             <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Agenda.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Agenda</a>
                         </div>
                     </div>

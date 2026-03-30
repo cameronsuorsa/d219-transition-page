@@ -287,7 +287,7 @@ get_header();
             </div>
             <?php $meetings_url = D219_ASSETS_URL . 'meetings/'; ?>
             <div class="d219-election-docs">
-                <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Notification</a>
+                <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Notification.docx'); ?>" class="d219-btn d219-btn-download" download><i class="fa-solid fa-file-word"></i> Meeting Notification</a>
                 <a href="<?php echo esc_url($meetings_url . 'District-219-Council-Meeting-Agenda.pdf'); ?>" class="d219-btn d219-btn-download" target="_blank"><i class="fa-solid fa-file-pdf"></i> Meeting Agenda</a>
             </div>
         </div>
