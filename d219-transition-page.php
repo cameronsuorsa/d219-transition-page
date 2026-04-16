@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 2.0.3
+ * Version: 2.1.0
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '2.0.3');
+define('D219_TRANSITION_VERSION', '2.1.0');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -269,7 +269,7 @@ function d219_get_candidates() {
             'type' => 'elected',
             'candidates' => array(
                 array('name' => 'Ed Haller, ACG, ALB, PM5, DL2', 'photo' => 'ed-haller.webp', 'bio' => 'ed-haller.pdf'),
-                array('name' => 'Tamika Leslie, DL5, VC5, EH1', 'photo' => 'tamika-leslie.webp', 'bio' => 'tamika-leslie.pdf'),
+                // WITHDRAWN: array('name' => 'Tamika Leslie, DL5, VC5, EH1', 'photo' => 'tamika-leslie.webp', 'bio' => 'tamika-leslie.pdf'),
             )
         ),
         array(
@@ -320,7 +320,7 @@ function d219_get_candidates() {
             'candidates' => array(
                 array('name' => 'Catherine Cullen, VC5, MS4, PM3, DL1', 'photo' => 'catherine-cullen.webp', 'bio' => 'catherine-cullen.pdf'),
                 array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
-                array('name' => 'Cosmas Nwakanma, IP5, MS2, DL2', 'photo' => 'cosmas-nwakanma.webp', 'bio' => 'cosmas-nwakanma.pdf'),
+                // WITHDRAWN: array('name' => 'Cosmas Nwakanma, IP5, MS2, DL2', 'photo' => 'cosmas-nwakanma.webp', 'bio' => 'cosmas-nwakanma.pdf'),
             )
         ),
     );
@@ -437,7 +437,9 @@ function d219_get_candidate_bios() {
         'additional_info' => 'This is a transitional year as we merge D10 and D13 into D219. I love working with most people. As a veteran of D10, I intentionally spent time, attending many events in person and online with D13 this past year and really enjoyed getting to know many new friends from the other side of our expanded District family. Over my years in wastewater leadership, I have developed and used effective Planning and Change Management skills. The D219 Leadership will need to be sensitive to the concerns of merging the cultures of two Districts. I offer my skills to smooth out those transitions.',
     );
 
-    // Tamika Leslie — Club Growth Director
+    // WITHDRAWN — Tamika Leslie — Club Growth Director
+    // Data preserved but removed from frontend per Melissa's request
+    /*
     $flat['tamika-leslie']['answers'] = array(
         'member_since' => 'October 1, 2022',
         'education' => 'Graduated from Glendale High School, Glendale, CA, Class of 2000.',
@@ -452,6 +454,7 @@ function d219_get_candidate_bios() {
         'district_objectives' => 'First, to gain more members and to build new clubs in the district. Second, to support the members within each club in the district.',
         'additional_info' => 'I am bilingual in German & English. I am on my way to achieving my Distinguished Toastmaster designation, the only requirement remaining is that I successfully coach Mercer County Toastmasters Club to achieve Distinguished club status. We will achieve this status well before the June 30th, 2026 deadline!',
     );
+    */
 
     // Adam Brown — Division B Director
     $flat['adam-brown']['answers'] = array(
@@ -565,7 +568,9 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I recently retired so now have more bandwidth to handle Toastmasters responsibilities. My main personal goal within Toastmasters is to achieve my second DTM, exclusively within the Pathways program, by June 30 2027. I am at PM4 and VC3 at the moment.',
     );
 
-    // Cosmas Nwakanma — Division F Director
+    // WITHDRAWN — Cosmas Nwakanma — Division F Director
+    // Data preserved but removed from frontend per Melissa's request
+    /*
     $flat['cosmas-nwakanma']['answers'] = array(
         'member_since' => 'January 1, 2022',
         'education' => 'PhD IT-Convergence Engineering, 2022 (Kumoh National Institute of Technology, South Korea). MBA Project Management Technology, 2016 (Federal University of Technology, Warri, Nigeria). MSc Information Technology, 2012 (Federal University of Technology, Warri, Nigeria). B.Eng. Communication Engineering, 2005 (Federal University of Technology, Warri, Nigeria).',
@@ -580,6 +585,7 @@ function d219_get_candidate_bios() {
         'district_objectives' => 'As we transition to district 219, my focus will be to hold the clubs assigned together in unity, radiating support for one another and endearing new members to the clubs. If I can achieve the inter and intra club relationships, I would have helped set the foundation for a strong future for district 219.',
         'additional_info' => 'I am a servant leader who is always ready to lead by serving the people. People love to be served and when I serve them, they naturally allow me to lead the way. It has worked for me for over 3 decades.',
     );
+    */
 
     return $flat;
 }
