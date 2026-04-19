@@ -134,7 +134,7 @@ The nominated slate for District 219 leadership has been announced. See who is r
 <td style="padding:18px 24px;">
 <p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">The District Leadership Committee for District 219 is pleased to announce the nominated candidates for District Office for the <strong>2026&ndash;2027 Toastmasters year</strong>. These individuals have stepped forward to lead our newly forming district, created from Districts 10, 13 and 38.</p>
 <p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
-<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;font-style:italic;">Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</p>
+<p style="margin:0 0 10px;font-size:15px;color:<?php echo $text_dark; ?>;line-height:1.6;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;font-style:italic;">Candidates are listed in alphabetical order by last name.</p>
 <p style="margin:0;font-size:14px;color:<?php echo $text_muted; ?>;font-style:italic;font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;">&mdash; <?php echo esc_html($dlc_chair['name']); ?>, <?php echo esc_html($dlc_chair['title']); ?></p>
 </td>
 </tr>

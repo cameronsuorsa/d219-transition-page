@@ -82,7 +82,7 @@ get_header();
 
                     <p>Elections will be held at the <strong>District 219 Business Meeting on April 27, 2026</strong>.</p>
 
-                    <p><em>Candidates are listed in alphabetical order by last name. One candidate, Autumn Jose, has been nominated for two roles: Division A Director and Division F Director.</em></p>
+                    <p><em>Candidates are listed in alphabetical order by last name.</em></p>
                 </div>
                 <div class="d219-committee-report-sig">
                     <img src="<?php echo esc_url(D219_ASSETS_URL . 'headshots/' . $dlc_chair['photo']); ?>" alt="<?php echo esc_attr($dlc_chair['name']); ?>">

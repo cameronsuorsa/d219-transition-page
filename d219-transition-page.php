@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '2.1.1');
+define('D219_TRANSITION_VERSION', '2.1.2');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -319,7 +319,7 @@ function d219_get_candidates() {
             'region' => 'Central PA, WV & MD',
             'candidates' => array(
                 array('name' => 'Catherine Cullen, VC5, MS4, PM3, DL1', 'photo' => 'catherine-cullen.webp', 'bio' => 'catherine-cullen.pdf'),
-                array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
+                // WITHDRAWN FROM DIV F (remains on Div A): array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
                 // WITHDRAWN: array('name' => 'Cosmas Nwakanma, IP5, MS2, DL2', 'photo' => 'cosmas-nwakanma.webp', 'bio' => 'cosmas-nwakanma.pdf'),
             )
         ),
@@ -337,7 +337,7 @@ function d219_get_candidate_bios() {
         foreach ($role['candidates'] as $c) {
             $slug = sanitize_title(explode(',', $c['name'])[0]);
             if (isset($flat[$slug])) {
-                // Autumn Jose appears in Division A and Division F — note both roles
+                // Dual-nomination handling (kept for flexibility; currently no candidates hold two roles)
                 $flat[$slug]['role'] = $flat[$slug]['role'] . ' & ' . $role['role'];
                 $flat[$slug]['region'] = $flat[$slug]['region'] . ' / ' . (isset($role['region']) ? $role['region'] : '');
                 continue;
@@ -472,7 +472,7 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I love the outdoors, working out, and spending time with family. I also worked as a Strength and Conditioning Coach in Professional Baseball for 4 years (5 years if you include my internship with the Cleveland Guardians in 2012) from 2013-2016.',
     );
 
-    // Autumn Jose — Division A & F Director
+    // Autumn Jose — Division A Director
     $flat['autumn-jose']['answers'] = array(
         'member_since' => '2024',
         'education' => 'Masters Degree - Business Administration/Marketing Concentration, American Intercontinental University.',
