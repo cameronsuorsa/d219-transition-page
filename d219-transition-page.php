@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '2.1.0');
+define('D219_TRANSITION_VERSION', '2.1.1');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -278,7 +278,7 @@ function d219_get_candidates() {
             'region' => 'Western & Central OH',
             'candidates' => array(
                 array('name' => 'Autumn Jose, PM5, DL3', 'photo' => 'autumn-jose.webp', 'bio' => 'autumn-jose.pdf'),
-                array('name' => 'Jolyn Redic, DTM', 'photo' => 'jolyn-redic.webp', 'bio' => 'jolyn-redic.pdf'),
+                // WITHDRAWN: array('name' => 'Jolyn Redic, DTM', 'photo' => 'jolyn-redic.webp', 'bio' => 'jolyn-redic.pdf'),
             )
         ),
         array(
@@ -488,7 +488,9 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I am a relationship-driven, servant leader who values collaboration, inclusion, and intentional growth. I bring energy, creativity, and strong work ethic to every role, and I am committed to helping our district thrive. I also have extensive experience in Canva, Adobe Suite, Managing Websites, Developing newsletters including using Flipping Book, creating ads and so much more.',
     );
 
-    // Jolyn Redic — Division A Director
+    // WITHDRAWN — Jolyn Redic — Division A Director
+    // Data preserved but removed from frontend per Melissa's request
+    /*
     $flat['jolyn-redic']['answers'] = array(
         'member_since' => 'January 1, 2016',
         'education' => 'Graduated High School and a Degree in Real Estate through Hondros College, and a Brokers program through Walsh College.',
@@ -503,6 +505,7 @@ function d219_get_candidate_bios() {
         'district_objectives' => 'The mission of the District is to build new clubs and support all clubs in achieving excellence. I would work to achieve this by strengthening club leadership, supporting Area and other Division Directors, encouraging member engagement and maintaining strong communication across the District.',
         'additional_info' => 'I am passionate about leadership development, mentoring others, and helping members build confidence. I believe in leading with integrity, collaboration, and encouragement. My goal is to support our members, strengthen our clubs, and contribute to a strong and successful District.',
     );
+    */
 
     // Catherine Cullen — Division B Director
     $flat['catherine-cullen']['answers'] = array(
