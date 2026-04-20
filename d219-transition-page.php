@@ -3,7 +3,7 @@
  * Plugin Name: District 219 Transition Page
  * Plugin URI: https://github.com/cameronsuorsa/d219-transition-page
  * Description: Creates a /transition page for District 219 Toastmasters transition information.
- * Version: 2.1.2
+ * Version: 2.1.3
  * Author: District 219 Transition Committee
  * License: GPL v2 or later
  * GitHub Plugin URI: cameronsuorsa/d219-transition-page
@@ -45,7 +45,7 @@ define('D219_PUBLISH_DATE', '2026-03-20 00:00'); // Midnight ET, March 20
 // PLUGIN CONSTANTS
 // =============================================================================
 
-define('D219_TRANSITION_VERSION', '2.1.2');
+define('D219_TRANSITION_VERSION', '2.1.3');
 define('D219_TRANSITION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('D219_TRANSITION_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('D219_TRANSITION_PLUGIN_FILE', __FILE__);
@@ -260,7 +260,7 @@ function d219_get_candidates() {
             'type' => 'elected',
             'candidates' => array(
                 array('name' => 'Lorie Davis, DTM', 'photo' => 'lorie-davis.webp', 'bio' => 'lorie-davis.pdf'),
-                array('name' => 'Javier Diaz, LD5, PM1', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
+                // WITHDRAWN: array('name' => 'Javier Diaz, LD5, PM1', 'photo' => 'javier-diaz.webp', 'bio' => 'javier-diaz.pdf'),
                 array('name' => 'Stephanie Hill, IP5, LD5, PI3, MS3, EH1', 'photo' => 'stephanie-hill.webp', 'bio' => 'stephanie-hill.pdf'),
             )
         ),
@@ -389,7 +389,9 @@ function d219_get_candidate_bios() {
         'additional_info' => 'I am grateful for the opportunity to apply for this role and be in the position to serve the District.',
     );
 
-    // Javier Diaz — Program Quality Director
+    // WITHDRAWN — Javier Diaz — Program Quality Director
+    // Data preserved but removed from frontend per Melissa's request
+    /*
     $flat['javier-diaz']['answers'] = array(
         'member_since' => '2020',
         'education' => 'Attended University of Puerto Rico, Risk Management, BA. 1996. Scrum Master Certified, Scrum Master Product Owner Certified, PMI Member.',
@@ -404,6 +406,7 @@ function d219_get_candidate_bios() {
         'district_objectives' => 'As a new district, the mission is to safeguard the realignment, secure ROI, revive a new spirit of unity and work harmoniously while adhering to our global mission of building new clubs and supporting all clubs achieve excellence. Promote Toastmasters, create new clubs, increase retention, and help clubs thrive. We need to nurture our members with regular cadence of training, prepare them for future opportunities and attract local employers and schools to invest in Toastmasters. Collaborate with local corporations in Open Houses to raise awareness and attract leaders to mentor new members.',
         'additional_info' => 'Received Division Director of the Year Award, 2024-2025. Received Progressive FLOIE award in two consecutive years for the most collaborative in 2022 and the most creative in 2023. Through my ERG board contributions, I have led major projects, events, and have mentored successful delegates and senior leaders. I continue to receive above-and-beyond year reviews and trusted with highly visible projects. I am a Quality Assurance Leader leading major projects in Telecommunications, Artificial Intelligence and multilingual efforts. I also speak fluent Spanish and serve as a mentor and counselor in youth communities. Also, compose songs and play piano.',
     );
+    */
 
     // Stephanie Hill — Program Quality Director
     $flat['stephanie-hill']['answers'] = array(
