@@ -15,7 +15,7 @@ $headshots_url = D219_ASSETS_URL . 'headshots/';
 
 // Question labels
 $questions = array(
-    'showcase_video' => 'Candidate Showcase Video',
+    // Per-candidate showcase video removed — single combined showcase video shown above filters
     'member_since' => 'Toastmasters Member Since',
     'education' => 'Education',
     'offices' => 'Toastmasters Offices Held',
@@ -57,8 +57,8 @@ get_header();
         <div class="d219-container">
             <h1 class="d219-title">District 219 Candidates</h1>
             <p class="d219-subtitle">Nominations are closed &mdash; the candidate slate has been announced</p>
-            <p class="d219-hero-note">Browse profiles, compare responses side by side, or explore by question<br>
-            <em>Candidates listed in alphabetical order by last name &middot; Candidate Showcase videos will be added after April 22, 2026</em></p>
+            <p class="d219-hero-note">Watch the candidate showcase video, browse profiles, compare responses side by side, or explore by question<br>
+            <em>Candidates listed in alphabetical order by last name</em></p>
             <div class="d219-hero-nominations">
                 <p><i class="fa-solid fa-calendar-check"></i> <strong>Election Meeting:</strong> April 27, 2026 &middot; 7:00 PM via Zoom</p>
             </div>
@@ -91,6 +91,21 @@ get_header();
                         <span class="d219-sig-title"><?php echo esc_html($dlc_chair['title']); ?></span>
                         <span class="d219-sig-contact"><a href="mailto:<?php echo antispambot($dlc_chair['email']); ?>"><?php echo antispambot($dlc_chair['email']); ?></a></span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Candidate Showcase Video -->
+    <section class="d219-showcase-video-section" id="showcase-video">
+        <div class="d219-container">
+            <div class="d219-showcase-video-card">
+                <div class="d219-showcase-video-header">
+                    <h2><i class="fa-solid fa-video"></i> Candidate Showcase Video</h2>
+                    <p>Watch the District 219 candidate showcase to hear directly from the nominees.</p>
+                </div>
+                <div class="d219-showcase-video-embed">
+                    <iframe src="https://player.vimeo.com/video/1185997882?h=9c2d0c28f0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="District 219 Candidate Showcase"></iframe>
                 </div>
             </div>
         </div>
@@ -172,17 +187,7 @@ get_header();
                             <span class="d219-btn-sm d219-btn-disabled"><i class="fa-solid fa-file-pdf"></i> PDF Coming Soon</span>
                             <?php endif; ?>
                         </div>
-                        <!-- Video -->
-                        <div class="d219-profile-video" data-slug="<?php echo esc_attr($slug); ?>">
-                            <?php if ($bio['video']) : ?>
-                            <div class="d219-video-embed"><?php echo $bio['video']; ?></div>
-                            <?php else : ?>
-                            <div class="d219-video-placeholder">
-                                <i class="fa-solid fa-video"></i>
-                                <span>Candidate Showcase Video &mdash; Available after April 22, 2026</span>
-                            </div>
-                            <?php endif; ?>
-                        </div>
+                        <!-- Per-candidate video removed — single showcase video shown above on the page -->
                         <!-- Expandable Q&A -->
                         <?php if ($has_answers) : ?>
                         <div class="d219-profile-qa" data-slug="<?php echo esc_attr($slug); ?>">
@@ -253,10 +258,7 @@ get_header();
                     <label for="d219-q-select">Question:</label>
                     <select id="d219-q-select">
                         <?php
-                        // Default to member_since until at least one candidate has a video
-                        $any_video = false;
-                        foreach ($bios as $b) { if (!empty($b['video'])) { $any_video = true; break; } }
-                        $default_q = $any_video ? 'showcase_video' : 'member_since';
+                        $default_q = 'member_since';
                         foreach ($questions as $key => $label) : ?>
                         <option value="<?php echo esc_attr($key); ?>"<?php if ($key === $default_q) echo ' selected'; ?>><?php echo esc_html($label); ?></option>
                         <?php endforeach; ?>
@@ -531,20 +533,8 @@ get_header();
         });
         html += '</tr></thead><tbody>';
 
-        // Video row
-        html += '<tr><td class="d219-ct-label"><i class="fa-solid fa-video"></i> Showcase Video</td>';
-        selected.forEach(function(c) {
-            if (c.video) {
-                html += '<td class="d219-ct-video"><div class="d219-video-embed-sm">' + c.video + '</div></td>';
-            } else {
-                html += '<td class="d219-ct-video-soon">Available after April 22, 2026</td>';
-            }
-        });
-        html += '</tr>';
-
-        // Question rows (skip showcase_video — already rendered above)
+        // Question rows
         for (var key in questions) {
-            if (key === 'showcase_video') continue;
             html += '<tr><td class="d219-ct-label">' + escHtml(questions[key]) + '</td>';
             selected.forEach(function(c) {
                 var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
@@ -644,53 +634,24 @@ get_header();
         var wrap = document.getElementById('question-results');
         var activeFilter = document.querySelector('.d219-pfilt-active');
         var filter = activeFilter ? activeFilter.dataset.filter : 'all';
-        var isVideo = (key === 'showcase_video');
         var html = '';
         candidates.forEach(function(c) {
             // Apply role filter
             if (!matchesFilter(filter, c.type, c.all_role_slugs.join(' '))) return;
-            if (isVideo) {
-                // Show video embed or coming soon
-                html += '<div class="d219-qr-card">';
-                html += '<div class="d219-qr-head">';
-                html += '<img src="' + c.photo + '" alt="">';
-                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>Candidate for ' + escHtml(c.role) + '</span></div>';
-                html += '<div class="d219-qr-links">';
-                if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
-                html += '</div>';
-                html += '</div>';
-                if (c.video) {
-                    html += '<div class="d219-video-embed">' + c.video + '</div>';
-                } else {
-                    html += '<div class="d219-video-placeholder"><i class="fa-solid fa-video"></i><span>Candidate Showcase Video — Available after April 22, 2026</span></div>';
-                }
-                html += '</div>';
-            } else {
-                var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
-                if (!ans) return;
-                html += '<div class="d219-qr-card">';
-                html += '<div class="d219-qr-head">';
-                html += '<img src="' + c.photo + '" alt="">';
-                html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>Candidate for ' + escHtml(c.role) + '</span></div>';
-                html += '<div class="d219-qr-links">';
-                if (c.video) html += '<a href="#" class="d219-qr-video-link" data-slug="' + c.slug + '" title="Watch Video"><i class="fa-solid fa-video"></i></a>';
-                if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
-                html += '</div>';
-                html += '</div>';
-                html += '<p>' + escHtml(ans) + '</p>';
-                html += '</div>';
-            }
+            var ans = (c.answers && c.answers[key]) ? c.answers[key] : '';
+            if (!ans) return;
+            html += '<div class="d219-qr-card">';
+            html += '<div class="d219-qr-head">';
+            html += '<img src="' + c.photo + '" alt="">';
+            html += '<div class="d219-qr-info"><strong>' + escHtml(c.name) + '</strong><span>Candidate for ' + escHtml(c.role) + '</span></div>';
+            html += '<div class="d219-qr-links">';
+            if (c.bio_pdf) html += '<a href="' + c.bio_pdf + '" target="_blank" rel="noopener" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>';
+            html += '</div>';
+            html += '</div>';
+            html += '<p>' + escHtml(ans) + '</p>';
+            html += '</div>';
         });
         wrap.innerHTML = html || '<p class="d219-compare-empty">No responses for this question with current filter.</p>';
-        // Wire up video links in by-question view
-        wrap.querySelectorAll('.d219-qr-video-link').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Switch to video question
-                qSelect.value = 'showcase_video';
-                buildQuestionView();
-            });
-        });
     }
 
     function escHtml(s) {
